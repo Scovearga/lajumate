@@ -38,7 +38,7 @@ class Toys extends Product
     //region Functions
     public function writeInFile()
     {
-        $type = 1;
+        $type = 2 . " ";
         $fisier = fopen("inventory", "a+");
         fwrite($fisier, $type);
         parent::writeInFile();

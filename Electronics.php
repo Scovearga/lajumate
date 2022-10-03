@@ -48,8 +48,10 @@ class Electronics extends Product
     //region Functions
     public function writeInFile()
     {
-        parent::writeInFile();
+        $type = 3 . " ";
         $fisier = fopen("inventory", "a+");
+        fwrite($fisier, $type);
+        parent::writeInFile();
         $text = $this->producer . " " . $this->powerConsumption . " " . $this->color . " 0\n";
         fwrite($fisier, $text);
     }

@@ -125,7 +125,7 @@ if(isset($_POST['submit']))
     }
     elseif($_SESSION['productType'] == 'Electronics')
     {
-        $newElectronic = new Electronics($_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['category'], $_POST['producer'], $_POST['powerConsumption'], $_POST['color']);
+        $newElectronic = new Electronics($_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['category'], $_POST['producer'], $_POST['power'], $_POST['color']);
         $newElectronic->writeInFile();
     }
 

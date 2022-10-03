@@ -37,7 +37,7 @@ class Foods extends Product
     //region Functions
     public function writeInFile()
     {
-        $type = 1;
+        $type = 1 . " ";
         $fisier = fopen("inventory", "a+");
         fwrite($fisier, $type);
         parent::writeInFile();

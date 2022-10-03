@@ -1,5 +1,48 @@
 <?php
-session_start();?>
+require_once 'Product.php';
+require_once 'Toys.php';
+require_once 'Electronics.php';
+require_once 'Foods.php';
+session_start();
+$foods = array();
+$toys = array();
+$electronics = array();
+$fisier = fopen("inventory", "r");
+if($fisier)
+{
+    while(($line = fgets($fisier)) != false)
+    {
+        $linieExploded = explode(" ", $line);
+        switch ($linieExploded[0])
+        {
+            case '1':
+            {
+                //$name, $price, $quantity, $expiryDate, $foodType
+                if ($linieExploded[4] == "Neperisabile")
+                    $foodType = 1;
+                else
+                    $foodType = 0;
+                $newFood = new Foods($linieExploded[1], $linieExploded[2], $linieExploded[3], $linieExploded[5], $foodType);
+                array_push($foods, $newFood);
+                break;
+            }
+            case '2':
+            {
+                //$name, $price, $quantity, $category, $series, $age
+                $newToy = new Toys($linieExploded[1], $linieExploded[2], $linieExploded[3], $linieExploded[4], $linieExploded[5], $linieExploded[6]);
+                array_push($toys, $newToy);
+                break;
+            }
+            case '3':
+            {
+                //$name, $price, $quantity, $category, $producer, $powerConsumption, $color
+                $newElectronic = new Electronics($linieExploded[1], $linieExploded[2], $linieExploded[3], $linieExploded[4], $linieExploded[5], $linieExploded[6], $linieExploded[7]);
+                array_push($electronics, $newElectronic);
+                break;
+            }
+        }
+    }
+}    ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -17,7 +60,7 @@ session_start();?>
 <form class="form-signin">
     <div class="container">
         <div class="row">
-            <div class="col-md-5 col-md-offset-3">
+            <div class="col-md-12 col-md-offset-0">
                 <div class="panel panel-default">
                     <div class="panel panel-primary">
 
@@ -31,14 +74,29 @@ session_start();?>
                                 <thead>
                                 <tr>
                                     <th>Name</th>
-                                    <th>Amount</th>
-                                    <th>Bill</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Category</th>
+                                    <th>Expiry Date</th>
+                                    <th>Series</th>
+                                    <th>Age</th>
+                                    <th>Producer</th>
+                                    <th>Power</th>
+                                    <th>Color</th>
 
                                     <th>Update</th>
                                     <th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <?php
+                                    foreach ($foods as $oneFood)
+                                    {
+                                        var_dump($oneFood);
+                                        echo "<tr>";
+                                        echo "<td>$oneFood->getName()</td></tr>";
+                                    }
+                                ?>
                                 <tr>
 
                                     <td>Filling</td>
