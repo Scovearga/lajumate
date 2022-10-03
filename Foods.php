@@ -34,5 +34,15 @@ class Foods extends Product
         $this->expiryDate = $expiryDate;
     }
     //endregion
-
+    //region Functions
+    public function writeInFile()
+    {
+        $type = 1;
+        $fisier = fopen("inventory", "a+");
+        fwrite($fisier, $type);
+        parent::writeInFile();
+        $text = $this->expiryDate . " 0\n";
+        fwrite($fisier, $text);
+    }
+    //endregion
 }

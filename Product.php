@@ -54,4 +54,17 @@ class Product
         $this->category = $category;
     }
     //endregion
+    //region Functions
+    public function writeInFile()
+    {
+        $fisier = fopen("inventory", "a+");
+        $text = $this->name . " " . $this->price . " " . $this->quantity . " " . $this->category .  " ";
+        fwrite($fisier, $text);
+    }
+    public function readFromFile()
+    {
+        $fisier = fopen("inventory", "r");
+
+    }
+    //endregion
 }

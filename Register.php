@@ -26,7 +26,7 @@
                             <input type="password" name="password" id="password" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
+                            <input href="Login.php" type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                         </div>
                     </form>
                 </div>
@@ -55,7 +55,7 @@ function getUsersFromFile()
 if(isset($_POST['submit']))
 {
     $users = getUsersFromFile();
-    if(array_key_exists($_POST['username']))
+    if(array_key_exists($_POST['username'], $users))
     {
        echo '<script>alert("A user with this username already exists")</script>';
     }
@@ -65,6 +65,7 @@ if(isset($_POST['submit']))
         $user = $_POST['username'] . " " . $_POST['password'] . " 0\n";
         fwrite($file, $user);
         fclose($file);
+        header("Location: Login.php");
     }
 }
 ?>

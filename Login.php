@@ -29,7 +29,7 @@
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                         </div>
                         <div id="register-link" class="text-right">
-                            <a href="#" class="text-info">Register here</a>
+                            <a href="Register.php" class="text-info">Register here</a>
                         </div>
                     </form>
                 </div>
@@ -66,7 +66,7 @@ if(isset($_POST['submit']))
         {
             if($users[$username][1] == 1)
             {
-                //header("Location: Register.php");
+                header("Location: Admin.php");
                 //redirect to admin page
             }
             elseif($users[$username][1] == 0)
