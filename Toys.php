@@ -6,9 +6,9 @@ class Toys extends Product
     private $age;
 
     //region Constructor/Destructor
-    public function __construct($name, $price, $quantity, $category, $series, $age)
+    public function __construct($ID, $name, $price, $quantity, $category, $series, $age)
     {
-        parent::__construct($name, $price, $quantity, $category);
+        parent::__construct($ID, $name, $price, $quantity, $category);
         $this->series = $series;
         $this->age = $age;
     }
@@ -36,6 +36,31 @@ class Toys extends Product
     }
     //endregion
     //region Functions
+    public function writeInDB()
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "shop";
+        $conn = new mysqli($servername, $username,$password, $dbname);
+        $name = $this->getName();
+        $price = $this->getPrice();
+        $quantity = $this->getQuantity();
+        $category = $this->getCategory();
+        $series = $this->getSeries();
+        $age = $this->getAge();
+        $sql = "INSERT INTO toys (Name, Price, Quantity, Category, Series, Age) 
+                VALUES ('$name', $price, $quantity, '$category', '$series', '$age')";
+        if($conn->query($sql) == TRUE)
+        {
+            echo "<script> alert('New Item added');</script>";
+        }
+        else
+        {
+            //echo $conn->error;
+            echo "<script> alert('An error has occured!');</script>";
+        }
+    }
     public function writeInFile()
     {
         $type = 2 . " ";

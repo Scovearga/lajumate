@@ -2,14 +2,16 @@
 
 class Product
 {
-    private string $name;
+    private $ID;
+    private $name;
     private $price;
     private $quantity;
     private $category;
 
     //region Constructor/Destructor
-    public function __construct($name, $price, $quantity, $category)
+    public function __construct($ID, $name, $price, $quantity, $category)
     {
+        $this->ID = $ID;
         $this->name = $name;
         $this->price = $price;
         $this->quantity = $quantity;
@@ -52,6 +54,10 @@ class Product
     public function setCategory($category)
     {
         $this->category = $category;
+    }
+    public function getID()
+    {
+        return $this->ID;
     }
     //endregion
     //region Functions

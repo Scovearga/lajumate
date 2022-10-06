@@ -5,7 +5,7 @@ class Foods extends Product
     private $expiryDate;
 
     //region Constructor/Destructor
-    public function __construct($name, $price, $quantity, $expiryDate, $foodType)
+    public function __construct($ID, $name, $price, $quantity, $expiryDate, $foodType)
     {
         if ($foodType == 0)
         {
@@ -16,7 +16,7 @@ class Foods extends Product
         {
             $category = "Neperisabile";
         }
-        parent::__construct($name, $price, $quantity, $category);
+        parent::__construct($ID, $name, $price, $quantity, $category);
         $this->expiryDate = $expiryDate;
     }
     public function __destruct()
@@ -35,6 +35,29 @@ class Foods extends Product
     }
     //endregion
     //region Functions
+    public function writeInDB()
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "shop";
+        $conn = new mysqli($servername, $username,$password, $dbname);
+        $name = $this->getName();
+        $price = $this->getPrice();
+        $quantity = $this->getQuantity();
+        $category = $this->getCategory();
+        $expiryDate = $this->getExpiryDate();
+        $sql = "INSERT INTO foods (Name, Price, Quantity, Category, ExpiryDate) 
+                VALUES ('$name', $price, $quantity, '$category', $expiryDate)";
+        if($conn->query($sql) == TRUE)
+        {
+            echo "<script> alert('New Item added');</script>";
+        }
+        else
+        {
+            echo "<script> alert('An error has occured!');</script>";
+        }
+    }
     public function writeInFile()
     {
         $type = 1 . " ";

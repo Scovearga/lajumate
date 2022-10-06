@@ -1,5 +1,9 @@
 <?php
 session_start();
+if(isset($_POST['option']))
+{
+    $_SESSION['productType'] = $_POST['option'];
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -23,6 +27,13 @@ session_start();
                     <div class="panel-body">
                         <h3 class="text-center">
                             Add New Item</h3>
+                        <form action="AddNewItem.php" method="post">
+                            <select onchange="this.form.submit()" name = "option" class="form-select mx-auto" aria-label="Default select example">
+                                <option <?php if(isset($_POST['option']) && $_POST['option'] == "Foods") echo "selected"?> value="Foods">Foods</option>
+                                <option <?php if(isset($_POST['option']) && $_POST['option'] == "Toys") echo "selected"?> value="Toys">Toys</option>
+                                <option <?php if(isset($_POST['option']) && $_POST['option'] == "Electronics") echo "selected"?> value="Electronics">Electronics</option>
+                            </select>
+                        </form>
                         <form class="form form-signup" role="form">
                             <div class="form-group">
                                 <div class="input-group">
@@ -86,7 +97,8 @@ session_start();
                                     <input name="color" type="Text" class="form-control" value="" placeholder="Color" />
                                 </div>
                             </div>
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="Add Item">
+                            <input type="submit" name="submitProduct" class="btn btn-info btn-md" value="Add Item">
+                            <a href="Admin.php" class="btn btn-info btn-md">Admin page</a>
                     </div>
                 </div>
             </div>
@@ -103,7 +115,7 @@ require_once 'Product.php';
 require_once 'Toys.php';
 require_once 'Electronics.php';
 require_once 'Foods.php';
-if(isset($_POST['submit']))
+if(isset($_POST['submitProduct']))
 {
     if($_SESSION['productType'] == 'Foods')
     {
@@ -116,18 +128,19 @@ if(isset($_POST['submit']))
             $foodType = 1;
         }
         $newFood = new Foods($_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['expiryDate'], $foodType);
-        $newFood->writeInFile();
+        $newFood->writeInDB();
+        //$newFood->writeInFile();
     }
     elseif($_SESSION['productType'] == 'Toys')
     {
         $newToy = new Toys($_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['category'], $_POST['series'], $_POST['age']);
-        $newToy->writeInFile();
+        $newToy->writeInDB();
     }
     elseif($_SESSION['productType'] == 'Electronics')
     {
         $newElectronic = new Electronics($_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['category'], $_POST['producer'], $_POST['power'], $_POST['color']);
-        $newElectronic->writeInFile();
+        $newElectronic->writeInDB();
+        //$newElectronic->writeInFile();
     }
-
 }
 ?>

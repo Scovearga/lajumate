@@ -3,46 +3,93 @@ require_once 'Product.php';
 require_once 'Toys.php';
 require_once 'Electronics.php';
 require_once 'Foods.php';
-session_start();
 $foods = array();
 $toys = array();
 $electronics = array();
 $fisier = fopen("inventory", "r");
-if($fisier)
+//region ReadFromFile
+//if($fisier)
+//{
+//    while(($line = fgets($fisier)) != false)
+//    {
+//        $linieExploded = explode(" ", $line);
+//        switch ($linieExploded[0])
+//        {
+//            case '1':
+//            {
+//                //$name, $price, $quantity, $expiryDate, $foodType
+//                if ($linieExploded[4] == "Neperisabile")
+//                    $foodType = 1;
+//                else
+//                    $foodType = 0;
+//                $newFood = new Foods($linieExploded[1], $linieExploded[2], $linieExploded[3], $linieExploded[5], $foodType);
+//                array_push($foods, $newFood);
+//                break;
+//            }
+//            case '2':
+//            {
+//                //$name, $price, $quantity, $category, $series, $age
+//                $newToy = new Toys($linieExploded[1], $linieExploded[2], $linieExploded[3], $linieExploded[4], $linieExploded[5], $linieExploded[6]);
+//                array_push($toys, $newToy);
+//                break;
+//            }
+//            case '3':
+//            {
+//                //$name, $price, $quantity, $category, $producer, $powerConsumption, $color
+//                $newElectronic = new Electronics($linieExploded[1], $linieExploded[2], $linieExploded[3], $linieExploded[4], $linieExploded[5], $linieExploded[6], $linieExploded[7]);
+//                array_push($electronics, $newElectronic);
+//                break;
+//            }
+//        }
+//    }
+//}
+//endregion
+// region ReadFromDB
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "shop";
+//read FOODS:
+$conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+$command = $conn->prepare("SELECT * FROM foods");
+$command->execute();
+$foodsFromDB = $command->fetchAll();
+foreach ($foodsFromDB as $food)
 {
-    while(($line = fgets($fisier)) != false)
+    $foodType = 1;
+    if($food["Category"] == "Perisabile")
     {
-        $linieExploded = explode(" ", $line);
-        switch ($linieExploded[0])
-        {
-            case '1':
-            {
-                //$name, $price, $quantity, $expiryDate, $foodType
-                if ($linieExploded[4] == "Neperisabile")
-                    $foodType = 1;
-                else
-                    $foodType = 0;
-                $newFood = new Foods($linieExploded[1], $linieExploded[2], $linieExploded[3], $linieExploded[5], $foodType);
-                array_push($foods, $newFood);
-                break;
-            }
-            case '2':
-            {
-                //$name, $price, $quantity, $category, $series, $age
-                $newToy = new Toys($linieExploded[1], $linieExploded[2], $linieExploded[3], $linieExploded[4], $linieExploded[5], $linieExploded[6]);
-                array_push($toys, $newToy);
-                break;
-            }
-            case '3':
-            {
-                //$name, $price, $quantity, $category, $producer, $powerConsumption, $color
-                $newElectronic = new Electronics($linieExploded[1], $linieExploded[2], $linieExploded[3], $linieExploded[4], $linieExploded[5], $linieExploded[6], $linieExploded[7]);
-                array_push($electronics, $newElectronic);
-                break;
-            }
-        }
+        $foodType = 0;
     }
-}    ?>
+    $newFood = new Foods($food["ID"], $food["Name"], $food["Price"], $food["Quantity"], $food["ExpiryDate"], $foodType);
+    array_push($foods, $newFood);
+}
+$conn = null;
+//read Electronics:
+$conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+$command = $conn->prepare("SELECT * FROM electronics");
+$command->execute();
+$ElectronicsFromDB = $command->fetchAll();
+foreach ($ElectronicsFromDB as $electronic)
+{
+    $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"]);
+    array_push($electronics, $newElectronic);
+}
+$conn = null;
+//read Toys:
+$conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+$command = $conn->prepare("SELECT * FROM toys");
+$command->execute();
+$ToysFromDB = $command->fetchAll();
+foreach ($ToysFromDB as $toy)
+{
+    $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"]);
+    array_push($toys, $newToy);
+}
+$conn = null;
+// endregion
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -57,10 +104,9 @@ if($fisier)
 </head>
 <body>
 <div id="fullscreen_bg" class="fullscreen_bg"/>
-<form class="form-signin">
     <div class="container">
         <div class="row">
-            <div class="col-md-12 col-md-offset-0">
+            <div class="col-md-13 col-md-offset-0">
                 <div class="panel panel-default">
                     <div class="panel panel-primary">
 
@@ -73,6 +119,7 @@ if($fisier)
                             <table class="table table-striped table-condensed">
                                 <thead>
                                 <tr>
+                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Price</th>
                                     <th>Quantity</th>
@@ -92,47 +139,90 @@ if($fisier)
                                 <?php
                                     foreach ($foods as $oneFood)
                                     {
-                                        var_dump($oneFood);
                                         echo "<tr>";
-                                        echo "<td>$oneFood->getName()</td></tr>";
+                                        $aux = $oneFood->getID();
+                                        echo "<td>$aux</td>";
+                                        $aux = $oneFood->getName();
+                                        echo "<td>$aux</td>";
+                                        $aux = $oneFood->getPrice();
+                                        echo "<td>$aux</td>";
+                                        $aux = $oneFood->getQuantity();
+                                        echo "<td>$aux</td>";
+                                        $aux = $oneFood->getCategory();
+                                        echo "<td>$aux</td>";
+                                        $aux = $oneFood->getExpiryDate();
+                                        echo "<td>$aux</td>";
+                                        $aux = '-';
+                                        echo "<td>$aux</td>";
+                                        echo "<td>$aux</td>";
+                                        echo "<td>$aux</td>";
+                                        echo "<td>$aux</td>";
+                                        echo "<td>$aux</td>";
+                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
+                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Delete</button></form></td>";
+                                    }
+                                    foreach ($toys as $toy)
+                                    {
+                                        echo "<tr>";
+                                        $aux = $toy->getID();
+                                        echo "<td>$aux</td>";
+                                        $aux = $toy->getName();
+                                        echo "<td>$aux</td>";
+                                        $aux = $toy->getPrice();
+                                        echo "<td>$aux</td>";
+                                        $aux = $toy->getQuantity();
+                                        echo "<td>$aux</td>";
+                                        $aux = $toy->getCategory();
+                                        echo "<td>$aux</td>";
+                                        $aux = '-';
+                                        echo "<td>$aux</td>";
+                                        $aux = $toy->getSeries();
+                                        echo "<td>$aux</td>";
+                                        $aux = $toy->getAge();
+                                        echo "<td>$aux</td>";
+                                        $aux = '-';
+                                        echo "<td>$aux</td>";
+                                        echo "<td>$aux</td>";
+                                        echo "<td>$aux</td>";
+                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
+                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Delete</button></form></td>";
+                                    }
+                                    foreach ($electronics as $electronic)
+                                    {
+                                        echo "<tr>";
+                                        $aux = $electronic->getID();
+                                        echo "<td>$aux</td>";
+                                        $aux = $electronic->getName();
+                                        echo "<td>$aux</td>";
+                                        $aux = $electronic->getPrice();
+                                        echo "<td>$aux</td>";
+                                        $aux = $electronic->getQuantity();
+                                        echo "<td>$aux</td>";
+                                        $aux = $electronic->getCategory();
+                                        echo "<td>$aux</td>";
+                                        $aux = '-';
+                                        echo "<td>$aux</td>";
+                                        echo "<td>$aux</td>";
+                                        echo "<td>$aux</td>";
+                                        $aux = $electronic->getProducer();
+                                        echo "<td>$aux</td>";
+                                        $aux = $electronic->getPowerConsumption();
+                                        echo "<td>$aux</td>";
+                                        $aux = $electronic->getColor();
+                                        echo "<td>$aux</td>";
+                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
+                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Delete</button></form></td>";
                                     }
                                 ?>
-                                <tr>
-
-                                    <td>Filling</td>
-                                    <td>100</td>
-                                    <td>40 LE</td>
-
-                                    <td><a href="http://www.jquery2dotnet.com" class="btn btn-sm btn-primary btn-block" role="button">Update</a></td>
-                                    <td><a href="http://www.jquery2dotnet.com" class="btn btn-sm btn-primary btn-block" role="button">Delete</a></td>
-                                </tr>
-                                <tr>
-
-                                    <td>Crown</td>
-                                    <td>250</td>
-                                    <td>150 LE</td>
-
-                                    <td><a href="http://www.jquery2dotnet.com" class="btn btn-sm btn-primary btn-block" role="button">Update</a></td>
-                                    <td><a href="http://www.jquery2dotnet.com" class="btn btn-sm btn-primary btn-block" role="button">Delete</a></td>
-                                </tr>
-                                <tr>
-
-                                    <td>braces</td>
-                                    <td>30</td>
-                                    <td>800 LE</td>
-
-                                    <td><a href="http://www.jquery2dotnet.com" class="btn btn-sm btn-primary btn-block" role="button">Update</a></td>
-                                    <td><a href="http://www.jquery2dotnet.com" class="btn btn-sm btn-primary btn-block" role="button">Delete</a></td>
-                                </tr>
                                 </tbody>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-</form>
+    </div>
 </table>
-<form method="post">
+<form action="AddNewItem.php" method="post">
         <select name = "option" class="form-select mx-auto" aria-label="Default select example">
             <option value="Foods">Foods</option>
             <option value="Toys">Toys</option>
@@ -144,11 +234,41 @@ if($fisier)
 </html>
 
 <?php
+//function createIdentifier()
+//{
+//
+//}
+//if(isset($_GET['updateFood']))
+//{
+  //  header("Location: Login.php");
+//}
+//if(isset($_GET['deleteFood']))
+//{
+//    header("Location: UpdateProduct.php");
+//}
+//if(isset($_GET['updateToy']))
+//{
+//    header("Location: Login.php");
+//}
+//if(isset($_GET['deleteToy']))
+//{
+//    header("Location: UpdateProduct.php");
+//}
+//if(isset($_GET['updateElectronic']))
+//{
+//    //header("Location: AddNewItem.php");
+//}
+//if(isset($_GET['deleteElectronic']))
+//{
+//    //header("Location: AddNewItem.php");
+//}
 if(isset($_POST['option']))
 {
+    session_start();
     $option = $_POST['option'];
     $_SESSION['productType'] = $option;
-    header("Location: AddNewItem.php");
-    exit();
+    $newLocation = "AddNewItem.php";
+    die();
+    //header("Location: AddNewItem.php", false);
 }
 ?>

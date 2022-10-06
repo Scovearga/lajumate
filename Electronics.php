@@ -7,9 +7,9 @@ class Electronics extends Product
     private $color;
 
     //region Constructor/Destructor
-    public function __construct($name, $price, $quantity, $category, $producer, $powerConsumption, $color)
+    public function __construct($ID, $name, $price, $quantity, $category, $producer, $powerConsumption, $color)
     {
-        parent::__construct($name, $price, $quantity, $category);
+        parent::__construct($ID, $name, $price, $quantity, $category);
         $this->producer = $producer;
         $this->powerConsumption = $powerConsumption;
         $this->color = $color;
@@ -46,6 +46,31 @@ class Electronics extends Product
     }
     //endregion
     //region Functions
+    public function writeInDB()
+    {
+        $servername = "localhost";
+        $username = "root";
+        $password = "";
+        $dbname = "shop";
+        $conn = new mysqli($servername, $username,$password, $dbname);
+        $name = $this->getName();
+        $price = $this->getPrice();
+        $quantity = $this->getQuantity();
+        $category = $this->getCategory();
+        $producer = $this->getProducer();
+        $powerConsumption = $this->getPowerConsumption();
+        $color = $this->getColor();
+        $sql = "INSERT INTO electronics (Name, Price, Quantity, Category, Producer, PowerConsumption, Color) 
+                VALUES ('$name', $price, $quantity, '$category', '$producer', '$powerConsumption', '$color')";
+        if($conn->query($sql) == TRUE)
+        {
+            echo "<script> alert('New Item added');</script>";
+        }
+        else
+        {
+            echo "<script> alert('An error has occured!');</script>";
+        }
+    }
     public function writeInFile()
     {
         $type = 3 . " ";
