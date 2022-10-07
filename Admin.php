@@ -158,7 +158,8 @@ $conn = null;
                                         echo "<td>$aux</td>";
                                         echo "<td>$aux</td>";
                                         echo "<td>$aux</td>";
-                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
+                                        $ID = $oneFood->getID();
+                                        echo "<td><form action='UpdateProduct.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
                                         echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Delete</button></form></td>";
                                     }
                                     foreach ($toys as $toy)
@@ -184,7 +185,7 @@ $conn = null;
                                         echo "<td>$aux</td>";
                                         echo "<td>$aux</td>";
                                         echo "<td>$aux</td>";
-                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
+                                        echo "<td><form action='UpdateProduct.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
                                         echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Delete</button></form></td>";
                                     }
                                     foreach ($electronics as $electronic)
@@ -210,7 +211,8 @@ $conn = null;
                                         echo "<td>$aux</td>";
                                         $aux = $electronic->getColor();
                                         echo "<td>$aux</td>";
-                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
+                                        //$value =
+                                        echo "<td><form action='UpdateProduct.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
                                         echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Delete</button></form></td>";
                                     }
                                 ?>
@@ -223,11 +225,6 @@ $conn = null;
     </div>
 </table>
 <form action="AddNewItem.php" method="post">
-        <select name = "option" class="form-select mx-auto" aria-label="Default select example">
-            <option value="Foods">Foods</option>
-            <option value="Toys">Toys</option>
-            <option value="Electronics">Electronics</option>
-        </select>
         <input type="submit" name="submit" class="btn btn-sm btn-primary btn-block" value="Add new Item">
 </form>
 </body>
