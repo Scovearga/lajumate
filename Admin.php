@@ -1,4 +1,5 @@
 <?php
+include 'AdminHeader.php';
 require_once 'Product.php';
 require_once 'Toys.php';
 require_once 'Electronics.php';

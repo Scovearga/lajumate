@@ -100,7 +100,7 @@ if(isset($_POST['submit']))
     //$users = getUsersFromDB();
     if(isUserInDB($_POST['username']))
     {
-       echo '<script>alert("A user with this username already exists")</script>';
+       //array echo '<script>alert("A user with this username already exists")</script>';
     }
     else
     {

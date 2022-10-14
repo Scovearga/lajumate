@@ -106,6 +106,7 @@ if(isset($_POST['submit']))
         }
         default:
         {
+            //$_SESSION['userType'] = 6;
             header("Location: Admin.php");
             break;
         }

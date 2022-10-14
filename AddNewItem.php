@@ -1,4 +1,5 @@
 <?php
+include 'AdminHeader.php';
 session_start();
 $usersWithAccess = array(1, 3);
 if(!in_array($_SESSION['userType'], $usersWithAccess))

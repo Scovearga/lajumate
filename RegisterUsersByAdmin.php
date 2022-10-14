@@ -1,3 +1,6 @@
+<?php
+include "AdminHeader.php";
+?>
 <!doctype html>
 <html lang="en">
 <head>
