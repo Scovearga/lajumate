@@ -26,7 +26,14 @@
                             <input type="password" name="password" id="password" class="form-control">
                         </div>
                         <div class="form-group">
-                            <input href="Admin.php" type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
+                            <select name = "option" class="form-select mx-auto" aria-label="Default select example">
+                                <option value="3">Admin</option>
+                                <option value="2">SysAdmin</option>
+                                <option value="1">Manager</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input href="Login.php" type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                         </div>
                     </form>
                 </div>
@@ -52,31 +59,6 @@ function getUsersFromFile()
     return $users;
 }
 
-function getUsersFromDB()
-{
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
-    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-    $command = $conn->prepare("SELECT * from users");
-    $command->execute();
-    $usersFromDB = $command->fetchAll();
-    return $usersFromDB;
-}
-
-function addUserToDB($name, $pass)
-{
-    $pass = password_hash($pass);
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
-    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-    $command = $conn->prepare("INSERT INTO `users` (`ID`, `Name`, `Password`, `IDRole`) VALUES (NULL, '$name', '$pass', 4);");
-    $command->execute();
-}
-
 function isUserInDB($name)
 {
     $servername = "localhost";
@@ -94,17 +76,29 @@ function isUserInDB($name)
     return 0;
 }
 
+function addUserToDB($name, $pass, $userType)
+{
+    $pass = password_hash($pass, PASSWORD_DEFAULT);
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "shop";
+    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+    $command = $conn->prepare("INSERT INTO `users` (`ID`, `Name`, `Password`, `IDRole`) VALUES (NULL, '$name', '$pass', '$userType');");
+    $command->execute();
+}
+
 if(isset($_POST['submit']))
 {
     //$users = getUsersFromFile();
-    //$users = getUsersFromDB();
+    $users = getUsersFromDB();
     if(isUserInDB($_POST['username']))
     {
-       echo '<script>alert("A user with this username already exists")</script>';
+        echo '<script>alert("A user with this username already exists")</script>';
     }
     else
     {
-        addUserToDB($_POST['username'], $_POST['password']);
+        addUserToDB($_POST['username'], $_POST['password'], $_POST['option']);
 //        $file = fopen("users", "a+");
 //        $user = $_POST['username'] . " " . $_POST['password'] . " 0\n";
 //        fwrite($file, $user);
@@ -113,4 +107,5 @@ if(isset($_POST['submit']))
     }
 }
 ?>
+
 

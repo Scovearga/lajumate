@@ -41,6 +41,8 @@
 </html>
 
 <?php
+session_start();
+$_SESSION['userType'] = -2;
 function getUsersFromFile()
 {
     $file = fopen("users", "r");
@@ -55,24 +57,57 @@ function getUsersFromFile()
     return $users;
 }
 
+function getUserType($usernameFromUser, $passwordFromUser)
+{
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "shop";
+    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+    $command = $conn->prepare("SELECT * FROM `users` WHERE Name = '$usernameFromUser'");
+    $command->execute();
+    $user = $command->fetchAll();
+    $rows = $command->rowCount();
+    if($rows == 0)
+    {
+        return -1;
+    }
+    elseif(password_verify($passwordFromUser, $user[0]['Password']))
+    {
+        return $user[0]["IDRole"];
+    }
+    return 0;
+}
+
 if(isset($_POST['submit']))
 {
-    $users = getUsersFromFile();
+    //$users = getUsersFromFile();
     $username = $_POST['username'];
     $password = $_POST['password'];
-    if (array_key_exists($username, $users))
+    $userType = getUserType($username, $password);
+    $_SESSION['userType'] = $userType;
+    var_dump($_SESSION);
+    switch($userType)
     {
-        if($users[$username][0] == $password)
+        case -1:
         {
-            if($users[$username][1] == 1)
-            {
-                header("Location: Admin.php");
-                //redirect to admin page
-            }
-            elseif($users[$username][1] == 0)
-            {
-                //redirect to shop page
-            }
+            //wrong name
+            break;
+        }
+        case 0:
+        {
+            //wrong password;
+            break;
+        }
+        case 4:
+        {
+            //redirect to shop page
+            break;
+        }
+        default:
+        {
+            header("Location: Admin.php");
+            break;
         }
     }
 }

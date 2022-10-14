@@ -3,10 +3,53 @@ require_once 'Product.php';
 require_once 'Toys.php';
 require_once 'Electronics.php';
 require_once 'Foods.php';
+session_start();
+$usersWithAccess = array(1, 2, 3);
+if(!in_array($_SESSION['userType'], $usersWithAccess))
+{
+    header("Location: Error403.html");
+}
 $foods = array();
 $toys = array();
 $electronics = array();
 $fisier = fopen("inventory", "r");
+//region DeleteProductFromDB
+$DeleteProduct = array_keys($_POST);
+if(sizeof($DeleteProduct) != 0)
+{
+    $DeleteProductExploded = explode("_", $DeleteProduct[0]);
+    $productType = $DeleteProductExploded[0];
+    $ID = $DeleteProductExploded[1];
+    $servername = "localhost";
+    $username = "root";
+    $password = "";
+    $dbname = "shop";
+    switch ($productType)
+    {
+        case "F":
+        {
+            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+            $command = $conn->prepare("DELETE FROM foods WHERE ID='$ID'");
+            $command->execute();
+            break;
+        }
+        case "T":
+        {
+            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+            $command = $conn->prepare("DELETE FROM toys WHERE ID='$ID'");
+            $command->execute();
+            break;
+        }
+        case "E":
+        {
+            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+            $command = $conn->prepare("DELETE FROM electronics WHERE ID='$ID'");
+            $command->execute();
+            break;
+        }
+    }
+}
+//endregion
 //region ReadFromFile
 //if($fisier)
 //{
@@ -158,9 +201,9 @@ $conn = null;
                                         echo "<td>$aux</td>";
                                         echo "<td>$aux</td>";
                                         echo "<td>$aux</td>";
-                                        $ID = $oneFood->getID();
-                                        echo "<td><form action='UpdateProduct.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
-                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Delete</button></form></td>";
+                                        $IDaux = $oneFood->getID();
+                                        echo "<td><form action='UpdateProduct.php' method='post'><input value='Update' name = 'F $IDaux' type='submit' class='btn btn-sm btn-primary btn-block'></form></td>";
+                                        echo "<td><form method='post'><input value='Delete' name = 'F $IDaux' type='submit' class='btn btn-sm btn-primary btn-block'></form></td>";
                                     }
                                     foreach ($toys as $toy)
                                     {
@@ -185,8 +228,9 @@ $conn = null;
                                         echo "<td>$aux</td>";
                                         echo "<td>$aux</td>";
                                         echo "<td>$aux</td>";
-                                        echo "<td><form action='UpdateProduct.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
-                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Delete</button></form></td>";
+                                        $IDaux = $toy->getID();
+                                        echo "<td><form action='UpdateProduct.php' method='post'><input value='Update' name = 'T $IDaux' type='submit' class='btn btn-sm btn-primary btn-block'></form></td>";
+                                        echo "<td><form method='post'><input value='Delete' name = 'T $IDaux' type='submit' class='btn btn-sm btn-primary btn-block'></form></td>";
                                     }
                                     foreach ($electronics as $electronic)
                                     {
@@ -211,9 +255,9 @@ $conn = null;
                                         echo "<td>$aux</td>";
                                         $aux = $electronic->getColor();
                                         echo "<td>$aux</td>";
-                                        //$value =
-                                        echo "<td><form action='UpdateProduct.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Update</button></form></td>";
-                                        echo "<td><form action='Login.php' method='post'><button type='submit' class='btn btn-sm btn-primary btn-block'>Delete</button></form></td>";
+                                        $IDaux = $electronic->getID();
+                                        echo "<td><form action='UpdateProduct.php' method='post'><input value='Update' name = 'F $IDaux' type='submit' class='btn btn-sm btn-primary btn-block'></form></td>";
+                                        echo "<td><form method='post'><input value='Delete' name = 'E $IDaux' type='submit' class='btn btn-sm btn-primary btn-block'></form></td>";
                                     }
                                 ?>
                                 </tbody>
@@ -227,41 +271,17 @@ $conn = null;
 <form action="AddNewItem.php" method="post">
         <input type="submit" name="submit" class="btn btn-sm btn-primary btn-block" value="Add new Item">
 </form>
+<br>
+<form <?php if($_SESSION['userType'] == 1) echo "hidden"?> action="RegisterUsersByAdmin.php">
+        <input type="submit" name="submit" class="btn btn-sm btn-primary btn-block" value="Register new User">
+</form>
 </body>
 </html>
 
 <?php
-//function createIdentifier()
-//{
-//
-//}
-//if(isset($_GET['updateFood']))
-//{
-  //  header("Location: Login.php");
-//}
-//if(isset($_GET['deleteFood']))
-//{
-//    header("Location: UpdateProduct.php");
-//}
-//if(isset($_GET['updateToy']))
-//{
-//    header("Location: Login.php");
-//}
-//if(isset($_GET['deleteToy']))
-//{
-//    header("Location: UpdateProduct.php");
-//}
-//if(isset($_GET['updateElectronic']))
-//{
-//    //header("Location: AddNewItem.php");
-//}
-//if(isset($_GET['deleteElectronic']))
-//{
-//    //header("Location: AddNewItem.php");
-//}
+
 if(isset($_POST['option']))
 {
-    session_start();
     $option = $_POST['option'];
     $_SESSION['productType'] = $option;
     $newLocation = "AddNewItem.php";

@@ -1,5 +1,10 @@
 <?php
 session_start();
+$usersWithAccess = array(1, 3);
+if(!in_array($_SESSION['userType'], $usersWithAccess))
+{
+    header("Location: Error403.html");
+}
 if(isset($_POST['option']))
 {
     $_SESSION['productType'] = $_POST['option'];
@@ -8,7 +13,7 @@ else
 {
     $_SESSION['productType'] == "Foods";
 }
-var_dump($_POST);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -121,7 +126,7 @@ require_once 'Toys.php';
 require_once 'Electronics.php';
 require_once 'Foods.php';
 $ID = 0;
-var_dump($_POST);
+
 if(isset($_POST['submitItem']))
 {
     //echo "<script> alert('New Item added');</script>";

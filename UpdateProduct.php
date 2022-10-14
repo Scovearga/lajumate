@@ -4,10 +4,19 @@ require_once 'Toys.php';
 require_once 'Electronics.php';
 require_once 'Foods.php';
 session_start();
-$PostFromPrevious = "E 1";
-$productType = $PostFromPrevious[0];
-$ID = $PostFromPrevious[2];
-var_dump($_POST);
+session_start();
+$usersWithAccess = array(1, 3);
+if(!in_array($_SESSION['userType'], $usersWithAccess))
+{
+    header("Location: Error403.html");
+}
+$PostFromPrevious = array_keys($_POST);
+$PostFromPreviousExploded = explode("_", $PostFromPrevious[0]);
+//$_SESSION['productType'] = $PostFromPreviousExploded[0];
+//$_SESSION['ID'] = $PostFromPreviousExploded[1];
+$productType = $PostFromPreviousExploded[0];
+$ID = $PostFromPreviousExploded[1];
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -18,6 +27,56 @@ $series = "none";
 $producer = "none";
 $powerConsumption = 0;
 $color = "none";
+if(isset($_POST['modifyProduct']))
+{
+    switch($productType)
+    {
+        case "F":
+        {
+            $name = $_POST['name'];
+            $price = $_POST['price'];
+            $quantity = $_POST['quantity'];
+            $category = $_POST['category'];
+            $expiryDate = $_POST['expiryDate'];
+            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+            $command = $conn->prepare("UPDATE foods SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', ExpiryDate=$expiryDate
+            WHERE ID='$ID'");
+            $command->execute();
+            $conn = null;
+            break;
+        }
+        case "T":
+        {
+            $name = $_POST['name'];
+            $price = $_POST['price'];
+            $quantity = $_POST['quantity'];
+            $series = $_POST['series'];
+            $age = $_POST['age'];
+            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+            $command = $conn->prepare("UPDATE toys SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Series='$series', Age='$age'
+            WHERE ID='$ID'");
+
+            $command->execute();
+            $conn = null;
+            break;
+        }
+        case "E":
+        {
+            $name = $_POST['name'];
+            $price = $_POST['price'];
+            $quantity = $_POST['quantity'];
+            $producer = $_POST['producer'];
+            $powerConsumption = $_POST['power'];
+            $color = $_POST['color'];
+            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+            $command = $conn->prepare("UPDATE electronics SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Producer='$producer', PowerConsumption='$powerConsumption', Color='$color'
+            WHERE ID='$ID'");
+            $command->execute();
+            $conn = null;
+            break;
+        }
+    }
+}
 switch ($productType)
 {
     case "F":
@@ -109,6 +168,7 @@ $conn = null;
                             <h3 class="text-center">
                                 Edit Product</h3>
                             <form method="post" class="form form-signup" role="form">
+                                <input type = "hidden" name = "<?php echo $productType . '_'. $ID?>">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span></span>
@@ -192,59 +252,3 @@ $conn = null;
     </div>
     </body>
     </html>
-
-<?php
-var_dump($_POST);
-if(isset($_POST['modifyProduct']))
-{
-    switch($productType)
-    {
-        case "F":
-        {
-            $name = $_POST['name'];
-            $price = $_POST['price'];
-            $quantity = $_POST['quantity'];
-            //$category = $_POST['category'];
-            $expiryDate = $_POST['expiryDate'];
-            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-            $command = $conn->prepare("UPDATE foods SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', ExpiryDate=$expiryDate
-            WHERE ID='$ID'");
-            var_dump($command);
-            $command->execute();
-            $conn = null;
-            break;
-        }
-        case "T":
-        {
-            $name = $_POST['name'];
-            $price = $_POST['price'];
-            $quantity = $_POST['quantity'];
-            $series = $_POST['series'];
-            $age = $_POST['age'];
-            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-            $command = $conn->prepare("UPDATE toys SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Series='$series', Age='$age'
-            WHERE ID='$ID'");
-            var_dump($command);
-            $command->execute();
-            $conn = null;
-            break;
-        }
-        case "E":
-        {
-            $name = $_POST['name'];
-            $price = $_POST['price'];
-            $quantity = $_POST['quantity'];
-            $producer = $_POST['producer'];
-            $powerConsumption = $_POST['power'];
-            $color = $_POST['color'];
-            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-            $command = $conn->prepare("UPDATE electronics SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Producer='$producer', PowerConsumption='$powerConsumption', Color='$color'
-            WHERE ID='$ID'");
-            var_dump($command);
-            $command->execute();
-            $conn = null;
-            break;
-        }
-    }
-}
-?>
