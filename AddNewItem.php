@@ -1,11 +1,5 @@
 <?php
 include 'AdminHeader.php';
-session_start();
-$usersWithAccess = array(1, 3);
-if(!in_array($_SESSION['userType'], $usersWithAccess))
-{
-    header("Location: Error403.html");
-}
 if(isset($_POST['option']))
 {
     $_SESSION['productType'] = $_POST['option'];
@@ -122,10 +116,10 @@ else
 </html>
 
 <?php
-require_once 'Product.php';
-require_once 'Toys.php';
-require_once 'Electronics.php';
-require_once 'Foods.php';
+require_once 'Classes/Product.php';
+require_once 'Classes/Toys.php';
+require_once 'Classes/Electronics.php';
+require_once 'Classes/Foods.php';
 $ID = 0;
 
 if(isset($_POST['submitItem']))

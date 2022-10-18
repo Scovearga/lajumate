@@ -86,7 +86,6 @@ if(isset($_POST['submit']))
     $password = $_POST['password'];
     $userType = getUserType($username, $password);
     $_SESSION['userType'] = $userType;
-    var_dump($_SESSION);
     switch($userType)
     {
         case -1:

@@ -1,15 +1,8 @@
 <?php
-require_once 'Product.php';
-require_once 'Toys.php';
-require_once 'Electronics.php';
-require_once 'Foods.php';
-session_start();
-session_start();
-$usersWithAccess = array(1, 3);
-if(!in_array($_SESSION['userType'], $usersWithAccess))
-{
-    header("Location: Error403.html");
-}
+require_once 'Classes/Product.php';
+require_once 'Classes/Toys.php';
+require_once 'Classes/Electronics.php';
+require_once 'Classes/Foods.php';
 $PostFromPrevious = array_keys($_POST);
 $PostFromPreviousExploded = explode("_", $PostFromPrevious[0]);
 //$_SESSION['productType'] = $PostFromPreviousExploded[0];
@@ -52,6 +45,7 @@ if(isset($_POST['modifyProduct']))
             $quantity = $_POST['quantity'];
             $series = $_POST['series'];
             $age = $_POST['age'];
+            $category = $_POST['category'];
             $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
             $command = $conn->prepare("UPDATE toys SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Series='$series', Age='$age'
             WHERE ID='$ID'");
@@ -68,6 +62,7 @@ if(isset($_POST['modifyProduct']))
             $producer = $_POST['producer'];
             $powerConsumption = $_POST['power'];
             $color = $_POST['color'];
+            $category = $_POST['category'];
             $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
             $command = $conn->prepare("UPDATE electronics SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Producer='$producer', PowerConsumption='$powerConsumption', Color='$color'
             WHERE ID='$ID'");

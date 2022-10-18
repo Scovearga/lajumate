@@ -1,19 +1,13 @@
 <?php
 include 'AdminHeader.php';
-require_once 'Product.php';
-require_once 'Toys.php';
-require_once 'Electronics.php';
-require_once 'Foods.php';
-session_start();
-$usersWithAccess = array(1, 2, 3);
-if(!in_array($_SESSION['userType'], $usersWithAccess))
-{
-    header("Location: Error403.html");
-}
+require_once 'Classes/Product.php';
+require_once 'Classes/Toys.php';
+require_once 'Classes/Electronics.php';
+require_once 'Classes/Foods.php';
 $foods = array();
 $toys = array();
 $electronics = array();
-$fisier = fopen("inventory", "r");
+$fisier = fopen("Files/inventory", "r");
 //region DeleteProductFromDB
 $DeleteProduct = array_keys($_POST);
 if(sizeof($DeleteProduct) != 0)
@@ -29,6 +23,7 @@ if(sizeof($DeleteProduct) != 0)
     {
         case "F":
         {
+
             $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
             $command = $conn->prepare("DELETE FROM foods WHERE ID='$ID'");
             $command->execute();

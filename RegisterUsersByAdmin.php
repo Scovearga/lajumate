@@ -30,9 +30,20 @@ include "AdminHeader.php";
                         </div>
                         <div class="form-group">
                             <select name = "option" class="form-select mx-auto" aria-label="Default select example">
-                                <option value="3">Admin</option>
-                                <option value="2">SysAdmin</option>
-                                <option value="1">Manager</option>
+                                <?php
+                                $servername = "localhost";
+                                $username = "root";
+                                $password = "";
+                                $dbname = "shop";
+                                $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
+                                $command = $conn->prepare("SELECT * FROM roles");
+                                $command->execute();
+                                $roles = $command->fetchAll();
+                                foreach ($roles as $role)
+                                {
+                                    echo "<option value='$role[0]'>$role[1]</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="form-group">
@@ -94,7 +105,7 @@ function addUserToDB($name, $pass, $userType)
 if(isset($_POST['submit']))
 {
     //$users = getUsersFromFile();
-    $users = getUsersFromDB();
+    //$users = getUsersFromDB();
     if(isUserInDB($_POST['username']))
     {
         echo '<script>alert("A user with this username already exists")</script>';
@@ -106,7 +117,7 @@ if(isset($_POST['submit']))
 //        $user = $_POST['username'] . " " . $_POST['password'] . " 0\n";
 //        fwrite($file, $user);
 //        fclose($file);
-        header("Location: Login.php");
+        //header("Location: Login.php");
     }
 }
 ?>
