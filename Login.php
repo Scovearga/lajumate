@@ -43,6 +43,7 @@
 <?php
 session_start();
 require_once "Classes/Singleton.php";
+require_once "Classes/DbOperations.php";
 $_SESSION['userType'] = -2;
 function getUsersFromFile()
 {
@@ -59,8 +60,8 @@ function getUsersFromFile()
 }
 function getUserType($usernameFromUser, $passwordFromUser)
 {
-    $user = Singleton::getQueryTableResults("SELECT * FROM `users` WHERE Name = '$usernameFromUser'");
-    $rows = Singleton::numQueryResults("SELECT * FROM `users` WHERE Name = '$usernameFromUser'");
+    $user = DbOperations::getQueryTableResults("SELECT * FROM `users` WHERE Name = '$usernameFromUser'");
+    $rows = DbOperations::numQueryResults("SELECT * FROM `users` WHERE Name = '$usernameFromUser'");
     if($rows == 0)
     {
         return -1;

@@ -1,5 +1,4 @@
 <?php
-
 class Singleton
 {
     protected static $instance;
@@ -17,28 +16,5 @@ class Singleton
             self::$instance = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
         }
         return self::$instance;
-    }
-
-    public static function insertIntoDB($commandText)
-    {
-        $conn = self::getInstance();
-        $command = $conn->prepare($commandText);
-        $command->execute();
-    }
-
-    public static function getQueryTableResults($commandText)
-    {
-        $conn = self::getInstance();
-        $command = $conn->prepare($commandText);
-        $command->execute();
-        return $command->fetchAll();
-    }
-
-    public static function numQueryResults($commandText)
-    {
-        $conn = self::getInstance();
-        $command = $conn->prepare($commandText);
-        $command->execute();
-        return $command->rowCount();
     }
 }

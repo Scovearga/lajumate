@@ -31,7 +31,7 @@ include "AdminHeader.php";
                         <div class="form-group">
                             <select name = "option" class="form-select mx-auto" aria-label="Default select example">
                                 <?php
-                                $roles = Singleton::getQueryTableResults("SELECT * FROM roles");
+                                $roles = DbOperations::getQueryTableResults("SELECT * FROM roles");
                                 foreach ($roles as $role)
                                 {
                                     echo "<option value='$role[0]'>$role[1]</option>";
@@ -68,7 +68,7 @@ function getUsersFromFile()
 
 function isUserInDB($name)
 {
-    $nr = Singleton::numQueryResults("SELECT * from users WHERE Name='$name'");
+    $nr = DbOperations::numQueryResults("SELECT * from users WHERE Name='$name'");
     if($nr > 0)
     {
         return 1;
@@ -79,7 +79,7 @@ function isUserInDB($name)
 function addUserToDB($name, $pass, $userType)
 {
     $pass = password_hash($pass, PASSWORD_DEFAULT);
-    Singleton::insertIntoDB("INSERT INTO `users` (`ID`, `Name`, `Password`, `IDRole`) VALUES (NULL, '$name', '$pass', '$userType');");
+    DbOperations::insertIntoDB("INSERT INTO `users` (`Name`, `Password`, `IDRole`) VALUES ('$name', '$pass', '$userType');");
 }
 
 if(isset($_POST['submit']))
@@ -88,16 +88,12 @@ if(isset($_POST['submit']))
     //$users = getUsersFromDB();
     if(isUserInDB($_POST['username']))
     {
-        echo '<script>alert("A user with this username already exists")</script>';
+        //php lista erori
     }
     else
     {
+        //sa nu fie empty
         addUserToDB($_POST['username'], $_POST['password'], $_POST['option']);
-//        $file = fopen("users", "a+");
-//        $user = $_POST['username'] . " " . $_POST['password'] . " 0\n";
-//        fwrite($file, $user);
-//        fclose($file);
-        //header("Location: Login.php");
     }
 }
 ?>

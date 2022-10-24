@@ -3,11 +3,11 @@ include "AdminHeader.php";
 if(isset($_POST['update']))
 {
     $roleID = $_POST['option'];
-    Singleton::insertIntoDB("DELETE FROM sectionsroles WHERE IDRole = $roleID");
+    DbOperations::insertIntoDB("DELETE FROM sectionsroles WHERE IDRole = $roleID");
     foreach($_POST['sections'] as $section)
     {
         $sectionName = $section;
-        Singleton::insertIntoDB("INSERT INTO sectionsroles (IDRole, IDSection) VALUES ($roleID, $sectionName)");
+        DbOperations::insertIntoDB("INSERT INTO sectionsroles (IDRole, IDSection) VALUES ($roleID, $sectionName)");
     }
 }
 ?>
@@ -35,7 +35,7 @@ if(isset($_POST['update']))
 
                                     <select onchange="this.form.submit()" name = "option" class="form-select mx-auto" aria-label="Default select example">
                                         <?php
-                                        $roles = Singleton::getQueryTableResults("SELECT * FROM roles");
+                                        $roles = DbOperations::getQueryTableResults("SELECT * FROM roles");
                                         foreach ($roles as $role)
                                         {
                                             $ID = $role[0];
@@ -54,9 +54,9 @@ if(isset($_POST['update']))
                                 if(isset($_POST['option']))
                                 {
                                     $role = $_POST['option'];
-                                    $checkedSections = Singleton::getQueryTableResults("SELECT IDSection FROM sectionsroles WHERE IDRole = $role");
+                                    $checkedSections = DbOperations::getQueryTableResults("SELECT IDSection FROM sectionsroles WHERE IDRole = $role");
                                 }
-                                $sections = Singleton::getQueryTableResults("SELECT * FROM sections");
+                                $sections = DbOperations::getQueryTableResults("SELECT * FROM sections");
                                 foreach($sections as $section)
                                 {
                                     ?>

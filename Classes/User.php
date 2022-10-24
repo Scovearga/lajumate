@@ -23,7 +23,7 @@ class User
         $username = $this->username;
         $password = $this->password;
         $userType = $this->userType;
-        Singleton::insertIntoDB("INSERT INTO users (Username, Password, UserType) 
+        DbOperations::insertIntoDB("INSERT INTO users (Username, Password, UserType) 
                 VALUES ('$username', '$password', '$userType')");
     }
     //endregion

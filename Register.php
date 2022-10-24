@@ -54,18 +54,18 @@ function getUsersFromFile()
 
 function getUsersFromDB()
 {
-    return Singleton::getQueryTableResults("SELECT * from users");
+    return DbOperations::getQueryTableResults("SELECT * from users");
 }
 
 function addUserToDB($name, $pass)
 {
     $pass = password_hash($pass);
-    Singleton::insertIntoDB("INSERT INTO `users` (`ID`, `Name`, `Password`, `IDRole`) VALUES (NULL, '$name', '$pass', 4);");
+    DbOperations::insertIntoDB("INSERT INTO `users` (`ID`, `Name`, `Password`, `IDRole`) VALUES (NULL, '$name', '$pass', 4);");
 }
 
 function isUserInDB($name)
 {
-    $nr = Singleton::numQueryResults("SELECT * from users WHERE Name='$name'");
+    $nr = DbOperations::numQueryResults("SELECT * from users WHERE Name='$name'");
     if($nr > 0)
     {
         return 1;

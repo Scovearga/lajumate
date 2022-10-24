@@ -19,17 +19,17 @@ if(sizeof($DeleteProduct) != 0)
     {
         case "F":
         {
-            Singleton::insertIntoDB("DELETE FROM foods WHERE ID='$ID'");
+            DbOperations::insertIntoDB("DELETE FROM foods WHERE ID='$ID'");
             break;
         }
         case "T":
         {
-            Singleton::insertIntoDB("DELETE FROM toys WHERE ID='$ID'");
+            DbOperations::insertIntoDB("DELETE FROM toys WHERE ID='$ID'");
             break;
         }
         case "E":
         {
-            Singleton::insertIntoDB("DELETE FROM electronics WHERE ID='$ID'");
+            DbOperations::insertIntoDB("DELETE FROM electronics WHERE ID='$ID'");
             break;
         }
     }
@@ -74,7 +74,7 @@ if(sizeof($DeleteProduct) != 0)
 //endregion
 // region ReadFromDB
 
-$foodsFromDB = Singleton::getQueryTableResults("SELECT * FROM foods");
+$foodsFromDB = DbOperations::getQueryTableResults("SELECT * FROM foods");
 foreach ($foodsFromDB as $food)
 {
     $foodType = 1;
@@ -87,14 +87,14 @@ foreach ($foodsFromDB as $food)
 }
 
 //read Electronics:
-$ElectronicsFromDB = Singleton::getQueryTableResults("SELECT * FROM electronics");
+$ElectronicsFromDB = DbOperations::getQueryTableResults("SELECT * FROM electronics");
 foreach ($ElectronicsFromDB as $electronic)
 {
     $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"]);
     array_push($electronics, $newElectronic);
 }
 //read Toys:
-$ToysFromDB = Singleton::getQueryTableResults("SELECT * FROM toys");
+$ToysFromDB = DbOperations::getQueryTableResults("SELECT * FROM toys");
 foreach ($ToysFromDB as $toy)
 {
     $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"]);

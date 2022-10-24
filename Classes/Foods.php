@@ -57,7 +57,6 @@ class Foods extends Product
         {
             echo "<script> alert('An error has occured!');</script>";
         }
-        Singleton::insertIntoDB();
     }
     public function writeInFile()
     {

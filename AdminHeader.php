@@ -1,10 +1,11 @@
 <?php
 require_once 'Classes/Singleton.php';
+require_once 'Classes/DbOperations.php';
 session_start();
 $url = $_SERVER['REQUEST_URI'];
 $currentPage = explode(".", explode("/", $url)[2])[0];
 $role = $_SESSION['userType'];
-$numRows = Singleton::numQueryResults("SELECT * FROM sectionsroles WHERE (IDRole = $role AND IDSection = (SELECT ID FROM SECTIONS WHERE SectionName = '$currentPage'))");
+$numRows = DbOperations::numQueryResults("SELECT * FROM sectionsroles WHERE (IDRole = $role AND IDSection = (SELECT ID FROM SECTIONS WHERE SectionName = '$currentPage'))");
 //if($numRows == 0)
 //{
 //    header("Location: Error403.html");

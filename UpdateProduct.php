@@ -27,7 +27,7 @@ if(isset($_POST['modifyProduct']))
             $quantity = $_POST['quantity'];
             $category = $_POST['category'];
             $expiryDate = $_POST['expiryDate'];
-            Singleton::insertIntoDB("UPDATE foods SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', ExpiryDate=$expiryDate
+            DbOperations::insertIntoDB("UPDATE foods SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', ExpiryDate=$expiryDate
             WHERE ID='$ID'");
             break;
         }
@@ -39,7 +39,7 @@ if(isset($_POST['modifyProduct']))
             $series = $_POST['series'];
             $age = $_POST['age'];
             $category = $_POST['category'];
-            Singleton::insertIntoDB("UPDATE toys SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Series='$series', Age='$age'
+            DbOperations::insertIntoDB("UPDATE toys SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Series='$series', Age='$age'
             WHERE ID='$ID'");
             break;
         }
@@ -52,7 +52,7 @@ if(isset($_POST['modifyProduct']))
             $powerConsumption = $_POST['power'];
             $color = $_POST['color'];
             $category = $_POST['category'];
-            Singleton::insertIntoDB("UPDATE electronics SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Producer='$producer', PowerConsumption='$powerConsumption', Color='$color'
+            DbOperations::insertIntoDB("UPDATE electronics SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Producer='$producer', PowerConsumption='$powerConsumption', Color='$color'
             WHERE ID='$ID'");
             break;
         }
@@ -62,7 +62,7 @@ switch ($productType)
 {
     case "F":
     {
-        $foodsFromDB = Singleton::getQueryTableResults("SELECT * FROM foods WHERE ID = '$ID'");
+        $foodsFromDB = DbOperations::getQueryTableResults("SELECT * FROM foods WHERE ID = '$ID'");
         foreach ($foodsFromDB as $food)
         {
             $foodType = 1;
@@ -81,7 +81,7 @@ switch ($productType)
     }
     case "T":
     {
-        $ToysFromDB = Singleton::getQueryTableResults("SELECT * FROM toys WHERE ID = '$ID'");
+        $ToysFromDB = DbOperations::getQueryTableResults("SELECT * FROM toys WHERE ID = '$ID'");
         foreach ($ToysFromDB as $toy)
         {
             $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"]);
@@ -96,7 +96,7 @@ switch ($productType)
     }
     case "E":
     {
-        $ElectronicsFromDB = Singleton::getQueryTableResults("SELECT * FROM electronics WHERE ID = '$ID'");
+        $ElectronicsFromDB = DbOperations::getQueryTableResults("SELECT * FROM electronics WHERE ID = '$ID'");
         foreach ($ElectronicsFromDB as $electronic)
         {
             $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"]);
@@ -199,7 +199,7 @@ switch ($productType)
                                         <span class="input-group-addon"><button class="glyphicon glyphicon-pencil"></button></span>
                                     </div>
                                 </div>
-                                <div class="form-group" <?php if($productType != 'E') echo 'hidden';?>>
+                                <div class="form-group" <?php echo ($productType != 'E')?: 'hidden';?>>
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
                                         <input name="color" type="Text" class="form-control" <?php echo $color?> placeholder="Color" />

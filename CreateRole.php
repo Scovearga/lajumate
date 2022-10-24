@@ -41,10 +41,10 @@ include "AdminHeader.php";
                                             $name = $file->getFilename();
                                             $nameExploded = explode(".", $name)[0];
                                             echo "<input type='checkbox' name='sections[]' value='$nameExploded'> $nameExploded<br>";
-                                            $numRows = Singleton::numQueryResults("SELECT * FROM sections WHERE SectionName='$nameExploded'");
+                                            $numRows = DbOperations::numQueryResults("SELECT * FROM sections WHERE SectionName='$nameExploded'");
                                             if($numRows == 0)
                                             {
-                                                Singleton::insertIntoDB("INSERT INTO sections (SectionName) VALUES ('$nameExploded')");
+                                                DbOperations::insertIntoDB("INSERT INTO sections (SectionName) VALUES ('$nameExploded')");
                                             }
                                         }
                                     }
@@ -67,12 +67,12 @@ include "AdminHeader.php";
 if(isset($_POST['submit']))
 {
     $roleName = $_POST['roleName'];
-    Singleton::insertIntoDB("INSERT INTO roles (RoleName) VALUES ('$roleName')");
-    $roleIDAux = Singleton::getQueryTableResults("SELECT ID from roles WHERE RoleName = '$roleName'");
+    DbOperations::insertIntoDB("INSERT INTO roles (RoleName) VALUES ('$roleName')");
+    $roleIDAux = DbOperations::getQueryTableResults("SELECT ID from roles WHERE RoleName = '$roleName'");
     $roleID = $roleIDAux[0]["ID"];
     foreach($_POST['sections'] as $section)
     {
         $sectionName = $section;
-        Singleton::insertIntoDB("INSERT INTO sectionsroles (IDRole, IDSection) VALUES ('$roleID',(SELECT ID from sections WHERE SectionName='$sectionName'))");
+        DbOperations::insertIntoDB("INSERT INTO sectionsroles (IDRole, IDSection) VALUES ('$roleID',(SELECT ID from sections WHERE SectionName='$sectionName'))");
     }
 }
