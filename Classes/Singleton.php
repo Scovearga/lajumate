@@ -12,25 +12,32 @@ class Singleton
         {
             $servername = "localhost";
             $username = "root";
-            $password = "";
+            $password = "123456";
             $dbname = "shop";
             self::$instance = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
         }
         return self::$instance;
     }
 
-    public static function getQueryTableResults($command)
+    public static function insertIntoDB($commandText)
     {
         $conn = self::getInstance();
-        $command = $conn->prepare($command);
+        $command = $conn->prepare($commandText);
+        $command->execute();
+    }
+
+    public static function getQueryTableResults($commandText)
+    {
+        $conn = self::getInstance();
+        $command = $conn->prepare($commandText);
         $command->execute();
         return $command->fetchAll();
     }
 
-    public static function numQueryResults($tableName, $command)
+    public static function numQueryResults($commandText)
     {
         $conn = self::getInstance();
-        $command = $conn->prepare($command);
+        $command = $conn->prepare($commandText);
         $command->execute();
         return $command->rowCount();
     }

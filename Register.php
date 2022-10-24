@@ -54,39 +54,18 @@ function getUsersFromFile()
 
 function getUsersFromDB()
 {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
-    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-    $command = $conn->prepare("SELECT * from users");
-    $command->execute();
-    $usersFromDB = $command->fetchAll();
-    return $usersFromDB;
+    return Singleton::getQueryTableResults("SELECT * from users");
 }
 
 function addUserToDB($name, $pass)
 {
     $pass = password_hash($pass);
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
-    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-    $command = $conn->prepare("INSERT INTO `users` (`ID`, `Name`, `Password`, `IDRole`) VALUES (NULL, '$name', '$pass', 4);");
-    $command->execute();
+    Singleton::insertIntoDB("INSERT INTO `users` (`ID`, `Name`, `Password`, `IDRole`) VALUES (NULL, '$name', '$pass', 4);");
 }
 
 function isUserInDB($name)
 {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
-    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-    $command = $conn->prepare("SELECT * from users WHERE Name='$name'");
-    $command->execute();
-    $nr = $command->rowCount();
+    $nr = Singleton::numQueryResults("SELECT * from users WHERE Name='$name'");
     if($nr > 0)
     {
         return 1;

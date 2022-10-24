@@ -41,17 +41,10 @@ include "AdminHeader.php";
                                             $name = $file->getFilename();
                                             $nameExploded = explode(".", $name)[0];
                                             echo "<input type='checkbox' name='sections[]' value='$nameExploded'> $nameExploded<br>";
-                                            $servername = "localhost";
-                                            $username = "root";
-                                            $password = "";
-                                            $dbname = "shop";
-                                            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-                                            $command = $conn->prepare("SELECT * FROM sections WHERE SectionName='$nameExploded'");
-                                            $command->execute();
-                                            if($command->rowCount() == 0)
+                                            $numRows = Singleton::numQueryResults("SELECT * FROM sections WHERE SectionName='$nameExploded'");
+                                            if($numRows == 0)
                                             {
-                                                $command = $conn->prepare("INSERT INTO sections (SectionName) VALUES ('$nameExploded')");
-                                                $command->execute();
+                                                Singleton::insertIntoDB("INSERT INTO sections (SectionName) VALUES ('$nameExploded')");
                                             }
                                         }
                                     }
@@ -73,22 +66,13 @@ include "AdminHeader.php";
 <?php
 if(isset($_POST['submit']))
 {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
-    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
     $roleName = $_POST['roleName'];
-    $command = $conn->prepare("INSERT INTO roles (RoleName) VALUES ('$roleName')");
-    $command->execute();
-    $command = $conn->prepare("SELECT ID from roles WHERE RoleName = '$roleName'");
-    $command->execute();
-    $roleIDAux = $command->fetchAll();
+    Singleton::insertIntoDB("INSERT INTO roles (RoleName) VALUES ('$roleName')");
+    $roleIDAux = Singleton::getQueryTableResults("SELECT ID from roles WHERE RoleName = '$roleName'");
     $roleID = $roleIDAux[0]["ID"];
     foreach($_POST['sections'] as $section)
     {
         $sectionName = $section;
-        $command = $conn->prepare("INSERT INTO sectionsroles (IDRole, IDSection) VALUES ('$roleID',(SELECT ID from sections WHERE SectionName='$sectionName'))");
-        $command->execute();
+        Singleton::insertIntoDB("INSERT INTO sectionsroles (IDRole, IDSection) VALUES ('$roleID',(SELECT ID from sections WHERE SectionName='$sectionName'))");
     }
 }

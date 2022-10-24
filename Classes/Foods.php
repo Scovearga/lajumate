@@ -1,5 +1,5 @@
 <?php
-
+require_once "Singleton.php";
 class Foods extends Product
 {
     private $expiryDate;
@@ -39,17 +39,25 @@ class Foods extends Product
     {
         $servername = "localhost";
         $username = "root";
-        $password = "";
+        $password = "123456";
         $dbname = "shop";
+        $conn = new mysqli($servername, $username,$password, $dbname);
         $name = $this->getName();
         $price = $this->getPrice();
         $quantity = $this->getQuantity();
         $category = $this->getCategory();
         $expiryDate = $this->getExpiryDate();
-        $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-        $command = $conn->prepare("INSERT INTO foods (Name, Price, Quantity, Category, ExpiryDate) 
-                VALUES ('$name', '$price', '$quantity', '$category', '$expiryDate')");
-        $command->execute();
+        $sql = "INSERT INTO foods (Name, Price, Quantity, Category, ExpiryDate) 
+                VALUES ('$name', '$price', '$quantity', '$category', $expiryDate)";
+        if($conn->query($sql) == TRUE)
+        {
+            echo "<script> alert('New Item added');</script>";
+        }
+        else
+        {
+            echo "<script> alert('An error has occured!');</script>";
+        }
+        Singleton::insertIntoDB();
     }
     public function writeInFile()
     {

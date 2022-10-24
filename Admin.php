@@ -15,32 +15,21 @@ if(sizeof($DeleteProduct) != 0)
     $DeleteProductExploded = explode("_", $DeleteProduct[0]);
     $productType = $DeleteProductExploded[0];
     $ID = $DeleteProductExploded[1];
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
     switch ($productType)
     {
         case "F":
         {
-
-            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-            $command = $conn->prepare("DELETE FROM foods WHERE ID='$ID'");
-            $command->execute();
+            Singleton::insertIntoDB("DELETE FROM foods WHERE ID='$ID'");
             break;
         }
         case "T":
         {
-            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-            $command = $conn->prepare("DELETE FROM toys WHERE ID='$ID'");
-            $command->execute();
+            Singleton::insertIntoDB("DELETE FROM toys WHERE ID='$ID'");
             break;
         }
         case "E":
         {
-            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-            $command = $conn->prepare("DELETE FROM electronics WHERE ID='$ID'");
-            $command->execute();
+            Singleton::insertIntoDB("DELETE FROM electronics WHERE ID='$ID'");
             break;
         }
     }
@@ -85,15 +74,7 @@ if(sizeof($DeleteProduct) != 0)
 //endregion
 // region ReadFromDB
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "shop";
-//read FOODS:
-$conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-$command = $conn->prepare("SELECT * FROM foods");
-$command->execute();
-$foodsFromDB = $command->fetchAll();
+$foodsFromDB = Singleton::getQueryTableResults("SELECT * FROM foods");
 foreach ($foodsFromDB as $food)
 {
     $foodType = 1;
@@ -104,29 +85,21 @@ foreach ($foodsFromDB as $food)
     $newFood = new Foods($food["ID"], $food["Name"], $food["Price"], $food["Quantity"], $food["ExpiryDate"], $foodType);
     array_push($foods, $newFood);
 }
-$conn = null;
+
 //read Electronics:
-$conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-$command = $conn->prepare("SELECT * FROM electronics");
-$command->execute();
-$ElectronicsFromDB = $command->fetchAll();
+$ElectronicsFromDB = Singleton::getQueryTableResults("SELECT * FROM electronics");
 foreach ($ElectronicsFromDB as $electronic)
 {
     $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"]);
     array_push($electronics, $newElectronic);
 }
-$conn = null;
 //read Toys:
-$conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-$command = $conn->prepare("SELECT * FROM toys");
-$command->execute();
-$ToysFromDB = $command->fetchAll();
+$ToysFromDB = Singleton::getQueryTableResults("SELECT * FROM toys");
 foreach ($ToysFromDB as $toy)
 {
     $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"]);
     array_push($toys, $newToy);
 }
-$conn = null;
 // endregion
 ?>
 <!doctype html>
@@ -169,7 +142,6 @@ $conn = null;
                                     <th>Producer</th>
                                     <th>Power</th>
                                     <th>Color</th>
-
                                     <th>Update</th>
                                     <th>Delete</th>
                                 </tr>

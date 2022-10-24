@@ -10,10 +10,6 @@ $PostFromPreviousExploded = explode("_", $PostFromPrevious[0]);
 $productType = $PostFromPreviousExploded[0];
 $ID = $PostFromPreviousExploded[1];
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "shop";
 $expiryDate = 0;
 $age = 0;
 $series = "none";
@@ -31,11 +27,8 @@ if(isset($_POST['modifyProduct']))
             $quantity = $_POST['quantity'];
             $category = $_POST['category'];
             $expiryDate = $_POST['expiryDate'];
-            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-            $command = $conn->prepare("UPDATE foods SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', ExpiryDate=$expiryDate
+            Singleton::insertIntoDB("UPDATE foods SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', ExpiryDate=$expiryDate
             WHERE ID='$ID'");
-            $command->execute();
-            $conn = null;
             break;
         }
         case "T":
@@ -46,12 +39,8 @@ if(isset($_POST['modifyProduct']))
             $series = $_POST['series'];
             $age = $_POST['age'];
             $category = $_POST['category'];
-            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-            $command = $conn->prepare("UPDATE toys SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Series='$series', Age='$age'
+            Singleton::insertIntoDB("UPDATE toys SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Series='$series', Age='$age'
             WHERE ID='$ID'");
-
-            $command->execute();
-            $conn = null;
             break;
         }
         case "E":
@@ -63,11 +52,8 @@ if(isset($_POST['modifyProduct']))
             $powerConsumption = $_POST['power'];
             $color = $_POST['color'];
             $category = $_POST['category'];
-            $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-            $command = $conn->prepare("UPDATE electronics SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Producer='$producer', PowerConsumption='$powerConsumption', Color='$color'
+            Singleton::insertIntoDB("UPDATE electronics SET Name='$name', Price=$price, Quantity=$quantity, Category='$category', Producer='$producer', PowerConsumption='$powerConsumption', Color='$color'
             WHERE ID='$ID'");
-            $command->execute();
-            $conn = null;
             break;
         }
     }
@@ -76,10 +62,7 @@ switch ($productType)
 {
     case "F":
     {
-        $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-        $command = $conn->prepare("SELECT * FROM foods WHERE ID = '$ID'");
-        $command->execute();
-        $foodsFromDB = $command->fetchAll();
+        $foodsFromDB = Singleton::getQueryTableResults("SELECT * FROM foods WHERE ID = '$ID'");
         foreach ($foodsFromDB as $food)
         {
             $foodType = 1;
@@ -94,15 +77,11 @@ switch ($productType)
         $quantity = $newFood->getQuantity();
         $category = $newFood->getCategory();
         $expiryDate = $newFood->getExpiryDate();
-        $conn = null;
         break;
     }
     case "T":
     {
-        $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-        $command = $conn->prepare("SELECT * FROM toys WHERE ID = '$ID'");
-        $command->execute();
-        $ToysFromDB = $command->fetchAll();
+        $ToysFromDB = Singleton::getQueryTableResults("SELECT * FROM toys WHERE ID = '$ID'");
         foreach ($ToysFromDB as $toy)
         {
             $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"]);
@@ -113,15 +92,11 @@ switch ($productType)
         $category = $newToy->getCategory();
         $series = $newToy->getSeries();
         $age = $newToy->getAge();
-        $conn = null;
         break;
     }
     case "E":
     {
-        $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-        $command = $conn->prepare("SELECT * FROM electronics WHERE ID = '$ID'");
-        $command->execute();
-        $ElectronicsFromDB = $command->fetchAll();
+        $ElectronicsFromDB = Singleton::getQueryTableResults("SELECT * FROM electronics WHERE ID = '$ID'");
         foreach ($ElectronicsFromDB as $electronic)
         {
             $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"]);
@@ -133,12 +108,9 @@ switch ($productType)
         $producer = $newElectronic->getProducer();
         $powerConsumption = $newElectronic->getPowerConsumption();
         $color = $newElectronic->getColor();
-        $conn = null;
         break;
     }
 }
-
-$conn = null;
 ?>
     <!doctype html>
     <html lang="en">

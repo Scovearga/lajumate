@@ -1,19 +1,14 @@
 <?php
+require_once 'Classes/Singleton.php';
 session_start();
 $url = $_SERVER['REQUEST_URI'];
 $currentPage = explode(".", explode("/", $url)[2])[0];
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "shop";
-$conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
 $role = $_SESSION['userType'];
-$command = $conn->prepare("SELECT * FROM sectionsroles WHERE (IDRole = $role AND IDSection = (SELECT ID FROM SECTIONS WHERE SectionName = '$currentPage'))");
-$command->execute();
-if($command->rowCount() == 0)
-{
-    header("Location: Error403.html");
-}
+$numRows = Singleton::numQueryResults("SELECT * FROM sectionsroles WHERE (IDRole = $role AND IDSection = (SELECT ID FROM SECTIONS WHERE SectionName = '$currentPage'))");
+//if($numRows == 0)
+//{
+//    header("Location: Error403.html");
+//}
 
 ?>
 <!doctype html>

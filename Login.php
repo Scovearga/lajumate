@@ -16,14 +16,14 @@
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
                     <form id="login" class="form" method="post">
-                        <h3 class="text-center text-info">Login</h3>
+                        <h3 class="text-center text-info">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</h3>
                         <div class="form-group">
                             <label for="username" class="text-info">Username:</label><br>
                             <input type="text" name="username" id="username" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Password:</label><br>
-                            <input type="password" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="pFassword" class="form-control">
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
@@ -42,6 +42,7 @@
 
 <?php
 session_start();
+require_once "Classes/Singleton.php";
 $_SESSION['userType'] = -2;
 function getUsersFromFile()
 {
@@ -56,18 +57,10 @@ function getUsersFromFile()
     fclose($file);
     return $users;
 }
-
 function getUserType($usernameFromUser, $passwordFromUser)
 {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
-    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-    $command = $conn->prepare("SELECT * FROM `users` WHERE Name = '$usernameFromUser'");
-    $command->execute();
-    $user = $command->fetchAll();
-    $rows = $command->rowCount();
+    $user = Singleton::getQueryTableResults("SELECT * FROM `users` WHERE Name = '$usernameFromUser'");
+    $rows = Singleton::numQueryResults("SELECT * FROM `users` WHERE Name = '$usernameFromUser'");
     if($rows == 0)
     {
         return -1;
@@ -90,11 +83,13 @@ if(isset($_POST['submit']))
     {
         case -1:
         {
+            echo "nume";
             //wrong name
             break;
         }
         case 0:
         {
+            echo "parola";
             //wrong password;
             break;
         }

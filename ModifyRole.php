@@ -2,19 +2,12 @@
 include "AdminHeader.php";
 if(isset($_POST['update']))
 {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
-    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
     $roleID = $_POST['option'];
-    $command = $conn->prepare("DELETE FROM sectionsroles WHERE IDRole = $roleID");
-    $command->execute();
+    Singleton::insertIntoDB("DELETE FROM sectionsroles WHERE IDRole = $roleID");
     foreach($_POST['sections'] as $section)
     {
         $sectionName = $section;
-        $command = $conn->prepare("INSERT INTO sectionsroles (IDRole, IDSection) VALUES ($roleID, $sectionName)");
-        $command->execute();
+        Singleton::insertIntoDB("INSERT INTO sectionsroles (IDRole, IDSection) VALUES ($roleID, $sectionName)");
     }
 }
 ?>
@@ -42,14 +35,7 @@ if(isset($_POST['update']))
 
                                     <select onchange="this.form.submit()" name = "option" class="form-select mx-auto" aria-label="Default select example">
                                         <?php
-                                        $servername = "localhost";
-                                        $username = "root";
-                                        $password = "";
-                                        $dbname = "shop";
-                                        $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-                                        $command = $conn->prepare("SELECT * FROM roles");
-                                        $command->execute();
-                                        $roles = $command->fetchAll();
+                                        $roles = Singleton::getQueryTableResults("SELECT * FROM roles");
                                         foreach ($roles as $role)
                                         {
                                             $ID = $role[0];
@@ -65,21 +51,12 @@ if(isset($_POST['update']))
                             <div class="form-group">
                                 <label class="text-info">Select Sections:</label><br>
                                 <?php
-                                $servername = "localhost";
-                                $username = "root";
-                                $password = "";
-                                $dbname = "shop";
-                                $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
                                 if(isset($_POST['option']))
                                 {
                                     $role = $_POST['option'];
-                                    $command = $conn->prepare("SELECT IDSection FROM sectionsroles WHERE IDRole = $role");
-                                    $command->execute();
-                                    $checkedSections = $command->fetchAll();
+                                    $checkedSections = Singleton::getQueryTableResults("SELECT IDSection FROM sectionsroles WHERE IDRole = $role");
                                 }
-                                $command = $conn->prepare("SELECT * FROM sections");
-                                $command->execute();
-                                $sections = $command->fetchAll();
+                                $sections = Singleton::getQueryTableResults("SELECT * FROM sections");
                                 foreach($sections as $section)
                                 {
                                     ?>

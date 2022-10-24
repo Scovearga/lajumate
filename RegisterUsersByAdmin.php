@@ -31,14 +31,7 @@ include "AdminHeader.php";
                         <div class="form-group">
                             <select name = "option" class="form-select mx-auto" aria-label="Default select example">
                                 <?php
-                                $servername = "localhost";
-                                $username = "root";
-                                $password = "";
-                                $dbname = "shop";
-                                $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-                                $command = $conn->prepare("SELECT * FROM roles");
-                                $command->execute();
-                                $roles = $command->fetchAll();
+                                $roles = Singleton::getQueryTableResults("SELECT * FROM roles");
                                 foreach ($roles as $role)
                                 {
                                     echo "<option value='$role[0]'>$role[1]</option>";
@@ -75,14 +68,7 @@ function getUsersFromFile()
 
 function isUserInDB($name)
 {
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
-    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-    $command = $conn->prepare("SELECT * from users WHERE Name='$name'");
-    $command->execute();
-    $nr = $command->rowCount();
+    $nr = Singleton::numQueryResults("SELECT * from users WHERE Name='$name'");
     if($nr > 0)
     {
         return 1;
@@ -93,13 +79,7 @@ function isUserInDB($name)
 function addUserToDB($name, $pass, $userType)
 {
     $pass = password_hash($pass, PASSWORD_DEFAULT);
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "shop";
-    $conn = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
-    $command = $conn->prepare("INSERT INTO `users` (`ID`, `Name`, `Password`, `IDRole`) VALUES (NULL, '$name', '$pass', '$userType');");
-    $command->execute();
+    Singleton::insertIntoDB("INSERT INTO `users` (`ID`, `Name`, `Password`, `IDRole`) VALUES (NULL, '$name', '$pass', '$userType');");
 }
 
 if(isset($_POST['submit']))

@@ -40,7 +40,7 @@ class Toys extends Product
     {
         $servername = "localhost";
         $username = "root";
-        $password = "";
+        $password = "123456";
         $dbname = "shop";
         $conn = new mysqli($servername, $username,$password, $dbname);
         $name = $this->getName();

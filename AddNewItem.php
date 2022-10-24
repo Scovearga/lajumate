@@ -1,5 +1,6 @@
 <?php
 include 'AdminHeader.php';
+require_once 'Classes/Singleton.php';
 if(isset($_POST['option']))
 {
     $_SESSION['productType'] = $_POST['option'];
@@ -124,10 +125,8 @@ $ID = 0;
 
 if(isset($_POST['submitItem']))
 {
-    //echo "<script> alert('New Item added');</script>";
     if($_SESSION['productType'] == 'Foods')
     {
-        //echo "<script> alert('New Item added');</script>";
         if($_POST['expiryDate'] != 0)
         {
             $foodType = 0;
@@ -137,9 +136,7 @@ if(isset($_POST['submitItem']))
             $foodType = 1;
         }
         $newFood = new Foods(0, $_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['expiryDate'], $foodType);
-
         $newFood->writeInDB();
-        //$newFood->writeInFile();
     }
     elseif($_SESSION['productType'] == 'Toys')
     {
