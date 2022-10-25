@@ -1,5 +1,4 @@
 <?php
-require_once 'Classes/Singleton.php';
 require_once 'Classes/DbOperations.php';
 session_start();
 $url = $_SERVER['REQUEST_URI'];

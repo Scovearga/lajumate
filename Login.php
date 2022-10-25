@@ -16,7 +16,7 @@
             <div id="login-column" class="col-md-6">
                 <div id="login-box" class="col-md-12">
                     <form id="login" class="form" method="post">
-                        <h3 class="text-center text-info">AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</h3>
+                        <h3 class="text-center text-info">Login</h3>
                         <div class="form-group">
                             <label for="username" class="text-info">Username:</label><br>
                             <input type="text" name="username" id="username" class="form-control">
@@ -42,7 +42,6 @@
 
 <?php
 session_start();
-require_once "Classes/Singleton.php";
 require_once "Classes/DbOperations.php";
 $_SESSION['userType'] = -2;
 function getUsersFromFile()
@@ -72,7 +71,6 @@ function getUserType($usernameFromUser, $passwordFromUser)
     }
     return 0;
 }
-
 if(isset($_POST['submit']))
 {
     //$users = getUsersFromFile();
@@ -101,7 +99,6 @@ if(isset($_POST['submit']))
         }
         default:
         {
-            //$_SESSION['userType'] = 6;
             header("Location: Admin.php");
             break;
         }

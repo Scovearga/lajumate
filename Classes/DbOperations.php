@@ -11,10 +11,15 @@ class DbOperations
             $counter++;
             if($counter % $numValues == 0)
             {
-                $toadd = $toadd . $value . ")";
+                $toadd = $toadd . $value . ") ";
                 continue;
             }
-            $toadd = $toadd . "(" . $value . ",";
+            elseif ($counter % $numValues == 1)
+            {
+                $toadd = $toadd . "(" . $value . ", ";
+                continue;
+            }
+            $toadd = $toadd . $value . ", ";
         }
         $command = $conn->prepare("INSERT INTO " . $table . " VALUES " . $toadd);
         $command->execute();
@@ -24,6 +29,13 @@ class DbOperations
     {
         $conn = Singleton::getInstance();
         $command = $conn->prepare($commandText);
+        $command->execute();
+    }
+
+    public static function deleteInDB($table, $tableColumn, $value)
+    {
+        $conn = Singleton::getInstance();
+        $command = $conn->prepare("DELETE FROM sectionsroles WHERE '$tableColumn' = $value");
         $command->execute();
     }
 

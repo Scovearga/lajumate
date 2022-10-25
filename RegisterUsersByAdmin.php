@@ -23,6 +23,7 @@ include "AdminHeader.php";
                         <div class="form-group">
                             <label for="username" class="text-info">Username:</label><br>
                             <input type="text" name="username" id="username" class="form-control">
+                            <?php if(isset($_SESSION['error'])) echo $_SESSION['error'] ?>
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Password:</label><br>
@@ -52,6 +53,7 @@ include "AdminHeader.php";
 </html>
 
 <?php
+require_once "Classes/UsersManipulation.php";
 function getUsersFromFile()
 {
     $file = fopen("users", "r");
@@ -66,34 +68,33 @@ function getUsersFromFile()
     return $users;
 }
 
-function isUserInDB($name)
-{
-    $nr = DbOperations::numQueryResults("SELECT * from users WHERE Name='$name'");
-    if($nr > 0)
-    {
-        return 1;
-    }
-    return 0;
-}
+//function isUserInDB($name)
+//{
+//    $nr = DbOperations::numQueryResults("SELECT * from users WHERE Name='$name'");
+//    if($nr > 0)
+//    {
+//        return 1;
+//    }
+//    return 0;
+//}
 
-function addUserToDB($name, $pass, $userType)
-{
-    $pass = password_hash($pass, PASSWORD_DEFAULT);
-    DbOperations::insertIntoDB("INSERT INTO `users` (`Name`, `Password`, `IDRole`) VALUES ('$name', '$pass', '$userType');");
-}
+//function addUserToDB($name, $pass, $userType)
+//{
+//    $pass = password_hash($pass, PASSWORD_DEFAULT);
+//    DbOperations::insertIntoDB("INSERT INTO `users` (`Name`, `Password`, `IDRole`) VALUES ('$name', '$pass', '$userType');");
+//}
 
 if(isset($_POST['submit']))
 {
-    //$users = getUsersFromFile();
-    //$users = getUsersFromDB();
-    if(isUserInDB($_POST['username']))
+    if(UsersManipulation::isUserInDB($_POST['username']) == 1)
     {
-        //php lista erori
+        $_SESSION['error'] = "There is already an user with that Username";
+        header("Location: RegisterUsersByAdmin.php");
     }
-    else
+    if(!empty($_POST['username']) && !empty($_POST['password']))
     {
-        //sa nu fie empty
-        addUserToDB($_POST['username'], $_POST['password'], $_POST['option']);
+        unset($_SESSION['error']);
+        UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], $_POST['option']);
     }
 }
 ?>
