@@ -121,7 +121,7 @@ if(isset($_POST['submit']))
     }
     else
     {
-        echo '<script>alert("Error in Google reCAPTACHA")</script>';
+        //echo '<script>alert("Error in Google reCAPTACHA")</script>';
     }
 }
 
