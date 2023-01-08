@@ -7,6 +7,7 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src=”https://www.google.com/recaptcha/api.js” async defer></script>
 </head>
 <body>
 <div id="login">
@@ -25,6 +26,7 @@
                             <label for="password" class="text-info">Password:</label><br>
                             <input type="password" name="password" id="pFassword" class="form-control">
                         </div>
+                        <div class=”g-recaptcha” data-sitekey=”6Lfksd8jAAAAAOUY1_cErJsLVu_L0WJ5926GHrYe”></div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                         </div>
@@ -76,33 +78,48 @@ if(isset($_POST['submit']))
     //$users = getUsersFromFile();
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $userType = getUserType($username, $password);
-    $_SESSION['userType'] = $userType;
-    switch($userType)
+
+    $recaptcha = $_POST['g-recaptcha-response'];
+    $secret_key = '6Lfksd8jAAAAAE4VbnzQ9WLxaXKOp7V_x59B9QIN';
+
+    $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $recaptcha;
+    $response = file_get_contents($url);
+    $response = json_decode($response);
+    if ($response->success == true)
     {
-        case -1:
+        echo '<script>alert("Google reCAPTACHA verified")</script>';
+        $userType = getUserType($username, $password);
+        $_SESSION['userType'] = $userType;
+        switch($userType)
         {
-            echo "nume";
-            //wrong name
-            break;
+            case -1:
+            {
+                echo "nume";
+                //wrong name
+                break;
+            }
+            case 0:
+            {
+                echo "parola";
+                //wrong password;
+                break;
+            }
+            case 4:
+            {
+                header("Location: Buyers/Shop.php");
+                //asdasdada
+                break;
+            }
+            default:
+            {
+                header("Location: Admin.php");
+                break;
+            }
         }
-        case 0:
-        {
-            echo "parola";
-            //wrong password;
-            break;
-        }
-        case 4:
-        {
-            header("Location: Buyers/Shop.php");
-            //asdasdada
-            break;
-        }
-        default:
-        {
-            header("Location: Admin.php");
-            break;
-        }
+    }
+    else
+    {
+        echo '<script>alert("Error in Google reCAPTACHA")</script>';
     }
 }
 
