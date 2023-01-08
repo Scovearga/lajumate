@@ -80,6 +80,10 @@ if(isset($_POST['submit']))
     $password = $_POST['password'];
 
     $recaptcha = $_POST['g-recaptcha'];
+    var_dump($recaptcha);
+    echo '<br>';
+    var_dump($_POST);
+    echo '<br>';
     $secret_key = '6LdVx98jAAAAABoayTciAE02hgtI03GMHUaY9ydc';
 
     $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $recaptcha;
