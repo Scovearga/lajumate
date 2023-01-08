@@ -26,7 +26,7 @@
                             <label for="password" class="text-info">Password:</label><br>
                             <input type="password" name="password" id="pFassword" class="form-control">
                         </div>
-                        <div class=”g-recaptcha” data-sitekey=”6Lfksd8jAAAAAOUY1_cErJsLVu_L0WJ5926GHrYe”></div>
+                        <div class=”g-recaptcha” data-sitekey=”6LdVx98jAAAAAH7jV5X1GwRtjOKp6kA1vOEXxwSW”></div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                         </div>
@@ -81,7 +81,7 @@ if(isset($_POST['submit']))
 
     $recaptcha = $_POST['g-recaptcha'];
     var_dump($recaptcha);
-    $secret_key = '6Lfksd8jAAAAAE4VbnzQ9WLxaXKOp7V_x59B9QIN';
+    $secret_key = '6LdVx98jAAAAABoayTciAE02hgtI03GMHUaY9ydc';
 
     $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $recaptcha;
     $response = file_get_contents($url);
