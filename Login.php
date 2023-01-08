@@ -26,7 +26,7 @@
                             <label for="password" class="text-info">Password:</label><br>
                             <input type="password" name="password" id="pFassword" class="form-control">
                         </div>
-                        <div class=”g-recaptcha” data-sitekey=”6LdVx98jAAAAAH7jV5X1GwRtjOKp6kA1vOEXxwSW”></div>
+                        <div class="g-recaptcha" data-sitekey="6LdVx98jAAAAAH7jV5X1GwRtjOKp6kA1vOEXxwSW"></div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                         </div>
