@@ -79,7 +79,7 @@ if(isset($_POST['submit']))
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    $recaptcha = $_POST['g-recaptcha'];
+    $recaptcha = $_POST['g-recaptcha-response'];
     var_dump($recaptcha);
     echo '<br>';
     var_dump($_POST);
