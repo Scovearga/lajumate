@@ -80,7 +80,6 @@ if(isset($_POST['submit']))
     $password = $_POST['password'];
 
     $recaptcha = $_POST['g-recaptcha'];
-    var_dump($_POST);
     $secret_key = '6LdVx98jAAAAABoayTciAE02hgtI03GMHUaY9ydc';
 
     $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $recaptcha;
@@ -90,7 +89,6 @@ if(isset($_POST['submit']))
 
     if ($response->success == true)
     {
-        echo '<script>alert("Google reCAPTACHA verified")</script>';
         $userType = getUserType($username, $password);
         $_SESSION['userType'] = $userType;
         switch($userType)
@@ -122,7 +120,7 @@ if(isset($_POST['submit']))
     }
     else
     {
-        //echo '<script>alert("Error in Google reCAPTACHA")</script>';
+        echo '<script>alert("Error in Google reCAPTACHA")</script>';
     }
 }
 
