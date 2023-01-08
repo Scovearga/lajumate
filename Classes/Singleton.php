@@ -11,7 +11,7 @@ class Singleton
         {
             $servername = "localhost";
             $username = "root";
-            $password = "123456";
+            $password = "";
             $dbname = "shop";
             self::$instance = new PDO("mysql:host=$servername; dbname=$dbname", $username, $password);
         }

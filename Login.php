@@ -94,7 +94,8 @@ if(isset($_POST['submit']))
         }
         case 4:
         {
-            //redirect to shop page
+            header("Location: Buyers/Shop.php");
+            //asdasdada
             break;
         }
         default:

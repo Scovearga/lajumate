@@ -38,6 +38,8 @@
 </html>
 
 <?php
+require_once 'Classes/DbOperations.php';
+session_start();
 function getUsersFromFile()
 {
     $file = fopen("users", "r");
