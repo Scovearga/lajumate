@@ -15,6 +15,12 @@ if (!isset($_SESSION['products']))
 {
     $_SESSION['products'] = array();
 }
+
+if(!isset($_SESSION['numberOfProducts']))
+{
+    $_SESSION['numberOfProducts'] = 0;
+}
+
 var_dump($productType);
 var_dump($_SESSION);
 switch ($productType)
@@ -37,7 +43,11 @@ switch ($productType)
         $category = $newFood->getCategory();
         $expiryDate = $newFood->getExpiryDate();
         $image = $newFood->getImagePath();
-        array_push($_SESSION['products'], $newFood);
+        $_SESSION['numberOfProducts']++;
+        array_push($_SESSION['products'], $name);
+        array_push($_SESSION['products'], $ID);
+        array_push($_SESSION['products'], $price);
+        array_push($_SESSION['products'], $image);
         break;
     }
     case "T":
@@ -54,7 +64,11 @@ switch ($productType)
         $series = $newToy->getSeries();
         $age = $newToy->getAge();
         $image = $newToy->getImagePath();
-        array_push($_SESSION['products'], $newToy);
+        $_SESSION['numberOfProducts']++;
+        array_push($_SESSION['products'], $name);
+        array_push($_SESSION['products'], $ID);
+        array_push($_SESSION['products'], $price);
+        array_push($_SESSION['products'], $image);
         break;
     }
     case "E":
@@ -72,7 +86,11 @@ switch ($productType)
         $powerConsumption = $newElectronic->getPowerConsumption();
         $color = $newElectronic->getColor();
         $image = $newElectronic->getImagePath();
-        array_push($_SESSION['products'], $newElectronic);
+        $_SESSION['numberOfProducts']++;
+        array_push($_SESSION['products'], $name);
+        array_push($_SESSION['products'], $ID);
+        array_push($_SESSION['products'], $price);
+        array_push($_SESSION['products'], $image);
         break;
     }
 }
@@ -102,7 +120,7 @@ var_dump($_SESSION);
             </div>
             <div class="d-flex flex-column pt-4">
                 <div><h5 class="text-uppercase font-weight-normal">shopping bag</h5></div>
-                <div class="font-weight-normal">2 items</div>
+                <div class="font-weight-normal"><?php echo $_SESSION['numberOfProducts']; ?> items</div>
             </div>
             <div class="d-flex flex-row px-lg-5 mx-lg-5 mobile" id="heading">
                 <div class="px-lg-5 mr-lg-5" id="produc">PRODUCTS</div>
@@ -110,39 +128,28 @@ var_dump($_SESSION);
                 <div class="px-lg-5 ml-lg-1" id="quantity">QUANTITY</div>
                 <div class="px-lg-5 ml-lg-3" id="total">TOTAL</div>
             </div>
+            <?php
+                for($i = 0; $i <= count($_SESSION['products']); ++$i)
+                {
+            ?>
             <div class="d-flex flex-row justify-content-between align-items-center pt-lg-4 pt-2 pb-3 border-bottom mobile">
                 <div class="d-flex flex-row align-items-center">
-                    <div><img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" width="150" height="150" alt="" id="image"></div>
+                    <div><img src="<?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 3]?>" width="150" height="150" alt="" id="image"></div>
                     <div class="d-flex flex-column pl-md-3 pl-1">
-                        <div><h6>COTTON T-SHIRT</h6></div>
-                        <div >Art. ID:<span class="pl-2">091091001</span></div>
+                        <div><h6><?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts']]?></h6></div>
+                        <div >Art. ID:<span class="pl-2"><?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 1]?></span></div>
                     </div>
                 </div>
-                <div class="pl-md-0 pl-1"><b>$9.99</b></div>
+                <div class="pl-md-0 pl-1"><b><?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 2]?> lei</b></div>
                 <div class="pl-md-0 pl-2">
                     <span class="fa fa-minus-square text-secondary"></span><span class="px-md-3 px-1">2</span><span class="fa fa-plus-square text-secondary"></span>
                 </div>
                 <div class="pl-md-0 pl-1"><b>$19.98</b></div>
                 <div class="close">&times;</div>
             </div>
-            <div class="d-flex flex-row justify-content-between align-items-center pt-4 pb-3 mobile">
-                <div class="d-flex flex-row align-items-center">
-                    <div><img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" width="150" height="150" alt="" id="image"></div>
-                    <div class="d-flex flex-column pl-md-3 pl-1">
-                        <div><h6>WHITE T-SHIRT</h6></div>
-                        <div >Art.No:<span class="pl-2">056289891</span></div>
-                        <div>Color:<span class="pl-3">White</span></div>
-                        <div>Size:<span class="pl-4"> XL</span></div>
-                    </div>
-                </div>
-                <div class="pl-md-0 pl-1"><b>$20.9</b></div>
-                <div class="pl-md-0 pl-2">
-                    <span class="fa fa-minus-square text-secondary"></span><span class="px-md-3 px-1">2</span><span class="fa fa-plus-square text-secondary"></span>
-                </div>
-                <div class="pl-md-0 pl-1"><b>$41.8</b></div>
-                <div class="close">&times;</div>
-            </div>
-
+            <?php
+                }
+            ?>
         </div>
     </div>
 </div>
