@@ -87,11 +87,11 @@ if(isset($_POST['submit']))
 {
     //$users = getUsersFromFile();
     //$users = getUsersFromDB();
-    if(isUserInDB($_POST['username']))
+    if(isUserInDB($_POST['username']) == 1)
     {
        echo '<script>alert("A user with this username already exists")</script>';
+       header("Location: Login.php");
     }
-    echo 'scovearga';
     else
     {
         addUserToDB($_POST['username'], $_POST['password']);
