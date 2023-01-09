@@ -129,7 +129,7 @@ var_dump($_SESSION);
                 <div class="px-lg-5 ml-lg-3" id="total">TOTAL</div>
             </div>
             <?php
-                for($i = 0; $i <= count($_SESSION['products']); ++$i)
+                for($i = 0; $i <= $_SESSION['numberOfProducts']; ++$i)
                 {
             ?>
             <div class="d-flex flex-row justify-content-between align-items-center pt-lg-4 pt-2 pb-3 border-bottom mobile">
