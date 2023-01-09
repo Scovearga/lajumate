@@ -105,7 +105,6 @@ if(isset($_POST['submit']))
             $mail->Password = "kejfuoabqoacvuua";
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
-            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
             $mail->addAddress("andreivirgil@hotmail.com");
 
@@ -114,12 +113,11 @@ if(isset($_POST['submit']))
             $mail->Body = '<h3>Felicitari, contul a fost creat cu succes!</h3>';
 
             $mail->send();
-            echo "Mail trimis cu succes!";
         }
 
         catch(Exception $e)
         {
-            echo "Eroare!";
+            echo "Eroare!\n";
             echo "{$mail->ErrorInfo}";
         }
 
