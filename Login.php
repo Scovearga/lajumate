@@ -48,6 +48,7 @@
 <?php
 session_start();
 require_once "Classes/DbOperations.php";
+
 $_SESSION['userType'] = -2;
 function getUsersFromFile()
 {

@@ -88,6 +88,18 @@ function isUserInDB($name)
     return 0;
 }
 
+function getRandomString($length = 8)
+{
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $string = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $string .= $characters[mt_rand(0, strlen($characters) - 1)];
+    }
+
+    return $string;
+}
+
 if(isset($_POST['submit']))
 {
     //$users = getUsersFromFile();
@@ -115,7 +127,8 @@ if(isset($_POST['submit']))
 
             $mail->isHTML(true);
             $mail->Subject = "Cont creat";
-            $mail->Body = '<h3>Felicitari, contul a fost creat cu succes!</h3>';
+            $codConfirmare = getRandomString();
+            $mail->Body = '<h3>Codul de confirmare al contului este: ' . $codConfirmare . '</h3>';
 
             $mail->send();
         }
