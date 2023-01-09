@@ -1,5 +1,6 @@
 <?php
 require_once "Singleton.php";
+require_once "DbOperations.php";
 class Foods extends Product
 {
     private $expiryDate;
@@ -37,26 +38,13 @@ class Foods extends Product
     //region Functions
     public function writeInDB()
     {
-        $servername = "localhost";
-        $username = "root";
-        $password = "123456";
-        $dbname = "shop";
-        $conn = new mysqli($servername, $username,$password, $dbname);
         $name = $this->getName();
         $price = $this->getPrice();
         $quantity = $this->getQuantity();
         $category = $this->getCategory();
         $expiryDate = $this->getExpiryDate();
-        $sql = "INSERT INTO foods (Name, Price, Quantity, Category, ExpiryDate) 
-                VALUES ('$name', '$price', '$quantity', '$category', $expiryDate)";
-        if($conn->query($sql) == TRUE)
-        {
-            echo "<script> alert('New Item added');</script>";
-        }
-        else
-        {
-            echo "<script> alert('An error has occured!');</script>";
-        }
+        DbOperations::insertIntoDB("INSERT INTO foods (Name, Price, Quantity, Category, ExpiryDate) 
+                VALUES ('$name', '$price', '$quantity', '$category', $expiryDate)");
     }
     public function writeInFile()
     {

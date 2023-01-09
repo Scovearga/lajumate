@@ -136,6 +136,7 @@ if(isset($_POST['submitItem']))
             $foodType = 1;
         }
         $newFood = new Foods(0, $_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['expiryDate'], $foodType);
+
         $newFood->writeInDB();
     }
     elseif($_SESSION['productType'] == 'Toys')

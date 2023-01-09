@@ -1,5 +1,6 @@
 <?php
 
+require_once "DbOperations.php";
 class Toys extends Product
 {
     private $series;
@@ -38,28 +39,14 @@ class Toys extends Product
     //region Functions
     public function writeInDB()
     {
-        $servername = "localhost";
-        $username = "root";
-        $password = "123456";
-        $dbname = "shop";
-        $conn = new mysqli($servername, $username,$password, $dbname);
         $name = $this->getName();
         $price = $this->getPrice();
         $quantity = $this->getQuantity();
         $category = $this->getCategory();
         $series = $this->getSeries();
         $age = $this->getAge();
-        $sql = "INSERT INTO toys (Name, Price, Quantity, Category, Series, Age) 
-                VALUES ('$name', $price, $quantity, '$category', '$series', '$age')";
-        if($conn->query($sql) == TRUE)
-        {
-            echo "<script> alert('New Item added');</script>";
-        }
-        else
-        {
-            //echo $conn->error;
-            echo "<script> alert('An error has occured!');</script>";
-        }
+        DbOperations::insertIntoDB("INSERT INTO toys (Name, Price, Quantity, Category, Series, Age) 
+                VALUES ('$name', $price, $quantity, '$category', '$series', '$age')");
     }
     public function writeInFile()
     {

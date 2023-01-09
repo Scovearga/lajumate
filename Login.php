@@ -30,6 +30,9 @@
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                         </div>
+                        <div id="forgot-credentials" class="text-right">
+                            <a href="ForgotCredentials.php" class="text-info">Forgot Password</a>
+                        </div>
                         <div id="register-link" class="text-right">
                             <a href="Register.php" class="text-info">Register here</a>
                         </div>
