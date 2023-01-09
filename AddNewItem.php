@@ -128,6 +128,7 @@ if(isset($_POST['submitItem']))
 {
     $image_file = $_FILES["image"];
     var_dump($_FILES);
+    var_dump($_POST);
     echo '<br>';
     var_dump($image_file);
     if (!isset($image_file))
