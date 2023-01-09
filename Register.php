@@ -91,13 +91,10 @@ if(isset($_POST['submit']))
     {
        echo '<script>alert("A user with this username already exists")</script>';
     }
+    echo 'scovearga';
     else
     {
         addUserToDB($_POST['username'], $_POST['password']);
-//        $file = fopen("users", "a+");
-//        $user = $_POST['username'] . " " . $_POST['password'] . " 0\n";
-//        fwrite($file, $user);
-//        fclose($file);
         try
         {
             $mail = new PHPMailer;
