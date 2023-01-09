@@ -199,7 +199,7 @@ switch ($productType)
                                         <span class="input-group-addon"><button class="glyphicon glyphicon-pencil"></button></span>
                                     </div>
                                 </div>
-                                <div class="form-group" <?php echo ($productType != 'E')?: 'hidden';?>>
+                                <div class="form-group" <?php if ($productType != 'E') echo 'hidden';?>>
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
                                         <input name="color" type="Text" class="form-control" <?php echo $color?> placeholder="Color" />
