@@ -51,6 +51,7 @@ if(!isset($_GET['quantity']))
             array_push($_SESSION['products'], $ID);
             array_push($_SESSION['products'], $price);
             array_push($_SESSION['products'], $image);
+            array_push($_SESSION['products'], $quantity);
             break;
         }
         case "T":
@@ -72,6 +73,7 @@ if(!isset($_GET['quantity']))
             array_push($_SESSION['products'], $ID);
             array_push($_SESSION['products'], $price);
             array_push($_SESSION['products'], $image);
+            array_push($_SESSION['products'], $quantity);
             break;
         }
         case "E":
