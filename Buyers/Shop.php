@@ -36,7 +36,7 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
                 <div class="product-image">
                     <a href="LINK CATRE PAGINA PRODUS">
                         <img class="pic-1" src="<?php echo $products[$i]["image"]?>">
-                        <img class="pic-2" src="https://www.w3schools.com/bootstrap4/img_avatar3.png">
+                        <img class="pic-2" src="<?php echo $products[$i]["image2"]?>">
                     </a>
                     <ul class="social">
                         <li><a href="LINK CATRE PAGINA PRODUS" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
