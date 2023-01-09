@@ -93,6 +93,7 @@ if(isset($_POST['submit']))
     }
     else
     {
+        echo 'Scovearga ';
         addUserToDB($_POST['username'], $_POST['password']);
         try
         {
