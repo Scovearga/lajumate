@@ -1,15 +1,18 @@
 <?php
+session_start();
 require_once 'DbOperations.php';
 require_once '../Classes/Product.php';
 require_once '../Classes/Electronics.php';
 require_once '../Classes/Foods.php';
 require_once '../Classes/Toys.php';
-var_dump($_POST);
 
-$PostFromPrevious = array_keys($_POST);
-$PostFromPreviousExploded = explode("_", $PostFromPrevious[0]);
-$productType = $PostFromPreviousExploded[0];
-$ID = $PostFromPreviousExploded[1];
+if(!isset($_GET['quantity']))
+{
+    $PostFromPrevious = array_keys($_POST);
+    $PostFromPreviousExploded = explode("_", $PostFromPrevious[0]);
+    $productType = $PostFromPreviousExploded[0];
+    $ID = $PostFromPreviousExploded[1];
+}
 
 if (!isset($_SESSION['products']))
 {
@@ -21,80 +24,82 @@ if(!isset($_SESSION['numberOfProducts']))
     $_SESSION['numberOfProducts'] = 0;
 }
 
-var_dump($productType);
-var_dump($_SESSION);
-switch ($productType)
+if(!isset($_GET['quantity']))
 {
-    case "F":
+    switch ($productType)
     {
-        $foodsFromDB = DbOperations::getQueryTableResults("SELECT * FROM foods WHERE ID = '$ID'");
-        foreach ($foodsFromDB as $food)
+        case "F":
         {
-            $foodType = 1;
-            if($food["Category"] == "Perisabile")
+            $foodsFromDB = DbOperations::getQueryTableResults("SELECT * FROM foods WHERE ID = '$ID'");
+            foreach ($foodsFromDB as $food)
             {
-                $foodType = 0;
+                $foodType = 1;
+                if($food["Category"] == "Perisabile")
+                {
+                    $foodType = 0;
+                }
+                $newFood = new Foods($food["ID"], $food["Name"], $food["Price"], $food["Quantity"], $food["ExpiryDate"], $foodType, $food['image']);
             }
-            $newFood = new Foods($food["ID"], $food["Name"], $food["Price"], $food["Quantity"], $food["ExpiryDate"], $foodType, $food['image']);
+            $name = $newFood->getName();
+            $price = $newFood->getPrice();
+            $quantity = $newFood->getQuantity();
+            $category = $newFood->getCategory();
+            $expiryDate = $newFood->getExpiryDate();
+            $image = $newFood->getImagePath();
+            $_SESSION['numberOfProducts']++;
+            array_push($_SESSION['products'], $name);
+            array_push($_SESSION['products'], $ID);
+            array_push($_SESSION['products'], $price);
+            array_push($_SESSION['products'], $image);
+            break;
         }
-        $name = $newFood->getName();
-        $price = $newFood->getPrice();
-        $quantity = $newFood->getQuantity();
-        $category = $newFood->getCategory();
-        $expiryDate = $newFood->getExpiryDate();
-        $image = $newFood->getImagePath();
-        $_SESSION['numberOfProducts']++;
-        array_push($_SESSION['products'], $name);
-        array_push($_SESSION['products'], $ID);
-        array_push($_SESSION['products'], $price);
-        array_push($_SESSION['products'], $image);
-        break;
-    }
-    case "T":
-    {
-        $ToysFromDB = DbOperations::getQueryTableResults("SELECT * FROM toys WHERE ID = '$ID'");
-        foreach ($ToysFromDB as $toy)
+        case "T":
         {
-            $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"], $toy['image']);
+            $ToysFromDB = DbOperations::getQueryTableResults("SELECT * FROM toys WHERE ID = '$ID'");
+            foreach ($ToysFromDB as $toy)
+            {
+                $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"], $toy['image']);
+            }
+            $name = $newToy->getName();
+            $price = $newToy->getPrice();
+            $quantity = $newToy->getQuantity();
+            $category = $newToy->getCategory();
+            $series = $newToy->getSeries();
+            $age = $newToy->getAge();
+            $image = $newToy->getImagePath();
+            $_SESSION['numberOfProducts']++;
+            array_push($_SESSION['products'], $name);
+            array_push($_SESSION['products'], $ID);
+            array_push($_SESSION['products'], $price);
+            array_push($_SESSION['products'], $image);
+            break;
         }
-        $name = $newToy->getName();
-        $price = $newToy->getPrice();
-        $quantity = $newToy->getQuantity();
-        $category = $newToy->getCategory();
-        $series = $newToy->getSeries();
-        $age = $newToy->getAge();
-        $image = $newToy->getImagePath();
-        $_SESSION['numberOfProducts']++;
-        array_push($_SESSION['products'], $name);
-        array_push($_SESSION['products'], $ID);
-        array_push($_SESSION['products'], $price);
-        array_push($_SESSION['products'], $image);
-        break;
-    }
-    case "E":
-    {
-        $ElectronicsFromDB = DbOperations::getQueryTableResults("SELECT * FROM electronics WHERE ID = '$ID'");
-        foreach ($ElectronicsFromDB as $electronic)
+        case "E":
         {
-            $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"], $electronic['image']);
+            $ElectronicsFromDB = DbOperations::getQueryTableResults("SELECT * FROM electronics WHERE ID = '$ID'");
+            foreach ($ElectronicsFromDB as $electronic)
+            {
+                $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"], $electronic['image']);
+            }
+            $name = $newElectronic->getName();
+            $price = $newElectronic->getPrice();
+            $quantity = $newElectronic->getQuantity();
+            $category = $newElectronic->getCategory();
+            $producer = $newElectronic->getProducer();
+            $powerConsumption = $newElectronic->getPowerConsumption();
+            $color = $newElectronic->getColor();
+            $image = $newElectronic->getImagePath();
+            $_SESSION['numberOfProducts']++;
+            array_push($_SESSION['products'], $name);
+            array_push($_SESSION['products'], $ID);
+            array_push($_SESSION['products'], $price);
+            array_push($_SESSION['products'], $image);
+            array_push($_SESSION['products'], $quantity);
+            break;
         }
-        $name = $newElectronic->getName();
-        $price = $newElectronic->getPrice();
-        $quantity = $newElectronic->getQuantity();
-        $category = $newElectronic->getCategory();
-        $producer = $newElectronic->getProducer();
-        $powerConsumption = $newElectronic->getPowerConsumption();
-        $color = $newElectronic->getColor();
-        $image = $newElectronic->getImagePath();
-        $_SESSION['numberOfProducts']++;
-        array_push($_SESSION['products'], $name);
-        array_push($_SESSION['products'], $ID);
-        array_push($_SESSION['products'], $price);
-        array_push($_SESSION['products'], $image);
-        break;
     }
 }
-var_dump($_SESSION);
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -115,8 +120,6 @@ var_dump($_SESSION);
         <div class="col-lg-10 col-12 pt-3">
             <div class="d-flex">
                 <div class="pt-1"><h4>La jumate</h4></div>
-                <div class="ml-auto p-2"><a href="#" class="text-dark text-decoration-none" id="mobile-font">LOGIN</a></div>
-                <div class="p-2"><a href="#" class="text-dark text-decoration-none a" id="mobile-font">HELP</a></div>
             </div>
             <div class="d-flex flex-column pt-4">
                 <div><h5 class="text-uppercase font-weight-normal">shopping bag</h5></div>
@@ -129,7 +132,7 @@ var_dump($_SESSION);
                 <div class="px-lg-5 ml-lg-3" id="total">TOTAL</div>
             </div>
             <?php
-                for($i = 0; $i <= $_SESSION['numberOfProducts']; ++$i)
+                for($i = 0; $i < $_SESSION['numberOfProducts']; ++$i)
                 {
             ?>
             <div class="d-flex flex-row justify-content-between align-items-center pt-lg-4 pt-2 pb-3 border-bottom mobile">
@@ -140,11 +143,15 @@ var_dump($_SESSION);
                         <div >Art. ID:<span class="pl-2"><?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 1]?></span></div>
                     </div>
                 </div>
-                <div class="pl-md-0 pl-1"><b><?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 2]?> lei</b></div>
+                <div style="margin-left: 55px" class="pl-md-0 pl-1"><b><?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 2]?> lei</b></div>
                 <div class="pl-md-0 pl-2">
-                    <span class="fa fa-minus-square text-secondary"></span><span class="px-md-3 px-1">2</span><span class="fa fa-plus-square text-secondary"></span>
+                    <form style="margin-top: 20px" action="Cart.php" method="get">
+                        <input type="number" id="quantity" name="quantity" min="0" max="<?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 4]?>" step="1" value="<?php if(!isset($_GET['quantity'])) echo 1; else echo $_GET['quantity'];?>">
+                        <input type="submit" value="Submit">
+                    </form>
                 </div>
-                <div class="pl-md-0 pl-1"><b>$19.98</b></div>
+                <div class="pl-md-0 pl-1"><b><?php if(isset($_GET['quantity'])) echo $_GET['quantity'] * $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 2];
+                else echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 2]?> lei</b></div>
                 <div class="close">&times;</div>
             </div>
             <?php
@@ -158,7 +165,9 @@ var_dump($_SESSION);
         <div class="col-lg-10 col-12">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <button class="btn btn-sm bg-light border border-dark">GO BACK</button>
+                    <form action="Shop.php">
+                        <button class="btn btn-sm bg-light border border-dark">Back to shopping</button>
+                    </form>
                 </div>
                 <div class="px-md-0 px-1" id="footer-font">
                     <b class="pl-md-4">SUBTOTAL<span class="pl-md-4">$61.78</span></b>
