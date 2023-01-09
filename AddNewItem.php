@@ -40,7 +40,7 @@ else
                                 <option <?php if(isset($_POST['option']) && $_POST['option'] == "Electronics") echo "selected"?> value="Electronics">Electronics</option>
                             </select>
                         </form>
-                        <form class="form form-signup" role="form" method="post">
+                        <form class="form form-signup" role="form" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <div class="input-group">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-pencil"></span>
@@ -127,7 +127,7 @@ $ID = 0;
 if(isset($_POST['submitItem']))
 {
     $image_file = $_FILES["image"];
-    var_dump($_FILES);
+    echo $_FILES["file"]["error"];
     var_dump($_POST);
     echo '<br>';
     var_dump($image_file);
