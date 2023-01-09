@@ -24,7 +24,6 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
 <body>
 <div class="container">
     <?php
-    var_dump($numberOfProducts);
     for($i = 0; $i < $numberOfProducts; ++$i)
     {
         if($i % 4 == 0)
@@ -36,12 +35,11 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
             <div class="product-grid">
                 <div class="product-image">
                     <a href="LINK CATRE PAGINA PRODUS">
-                        <img class="pic-1" src="https://www.w3schools.com/bootstrap4/img_avatar4.png">
+                        <img class="pic-1" src="<?php echo $products[$i]["image"]?>">
                         <img class="pic-2" src="https://www.w3schools.com/bootstrap4/img_avatar3.png">
                     </a>
                     <ul class="social">
                         <li><a href="LINK CATRE PAGINA PRODUS" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
-                        <li><a href="" data-tip="Add to Wishlist"><i class="fa fa-shopping-bag"></i></a></li>
                         <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>
                 </div>
