@@ -127,6 +127,9 @@ $ID = 0;
 if(isset($_POST['submitItem']))
 {
     $image_file = $_FILES["image"];
+    var_dump($_FILES);
+    echo '<br>';
+    var_dump($image_file);
     if (!isset($image_file))
     {
         die('No file uploaded.');
