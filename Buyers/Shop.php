@@ -24,6 +24,7 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
 <body>
 <div class="container">
     <?php
+    var_dump($numberOfProducts);
     for($i = 0; $i < $numberOfProducts; ++$i)
     {
         if($i % 4 == 0)
