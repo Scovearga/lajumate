@@ -1,5 +1,5 @@
 <?php
-include "C:\Bitnami\wampstack-8.1.10-0\apache2\htdocs\Shop\Classes\GetProductsFromDB.php";
+include "Shop2\Classes\GetProductsFromDB.php";
 include 'ShopHeader.php';
 $foods = GetProductsFromDB::getAllFoodsFromDB();
 $toys = GetProductsFromDB::getAllToysFromDB();
