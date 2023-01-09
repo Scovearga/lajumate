@@ -105,7 +105,7 @@ if(isset($_POST['submit']))
             $mail->Password = "lajumate";
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
-
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
             $mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
             $mail->addAddress("andreivirgil@hotmail.com");
 
