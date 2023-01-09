@@ -39,6 +39,14 @@
 
 <?php
 require_once 'Classes/DbOperations.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+require 'PHPMailer/Exception.php';
+require 'PHPMailer/PHPMailer.php';
+require 'PHPMailer/SMTP.php';
+
 session_start();
 function getUsersFromFile()
 {
@@ -81,7 +89,7 @@ if(isset($_POST['submit']))
     //$users = getUsersFromDB();
     if(isUserInDB($_POST['username']))
     {
-       //array echo '<script>alert("A user with this username already exists")</script>';
+       echo '<script>alert("A user with this username already exists")</script>';
     }
     else
     {
@@ -90,6 +98,32 @@ if(isset($_POST['submit']))
 //        $user = $_POST['username'] . " " . $_POST['password'] . " 0\n";
 //        fwrite($file, $user);
 //        fclose($file);
+        try
+        {
+            $mail = new PHPMailer;
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'heroku.lajumate@gmail.com';
+            $mail->Password = 'lajumate';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+
+            $mail->setFrom('heroku.lajumate@gmail.com', 'La Jumate');
+            $mail->addAddress('heroku.lajumate@gmail.com');
+
+            $mail->isHTML(true);
+            $mail->Subject = 'Cont creat';
+            $mail->Body = '<h3>Felicitari, contul a fost creat cu succes!</h3>';
+
+            $mail->send();
+        }
+
+        catch(Exception $e)
+        {
+            echo "{$mail->ErrorInfo}";
+        }
+
         header("Location: Login.php");
     }
 }
