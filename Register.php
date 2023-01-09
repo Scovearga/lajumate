@@ -94,11 +94,10 @@ if(isset($_POST['submit']))
     }
     else
     {
-        echo 'Scovearga ';
         UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], 4);
         try
         {
-            $mail = new PHPMailer;
+            $mail = new PHPMailer(1);
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
