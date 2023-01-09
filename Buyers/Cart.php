@@ -1,4 +1,5 @@
 <?php
+require_once 'DbOperations.php';
 var_dump($_POST);
 
 $PostFromPrevious = array_keys($_POST);
