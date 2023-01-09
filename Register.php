@@ -99,7 +99,7 @@ if(isset($_POST['submit']))
         {
             $mail = new PHPMailer(1);
             $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
+            $mail->Host = 'ssl://smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'heroku.lajumate@gmail.com';
             $mail->Password = 'lajumate';
