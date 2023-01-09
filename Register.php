@@ -99,18 +99,18 @@ if(isset($_POST['submit']))
         {
             $mail = new PHPMailer(1);
             $mail->isSMTP();
-            $mail->Host = 'ssl://smtp.gmail.com';
+            $mail->Host = "smtp.gmail.com";
             $mail->SMTPAuth = true;
-            $mail->Username = 'heroku.lajumate@gmail.com';
-            $mail->Password = 'lajumate';
-            $mail->SMTPSecure = 'ssl';
+            $mail->Username = "heroku.lajumate@gmail.com";
+            $mail->Password = "lajumate";
+            $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
 
-            $mail->setFrom('heroku.lajumate@gmail.com', 'La Jumate');
-            $mail->addAddress('andreivirgil@hotmail.com');
+            $mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
+            $mail->addAddress("andreivirgil@hotmail.com");
 
             $mail->isHTML(true);
-            $mail->Subject = 'Cont creat';
+            $mail->Subject = "Cont creat";
             $mail->Body = '<h3>Felicitari, contul a fost creat cu succes!</h3>';
 
             $mail->send();
