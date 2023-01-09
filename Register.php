@@ -122,6 +122,7 @@ if(isset($_POST['submit']))
 
         catch(Exception $e)
         {
+            echo "Eroare!";
             echo "{$mail->ErrorInfo}";
         }
 
