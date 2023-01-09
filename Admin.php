@@ -82,7 +82,7 @@ foreach ($foodsFromDB as $food)
     {
         $foodType = 0;
     }
-    $newFood = new Foods($food["ID"], $food["Name"], $food["Price"], $food["Quantity"], $food["ExpiryDate"], $foodType);
+    $newFood = new Foods($food["ID"], $food["Name"], $food["Price"], $food["Quantity"], $food["ExpiryDate"], $foodType, $food["image"]);
     array_push($foods, $newFood);
 }
 
@@ -90,14 +90,14 @@ foreach ($foodsFromDB as $food)
 $ElectronicsFromDB = DbOperations::getQueryTableResults("SELECT * FROM electronics");
 foreach ($ElectronicsFromDB as $electronic)
 {
-    $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"]);
+    $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"], $electronic["image"]);
     array_push($electronics, $newElectronic);
 }
 //read Toys:
 $ToysFromDB = DbOperations::getQueryTableResults("SELECT * FROM toys");
 foreach ($ToysFromDB as $toy)
 {
-    $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"]);
+    $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"], $toy["image"]);
     array_push($toys, $newToy);
 }
 // endregion
