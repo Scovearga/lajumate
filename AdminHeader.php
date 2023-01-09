@@ -53,7 +53,7 @@ if($numRows == 0)
                     <input type="submit" class="btn btn-info btn-md" value="Add Role">
                 </li>
             </form>
-            <form action="ModifyRole.php">
+            <form style="margin-right: 10px" action="ModifyRole.php">
                 <li class="nav-item" role="presentation">
                     <input type="submit" class="btn btn-info btn-md" value="Modify Role">
                 </li>
