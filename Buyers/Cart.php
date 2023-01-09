@@ -54,6 +54,7 @@ switch ($productType)
     case "E":
     {
         $ElectronicsFromDB = DbOperations::getQueryTableResults("SELECT * FROM electronics WHERE ID = '$ID'");
+        var_dump($ElectronicsFromDB);
         foreach ($ElectronicsFromDB as $electronic)
         {
             $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"], $electronic['image']);
@@ -106,11 +107,6 @@ var_dump($_SESSION);
                 <div class="px-lg-5 ml-lg-1" id="quantity">QUANTITY</div>
                 <div class="px-lg-5 ml-lg-3" id="total">TOTAL</div>
             </div>
-<!--            --><?php
-//            for($i = 0; $i < count($_SESSION['products']); ++$i)
-//            {
-//                var_dump($_SESSION);
-//            ?>
             <div class="d-flex flex-row justify-content-between align-items-center pt-lg-4 pt-2 pb-3 border-bottom mobile">
                 <div class="d-flex flex-row align-items-center">
                     <div><img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" width="150" height="150" alt="" id="image"></div>
@@ -126,9 +122,6 @@ var_dump($_SESSION);
                 <div class="pl-md-0 pl-1"><b>$19.98</b></div>
                 <div class="close">&times;</div>
             </div>
-<!--            --><?php //echo "";
-//            }
-//            ?>
             <div class="d-flex flex-row justify-content-between align-items-center pt-4 pb-3 mobile">
                 <div class="d-flex flex-row align-items-center">
                     <div><img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" width="150" height="150" alt="" id="image"></div>
