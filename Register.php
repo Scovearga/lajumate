@@ -124,7 +124,7 @@ if(isset($_POST['submit']))
             echo "{$mail->ErrorInfo}";
         }
 
-        header("Location: Login.php");
+        //header("Location: Login.php");
     }
 }
 ?>
