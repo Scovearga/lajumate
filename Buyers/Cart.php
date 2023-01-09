@@ -37,7 +37,7 @@ switch ($productType)
         $category = $newFood->getCategory();
         $expiryDate = $newFood->getExpiryDate();
         $image = $newFood->getImagePath();
-//        array_push($_SESSION['products'], $newFood);
+        array_push($_SESSION['products'], $newFood);
         break;
     }
     case "T":
@@ -54,13 +54,12 @@ switch ($productType)
         $series = $newToy->getSeries();
         $age = $newToy->getAge();
         $image = $newToy->getImagePath();
-//        array_push($_SESSION['products'], $newToy);
+        array_push($_SESSION['products'], $newToy);
         break;
     }
     case "E":
     {
         $ElectronicsFromDB = DbOperations::getQueryTableResults("SELECT * FROM electronics WHERE ID = '$ID'");
-        var_dump($ElectronicsFromDB);
         foreach ($ElectronicsFromDB as $electronic)
         {
             $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"], $electronic['image']);
@@ -73,9 +72,7 @@ switch ($productType)
         $powerConsumption = $newElectronic->getPowerConsumption();
         $color = $newElectronic->getColor();
         $image = $newElectronic->getImagePath();
-//        array_push($_SESSION['products'], $price);
-//        array_push($_SESSION['products'], $image);
-//        array_push($_SESSION['products'], $name);
+        array_push($_SESSION['products'], $newElectronic);
         break;
     }
 }
