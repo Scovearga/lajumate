@@ -103,8 +103,8 @@ if(isset($_POST['submit']))
             $mail->SMTPAuth = true;
             $mail->Username = 'heroku.lajumate@gmail.com';
             $mail->Password = 'lajumate';
-            $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port = 465;
 
             $mail->setFrom('heroku.lajumate@gmail.com', 'La Jumate');
             $mail->addAddress('andreivirgil@hotmail.com');
