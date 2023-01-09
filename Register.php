@@ -18,6 +18,10 @@
                     <form id="register" class="form" method="post">
                         <h3 class="text-center text-info">Register</h3>
                         <div class="form-group">
+                            <label for="email" class="text-info">E-mail:</label><br>
+                            <input type="text" name="email" id="email" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label for="username" class="text-info">Username:</label><br>
                             <input type="text" name="username" id="username" class="form-control">
                         </div>
@@ -94,7 +98,7 @@ if(isset($_POST['submit']))
     }
     else
     {
-        UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], 4);
+        UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], 4, $_POST['email']);
         try
         {
             $mail = new PHPMailer(1);
@@ -106,7 +110,8 @@ if(isset($_POST['submit']))
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
             $mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
-            $mail->addAddress("andreivirgil@hotmail.com");
+            $email = $_POST["email"];
+            $mail->addAddress($email);
 
             $mail->isHTML(true);
             $mail->Subject = "Cont creat";
@@ -121,7 +126,7 @@ if(isset($_POST['submit']))
             echo "{$mail->ErrorInfo}";
         }
 
-        //header("Location: Login.php");
+        header("Location: Login.php");
     }
 }
 ?>

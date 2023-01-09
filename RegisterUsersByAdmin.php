@@ -21,6 +21,10 @@ include "AdminHeader.php";
                     <form id="register" class="form" method="post">
                         <h3 class="text-center text-info">Register</h3>
                         <div class="form-group">
+                            <label for="email" class="text-info">E-mail:</label><br>
+                            <input type="text" name="email" id="email" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label for="username" class="text-info">Username:</label><br>
                             <input type="text" name="username" id="username" class="form-control">
                             <?php if(isset($_SESSION['error'])) echo $_SESSION['error'] ?>
@@ -94,7 +98,7 @@ if(isset($_POST['submit']))
     if(!empty($_POST['username']) && !empty($_POST['password']))
     {
         unset($_SESSION['error']);
-        UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], $_POST['option']);
+        UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], $_POST['option'], $_POST['email']);
     }
 }
 ?>

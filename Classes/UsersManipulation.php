@@ -13,9 +13,9 @@ class UsersManipulation
         return 0;
     }
 
-    public static function addUserToDB($name, $pass, $userType)
+    public static function addUserToDB($name, $pass, $userType, $email)
     {
         $pass = password_hash($pass, PASSWORD_DEFAULT);
-        DbOperations::insertIntoDB("INSERT INTO `users` (`Name`, `Password`, `IDRole`) VALUES ('$name', '$pass', '$userType');");
+        DbOperations::insertIntoDB("INSERT INTO `users` (`Name`, `Password`, `IDRole`, `Email`) VALUES ('$name', '$pass', '$userType', '$email');");
     }
 }
