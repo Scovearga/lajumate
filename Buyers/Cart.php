@@ -1,6 +1,6 @@
 <?php
 var_dump($_POST);
-var_dump($_SESSION);
+
 $PostFromPrevious = array_keys($_POST);
 $PostFromPreviousExploded = explode("_", $PostFromPrevious[0]);
 $productType = $PostFromPreviousExploded[0];
@@ -11,6 +11,7 @@ if (!isset($_SESSION['products']))
     $_SESSION['products'] = array();
 }
 var_dump($productType);
+var_dump($_SESSION);
 switch ($productType)
 {
     case "F":
@@ -31,7 +32,7 @@ switch ($productType)
         $category = $newFood->getCategory();
         $expiryDate = $newFood->getExpiryDate();
         $image = $newFood->getImagePath();
-        array_push($_SESSION['products'], $newFood);
+//        array_push($_SESSION['products'], $newFood);
         break;
     }
     case "T":
@@ -48,7 +49,7 @@ switch ($productType)
         $series = $newToy->getSeries();
         $age = $newToy->getAge();
         $image = $newToy->getImagePath();
-        array_push($_SESSION['products'], $newToy);
+//        array_push($_SESSION['products'], $newToy);
         break;
     }
     case "E":
