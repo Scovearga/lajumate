@@ -8,14 +8,17 @@ class Product
     private $quantity;
     private $category;
 
+    private $imagePath;
+
     //region Constructor/Destructor
-    public function __construct($ID, $name, $price, $quantity, $category)
+    public function __construct($ID, $name, $price, $quantity, $category, $imagePath)
     {
         $this->ID = $ID;
         $this->name = $name;
         $this->price = $price;
         $this->quantity = $quantity;
         $this->category = $category;
+        $this->imagePath = $imagePath;
     }
     public function __destruct()
     {
@@ -58,6 +61,11 @@ class Product
     public function getID()
     {
         return $this->ID;
+    }
+
+    public function getImagePath()
+    {
+        return $this->imagePath;
     }
     //endregion
     //region Functions

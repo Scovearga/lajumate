@@ -103,6 +103,7 @@ else
                                     <input name="color" type="Text" class="form-control" value="" placeholder="Color" />
                                 </div>
                             </div>
+                            <input type="file" name="image"/>
                             <input type="submit" name="submitItem" class="btn btn-info btn-md" value="Add Item">
                             <a href="Admin.php" class="btn btn-info btn-md">Admin page</a>
                         </form>
@@ -125,6 +126,15 @@ $ID = 0;
 
 if(isset($_POST['submitItem']))
 {
+    $image_file = $_FILES["image"];
+    if (!isset($image_file))
+    {
+        die('No file uploaded.');
+    }
+    move_uploaded_file($image_file["tmp_name"], __DIR__ . "/Buyers/Images/" . $image_file["name"]);
+
+    $imagePath = "Images/" . $image_file["name"];
+
     if($_SESSION['productType'] == 'Foods')
     {
         if($_POST['expiryDate'] != 0)
@@ -135,18 +145,17 @@ if(isset($_POST['submitItem']))
         {
             $foodType = 1;
         }
-        $newFood = new Foods(0, $_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['expiryDate'], $foodType);
-
+        $newFood = new Foods(0, $_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['expiryDate'], $foodType, $imagePath);
         $newFood->writeInDB();
     }
     elseif($_SESSION['productType'] == 'Toys')
     {
-        $newToy = new Toys(0, $_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['category'], $_POST['series'], $_POST['age']);
+        $newToy = new Toys(0, $_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['category'], $_POST['series'], $_POST['age'], $imagePath);
         $newToy->writeInDB();
     }
     elseif($_SESSION['productType'] == 'Electronics')
     {
-        $newElectronic = new Electronics(0, $_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['category'], $_POST['producer'], $_POST['power'], $_POST['color']);
+        $newElectronic = new Electronics(0, $_POST['name'], $_POST['price'], $_POST['quantity'], $_POST['category'], $_POST['producer'], $_POST['power'], $_POST['color'], $imagePath);
         $newElectronic->writeInDB();
         //$newElectronic->writeInFile();
     }

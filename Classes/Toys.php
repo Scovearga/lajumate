@@ -7,9 +7,9 @@ class Toys extends Product
     private $age;
 
     //region Constructor/Destructor
-    public function __construct($ID, $name, $price, $quantity, $category, $series, $age)
+    public function __construct($ID, $name, $price, $quantity, $category, $series, $age, $imagePath)
     {
-        parent::__construct($ID, $name, $price, $quantity, $category);
+        parent::__construct($ID, $name, $price, $quantity, $category, $imagePath);
         $this->series = $series;
         $this->age = $age;
     }
@@ -45,8 +45,9 @@ class Toys extends Product
         $category = $this->getCategory();
         $series = $this->getSeries();
         $age = $this->getAge();
-        DbOperations::insertIntoDB("INSERT INTO toys (Name, Price, Quantity, Category, Series, Age) 
-                VALUES ('$name', $price, $quantity, '$category', '$series', '$age')");
+        $imagePath = $this->getImagePath();
+        DbOperations::insertIntoDB("INSERT INTO toys (Name, Price, Quantity, Category, Series, Age, image) 
+                VALUES ('$name', $price, $quantity, '$category', '$series', '$age', '$imagePath')");
     }
     public function writeInFile()
     {

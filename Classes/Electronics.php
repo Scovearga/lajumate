@@ -7,9 +7,9 @@ class Electronics extends Product
     private $color;
 
     //region Constructor/Destructor
-    public function __construct($ID, $name, $price, $quantity, $category, $producer, $powerConsumption, $color)
+    public function __construct($ID, $name, $price, $quantity, $category, $producer, $powerConsumption, $color, $imagePath)
     {
-        parent::__construct($ID, $name, $price, $quantity, $category);
+        parent::__construct($ID, $name, $price, $quantity, $category, $imagePath);
         $this->producer = $producer;
         $this->powerConsumption = $powerConsumption;
         $this->color = $color;
@@ -55,8 +55,9 @@ class Electronics extends Product
         $producer = $this->getProducer();
         $powerConsumption = $this->getPowerConsumption();
         $color = $this->getColor();
-        DbOperations::insertIntoDB("INSERT INTO electronics (Name, Price, Quantity, Category, Producer, PowerConsumption, Color) 
-                VALUES ('$name', $price, $quantity, '$category', '$producer', '$powerConsumption', '$color')");
+        $imagePath = $this->getImagePath();
+        DbOperations::insertIntoDB("INSERT INTO electronics (Name, Price, Quantity, Category, Producer, PowerConsumption, Color, image) 
+                VALUES ('$name', $price, $quantity, '$category', '$producer', '$powerConsumption', '$color', '$imagePath')");
     }
     public function writeInFile()
     {

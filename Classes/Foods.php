@@ -6,7 +6,7 @@ class Foods extends Product
     private $expiryDate;
 
     //region Constructor/Destructor
-    public function __construct($ID, $name, $price, $quantity, $expiryDate, $foodType)
+    public function __construct($ID, $name, $price, $quantity, $expiryDate, $foodType, $imagePath)
     {
         if ($foodType == 0)
         {
@@ -17,7 +17,7 @@ class Foods extends Product
         {
             $category = "Neperisabile";
         }
-        parent::__construct($ID, $name, $price, $quantity, $category);
+        parent::__construct($ID, $name, $price, $quantity, $category, $imagePath);
         $this->expiryDate = $expiryDate;
     }
     public function __destruct()
@@ -43,8 +43,9 @@ class Foods extends Product
         $quantity = $this->getQuantity();
         $category = $this->getCategory();
         $expiryDate = $this->getExpiryDate();
-        DbOperations::insertIntoDB("INSERT INTO foods (Name, Price, Quantity, Category, ExpiryDate) 
-                VALUES ('$name', '$price', '$quantity', '$category', $expiryDate)");
+        $imagePath = $this->getImagePath();
+        DbOperations::insertIntoDB("INSERT INTO foods (Name, Price, Quantity, Category, ExpiryDate, image) 
+                VALUES ('$name', '$price', '$quantity', '$category', $expiryDate, '$imagePath')");
     }
     public function writeInFile()
     {
