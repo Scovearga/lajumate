@@ -26,6 +26,7 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
     <?php
     for($i = 0; $i < $numberOfProducts; ++$i)
     {
+        var_dump($products[$i]);
         if($i % 4 == 0)
         {
             echo "<div class='row'>";
