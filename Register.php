@@ -39,6 +39,7 @@
 
 <?php
 require_once 'Classes/DbOperations.php';
+require_once "Classes/UsersManipulation.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
@@ -94,7 +95,7 @@ if(isset($_POST['submit']))
     else
     {
         echo 'Scovearga ';
-        addUserToDB($_POST['username'], $_POST['password']);
+        UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], 4);
         try
         {
             $mail = new PHPMailer;
