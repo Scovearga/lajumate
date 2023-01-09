@@ -129,6 +129,7 @@ if(isset($_POST['submit']))
             $mail->Subject = "Cont creat";
             $codConfirmare = getRandomString();
             $continutMail = '<h3> Codul de confirmare al contului este: ' . $codConfirmare . '</h3>';
+            var_dump($continutMail);
             $mail->Body = $continutMail;
 
             $mail->send();
@@ -140,7 +141,7 @@ if(isset($_POST['submit']))
             echo "{$mail->ErrorInfo}";
         }
 
-        header("Location: Login.php");
+        //header("Location: Login.php");
     }
 }
 ?>
