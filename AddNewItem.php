@@ -103,7 +103,7 @@ else
                                     <input name="color" type="Text" class="form-control" value="" placeholder="Color" />
                                 </div>
                             </div>
-                            <input type="file" name="image"/>
+                            <input type="file" name="image" accept="image/*"/>
                             <input type="submit" name="submitItem" class="btn btn-info btn-md" value="Add Item">
                             <a href="Admin.php" class="btn btn-info btn-md">Admin page</a>
                         </form>
