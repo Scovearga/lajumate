@@ -102,7 +102,7 @@ if(isset($_POST['submit']))
             $mail->Host = "smtp.gmail.com";
             $mail->SMTPAuth = true;
             $mail->Username = "heroku.lajumate@gmail.com";
-            $mail->Password = "lajumate";
+            $mail->Password = "kejfuoabqoacvuua";
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
             $mail->SMTPDebug = SMTP::DEBUG_SERVER;
