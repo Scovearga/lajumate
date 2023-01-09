@@ -14,15 +14,11 @@
 <body>
 <div class="d-flex align-items-center justify-content-center vh-100">
     <div class="text-center">
-        <h1 class="display-1 fw-bold">Ati fost deconectat!</h1>
         <p class="fs-3"> <span class="text-danger">Ati fost deconectat!</span></p>
-        <p class="lead">
-            Ati fost deconectat!
-        </p>
         <a href="Login.php" class="btn btn-primary">Log in Page</a>
     </div>
 </div>
 </body>
-
-
 </html>
+<?php
+session_destroy();
