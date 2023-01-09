@@ -10,7 +10,7 @@ if (!isset($_SESSION['products']))
 {
     $_SESSION['products'] = array();
 }
-
+var_dump($productType);
 switch ($productType)
 {
     case "F":
@@ -66,7 +66,9 @@ switch ($productType)
         $powerConsumption = $newElectronic->getPowerConsumption();
         $color = $newElectronic->getColor();
         $image = $newElectronic->getImagePath();
-        array_push($_SESSION['products'], $newElectronic);
+        array_push($_SESSION['products'], $price);
+        array_push($_SESSION['products'], $image);
+        array_push($_SESSION['products'], $name);
         break;
     }
 }
