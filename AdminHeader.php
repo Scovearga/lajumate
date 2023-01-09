@@ -3,7 +3,7 @@ require_once 'Classes/DbOperations.php';
 session_start();
 $url = $_SERVER['REQUEST_URI'];
 var_dump($url);
-$currentPage = explode(".", explode("/", $url)[2])[0];
+$currentPage = explode(".", explode("/", $url)[1])[0];
 var_dump($currentPage);
 $role = $_SESSION['userType'];
 $numRows = DbOperations::numQueryResults("SELECT * FROM sectionsroles WHERE (IDRole = $role AND IDSection = (SELECT ID FROM SECTIONS WHERE SectionName = '$currentPage'))");
