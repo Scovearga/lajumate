@@ -1,5 +1,9 @@
 <?php
 require_once 'DbOperations.php';
+require_once '../Classes/Product.php';
+require_once '../Classes/Electronics.php';
+require_once '../Classes/Foods.php';
+require_once '../Classes/Toys.php';
 var_dump($_POST);
 
 $PostFromPrevious = array_keys($_POST);
