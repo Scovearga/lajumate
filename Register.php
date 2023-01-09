@@ -110,7 +110,7 @@ if(isset($_POST['submit']))
             $mail->Port = 587;
 
             $mail->setFrom('heroku.lajumate@gmail.com', 'La Jumate');
-            $mail->addAddress('heroku.lajumate@gmail.com');
+            $mail->addAddress('andreivirgil@hotmail.com');
 
             $mail->isHTML(true);
             $mail->Subject = 'Cont creat';
