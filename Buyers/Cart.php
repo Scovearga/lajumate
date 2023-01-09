@@ -1,6 +1,75 @@
 <?php
 var_dump($_POST);
 var_dump($_SESSION);
+$PostFromPrevious = array_keys($_POST);
+$PostFromPreviousExploded = explode("_", $PostFromPrevious[0]);
+$productType = $PostFromPreviousExploded[0];
+$ID = $PostFromPreviousExploded[1];
+
+if (!isset($_SESSION['products']))
+{
+    $_SESSION['products'] = array();
+}
+
+switch ($productType)
+{
+    case "F":
+    {
+        $foodsFromDB = DbOperations::getQueryTableResults("SELECT * FROM foods WHERE ID = '$ID'");
+        foreach ($foodsFromDB as $food)
+        {
+            $foodType = 1;
+            if($food["Category"] == "Perisabile")
+            {
+                $foodType = 0;
+            }
+            $newFood = new Foods($food["ID"], $food["Name"], $food["Price"], $food["Quantity"], $food["ExpiryDate"], $foodType, $food['image']);
+        }
+        $name = $newFood->getName();
+        $price = $newFood->getPrice();
+        $quantity = $newFood->getQuantity();
+        $category = $newFood->getCategory();
+        $expiryDate = $newFood->getExpiryDate();
+        $image = $newFood->getImagePath();
+        array_push($_SESSION['products'], $newFood);
+        break;
+    }
+    case "T":
+    {
+        $ToysFromDB = DbOperations::getQueryTableResults("SELECT * FROM toys WHERE ID = '$ID'");
+        foreach ($ToysFromDB as $toy)
+        {
+            $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"], $toy['image']);
+        }
+        $name = $newToy->getName();
+        $price = $newToy->getPrice();
+        $quantity = $newToy->getQuantity();
+        $category = $newToy->getCategory();
+        $series = $newToy->getSeries();
+        $age = $newToy->getAge();
+        $image = $newToy->getImagePath();
+        array_push($_SESSION['products'], $newToy);
+        break;
+    }
+    case "E":
+    {
+        $ElectronicsFromDB = DbOperations::getQueryTableResults("SELECT * FROM electronics WHERE ID = '$ID'");
+        foreach ($ElectronicsFromDB as $electronic)
+        {
+            $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"], $electronic['image']);
+        }
+        $name = $newElectronic->getName();
+        $price = $newElectronic->getPrice();
+        $quantity = $newElectronic->getQuantity();
+        $category = $newElectronic->getCategory();
+        $producer = $newElectronic->getProducer();
+        $powerConsumption = $newElectronic->getPowerConsumption();
+        $color = $newElectronic->getColor();
+        $image = $newElectronic->getImagePath();
+        array_push($_SESSION['products'], $newElectronic);
+        break;
+    }
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -20,7 +89,7 @@ var_dump($_SESSION);
     <div class="row d-flex justify-content-center">
         <div class="col-lg-10 col-12 pt-3">
             <div class="d-flex">
-                <div class="pt-1"><h4>My T-shirt</h4></div>
+                <div class="pt-1"><h4>La jumate</h4></div>
                 <div class="ml-auto p-2"><a href="#" class="text-dark text-decoration-none" id="mobile-font">LOGIN</a></div>
                 <div class="p-2"><a href="#" class="text-dark text-decoration-none a" id="mobile-font">HELP</a></div>
             </div>
@@ -34,14 +103,17 @@ var_dump($_SESSION);
                 <div class="px-lg-5 ml-lg-1" id="quantity">QUANTITY</div>
                 <div class="px-lg-5 ml-lg-3" id="total">TOTAL</div>
             </div>
+            <?php
+            for($i = 0; $i < count($_SESSION['products']); ++$i)
+            {
+                var_dump($_SESSION);
+            ?>
             <div class="d-flex flex-row justify-content-between align-items-center pt-lg-4 pt-2 pb-3 border-bottom mobile">
                 <div class="d-flex flex-row align-items-center">
                     <div><img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" width="150" height="150" alt="" id="image"></div>
                     <div class="d-flex flex-column pl-md-3 pl-1">
                         <div><h6>COTTON T-SHIRT</h6></div>
-                        <div >Art.No:<span class="pl-2">091091001</span></div>
-                        <div>Color:<span class="pl-3">White</span></div>
-                        <div>Size:<span class="pl-4"> M</span></div>
+                        <div >Art. ID:<span class="pl-2">091091001</span></div>
                     </div>
                 </div>
                 <div class="pl-md-0 pl-1"><b>$9.99</b></div>
@@ -51,6 +123,9 @@ var_dump($_SESSION);
                 <div class="pl-md-0 pl-1"><b>$19.98</b></div>
                 <div class="close">&times;</div>
             </div>
+            <?php echo "";
+            }
+            ?>
             <div class="d-flex flex-row justify-content-between align-items-center pt-4 pb-3 mobile">
                 <div class="d-flex flex-row align-items-center">
                     <div><img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" width="150" height="150" alt="" id="image"></div>
