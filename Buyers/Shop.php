@@ -39,7 +39,8 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
                     </a>
                     <ul class="social">
                         <li><a href="LINK CATRE PAGINA PRODUS" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
-                        <li><a href="" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
+                        <form action='Cart.php' method='post'><input value='Add to cart' name = '<?php if($i <= sizeof($foods)) echo 'F '?> $IDaux' type='submit' class='btn btn-sm btn-primary btn-block'></form>
+                        <li><a href="Cart.php" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>
                 </div>
                 <div class="product-content">
