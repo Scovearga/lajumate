@@ -117,6 +117,7 @@ if(isset($_POST['submit']))
             $mail->Body = '<h3>Felicitari, contul a fost creat cu succes!</h3>';
 
             $mail->send();
+            echo "Mail trimis cu succes!";
         }
 
         catch(Exception $e)
