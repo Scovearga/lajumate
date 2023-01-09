@@ -7,10 +7,10 @@ $currentPage = explode(".", explode("/", $url)[1])[0];
 var_dump($currentPage);
 $role = $_SESSION['userType'];
 $numRows = DbOperations::numQueryResults("SELECT * FROM sectionsroles WHERE (IDRole = $role AND IDSection = (SELECT ID FROM SECTIONS WHERE SectionName = '$currentPage'))");
-//if($numRows == 0)
-//{
-//    header("Location: Error403.html");
-//}
+if($numRows == 0)
+{
+    header("Location: Error403.html");
+}
 
 ?>
 <!doctype html>
