@@ -70,7 +70,7 @@ function getUsersFromDB()
 function addUserToDB($name, $pass)
 {
     $pass = password_hash($pass);
-    DbOperations::insertIntoDB("INSERT INTO `users` (`ID`, `Name`, `Password`, `IDRole`) VALUES (NULL, '$name', '$pass', 4);");
+    DbOperations::insertIntoDB("INSERT INTO `users` (`Name`, `Password`, `IDRole`) VALUES ('$name', '$pass', 4);");
 }
 
 function isUserInDB($name)
@@ -90,7 +90,6 @@ if(isset($_POST['submit']))
     if(isUserInDB($_POST['username']) == 1)
     {
        echo '<script>alert("A user with this username already exists")</script>';
-       header("Location: Login.php");
     }
     else
     {
