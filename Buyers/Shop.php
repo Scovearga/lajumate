@@ -1,5 +1,5 @@
 <?php
-include "Shop2\Classes\GetProductsFromDB.php";
+include "..\Classes\GetProductsFromDB.php";
 include 'ShopHeader.php';
 $foods = GetProductsFromDB::getAllFoodsFromDB();
 $toys = GetProductsFromDB::getAllToysFromDB();
