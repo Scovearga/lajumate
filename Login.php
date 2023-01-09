@@ -31,7 +31,7 @@
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                         </div>
                         <div id="forgot-credentials" class="text-right">
-                            <a href="ForgotCredentials.php" class="text-info">Forgot Password</a>
+                            <a href="ActivateAccount.php" class="text-info">Activate your account</a>
                         </div>
                         <div id="register-link" class="text-right">
                             <a href="Register.php" class="text-info">Register here</a>
@@ -83,10 +83,6 @@ if(isset($_POST['submit']))
     $password = $_POST['password'];
 
     $recaptcha = $_POST['g-recaptcha-response'];
-    var_dump($recaptcha);
-    echo '<br>';
-    var_dump($_POST);
-    echo '<br>';
     $secret_key = '6LdVx98jAAAAABoayTciAE02hgtI03GMHUaY9ydc';
 
     $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $recaptcha;
