@@ -1,7 +1,5 @@
 <?php
 session_start();
-var_dump($_SESSION);
-use PHPMailer\PHPMailer\PHPMailer;
 
 require 'PHPMailer/Exception.php';
 require 'PHPMailer/PHPMailer.php';
@@ -82,10 +80,6 @@ $mail->Password = "misxnotpvmuveyfo";
 $mail->SMTPSecure = "ssl";
 $mail->Port = 465;
 $mail->setFrom("lajumate27@gmail.com", "La Jumate");
-var_dump($_SESSION);
-$_SESSION["emailUser"] = "andreivirgil@hotmail.com";
-$email = $_SESSION["emailUser"];
-var_dump($email);
 $mail->addAddress("andreivirgil@hotmail.com");
 
 $pdfdoc = $pdf->Output('', 'S');
