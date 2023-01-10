@@ -113,15 +113,35 @@ if(isset($_POST['submit']))
         UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], 4, $_POST['email']);
         try
         {
+//            $mail = new PHPMailer(1);
+//            $mail->isSMTP();
+//            $mail->Host = "smtp.gmail.com";
+//            $mail->SMTPAuth = true;
+//            $mail->Username = "heroku.lajumate@gmail.com";
+//            $mail->Password = "kejfuoabqoacvuua";
+//            $mail->SMTPSecure = "ssl";
+//            $mail->Port = 465;
+//            $mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
+//            $email = $_POST["email"];
+//            $mail->addAddress($email);
+//
+//            $mail->isHTML(true);
+//            $mail->Subject = "Cont creat";
+//            $codConfirmare = getRandomString();
+//            $continutMail = '<h3> Codul de confirmare al contului este: ' . $codConfirmare . '</h3>';
+//            var_dump($continutMail);
+//            $mail->Body = $continutMail;
+//
+//            $mail->send();
             $mail = new PHPMailer(1);
             $mail->isSMTP();
             $mail->Host = "smtp.gmail.com";
             $mail->SMTPAuth = true;
-            $mail->Username = "heroku.lajumate@gmail.com";
-            $mail->Password = "kejfuoabqoacvuua";
+            $mail->Username = "lajumate27@gmail.com";
+            $mail->Password = "misxnotpvmuveyfo";
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
-            $mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
+            $mail->setFrom("lajumate27@gmail.com", "La Jumate");
             $email = $_POST["email"];
             $mail->addAddress($email);
 
