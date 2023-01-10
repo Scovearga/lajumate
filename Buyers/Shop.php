@@ -35,12 +35,10 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
         <div class="col-md-3 col-sm-6">
             <div class="product-grid">
                 <div class="product-image">
-                    <a href="LINK CATRE PAGINA PRODUS">
-                        <img class="pic-1" src="<?php echo $products[$i]["image"]?>">
-                    </a>
+                    <img class="pic-1" src="<?php echo $products[$i]["image"]?>">
                 </div>
                 <div class="product-content">
-                    <h3 class="title"><a href="#"><?php echo $products[$i]["Name"]?></a></h3>
+                    <h3 class="title"><?php echo $products[$i]["Name"]?></h3>
                     <div class="price"><?php echo $products[$i]["Price"]?> lei
                     </div>
                     <form action='Cart.php' method='post'><input value='Add to cart' name = "<?php if($i <= sizeof($foods)) echo 'F ' . $products[$i]['ID'];
