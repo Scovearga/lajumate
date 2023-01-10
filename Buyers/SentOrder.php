@@ -1,6 +1,8 @@
 <?php
-session_start();
 
+use PHPMailer\PHPMailer\PHPMailer;
+
+session_start();
 require 'PHPMailer/Exception.php';
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
