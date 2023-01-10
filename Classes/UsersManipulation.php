@@ -28,4 +28,10 @@ class UsersManipulation
         $pass = password_hash($pass, PASSWORD_DEFAULT);
         DbOperations::insertIntoDB("INSERT INTO `users` (`Name`, `Password`, `IDRole`, `Email`) VALUES ('$name', '$pass', '$userType', '$email');");
     }
+
+    public static function addUserToDBActivationCode($name, $pass, $userType, $email, $code)
+    {
+        $pass = password_hash($pass, PASSWORD_DEFAULT);
+        DbOperations::insertIntoDB("INSERT INTO `users` (`Name`, `Password`, `IDRole`, `Email`, `isVerified`, `generatedCode`) VALUES ('$name', '$pass', '$userType', '$email', 0, '$code');");
+    }
 }

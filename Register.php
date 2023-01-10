@@ -110,7 +110,8 @@ if(isset($_POST['submit']))
     }
     else
     {
-        UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], 4, $_POST['email']);
+        $codConfirmare = getRandomString();
+        UsersManipulation::addUserToDBActivationCode($_POST['username'], $_POST['password'], 4, $_POST['email'], $codConfirmare);
         try
         {
 //            $mail = new PHPMailer(1);
@@ -147,7 +148,6 @@ if(isset($_POST['submit']))
 
             $mail->isHTML(true);
             $mail->Subject = "Cont creat";
-            $codConfirmare = getRandomString();
             $continutMail = '<h3> Codul de confirmare al contului este: ' . $codConfirmare . '</h3>';
             var_dump($continutMail);
             $mail->Body = $continutMail;
