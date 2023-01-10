@@ -39,18 +39,18 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
                         <img class="pic-1" src="<?php echo $products[$i]["image"]?>">
                     </a>
                     <ul class="social">
-                        <li><a href="LINK CATRE PAGINA PRODUS" data-tip="Quick View"><i class="fa fa-search"></i></a></li>
                         <form action='Cart.php' method='post'><input value='Add to cart' name = "<?php if($i <= sizeof($foods)) echo 'F ' . $products[$i]['ID'];
                             else if($i <= (sizeof($foods) + sizeof($toys))) echo 'T ' . $products[$i]['ID'];
                             else echo 'E ' . $products[$i]['ID']?>" type='submit' class='btn btn-sm btn-primary btn-block'></form>
-                        <li><a href="Cart.php" data-tip="Add to Cart"><i class="fa fa-shopping-cart"></i></a></li>
                     </ul>
                 </div>
                 <div class="product-content">
                     <h3 class="title"><a href="#"><?php echo $products[$i]["Name"]?></a></h3>
                     <div class="price"><?php echo $products[$i]["Price"]?> lei
                     </div>
-                    <a class="add-to-cart" href="">+ Add To Cart</a>
+                    <form action='Cart.php' method='post'><input value='Add to cart' name = "<?php if($i <= sizeof($foods)) echo 'F ' . $products[$i]['ID'];
+                        else if($i <= (sizeof($foods) + sizeof($toys))) echo 'T ' . $products[$i]['ID'];
+                        else echo 'E ' . $products[$i]['ID']?>" type='submit' class='btn btn-sm btn-primary btn-block'></form>
                 </div>
             </div>
         </div>
