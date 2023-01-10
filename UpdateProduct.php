@@ -70,7 +70,7 @@ switch ($productType)
             {
                 $foodType = 0;
             }
-            $newFood = new Foods($food["ID"], $food["Name"], $food["Price"], $food["Quantity"], $food["ExpiryDate"], $foodType);
+            $newFood = new Foods($food["ID"], $food["Name"], $food["Price"], $food["Quantity"], $food["ExpiryDate"], $foodType, $food["image"]);
         }
         $name = $newFood->getName();
         $price = $newFood->getPrice();
@@ -84,7 +84,7 @@ switch ($productType)
         $ToysFromDB = DbOperations::getQueryTableResults("SELECT * FROM toys WHERE ID = '$ID'");
         foreach ($ToysFromDB as $toy)
         {
-            $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"]);
+            $newToy = new Toys($toy["ID"], $toy["Name"], $toy["Price"], $toy["Quantity"], $toy["Category"], $toy["Series"], $toy["Age"], $toy["image"]);
         }
         $name = $newToy->getName();
         $price = $newToy->getPrice();
@@ -99,7 +99,7 @@ switch ($productType)
         $ElectronicsFromDB = DbOperations::getQueryTableResults("SELECT * FROM electronics WHERE ID = '$ID'");
         foreach ($ElectronicsFromDB as $electronic)
         {
-            $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"]);
+            $newElectronic = new Electronics($electronic["ID"], $electronic["Name"], $electronic["Price"], $electronic["Quantity"], $electronic["Category"], $electronic["Producer"], $electronic["PowerConsumption"], $electronic["Color"], $electronic["image"]);
         }
         $name = $newElectronic->getName();
         $price = $newElectronic->getPrice();

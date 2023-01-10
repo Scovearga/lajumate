@@ -98,7 +98,7 @@ if(isset($_POST['submit']))
     if(!empty($_POST['username']) && !empty($_POST['password']))
     {
         unset($_SESSION['error']);
-        UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], $_POST['option'], $_POST['email']);
+        UsersManipulation::addUserToDBBackend($_POST['username'], $_POST['password'], $_POST['option'], $_POST['email']);
     }
 }
 ?>

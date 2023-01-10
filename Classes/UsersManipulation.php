@@ -29,6 +29,11 @@ class UsersManipulation
         DbOperations::insertIntoDB("INSERT INTO `users` (`Name`, `Password`, `IDRole`, `Email`) VALUES ('$name', '$pass', '$userType', '$email');");
     }
 
+    public static function addUserToDBBackend($name, $pass, $userType, $email)
+    {
+        $pass = password_hash($pass, PASSWORD_DEFAULT);
+        DbOperations::insertIntoDB("INSERT INTO `users` (`Name`, `Password`, `IDRole`, `Email`,`isVerified` ) VALUES ('$name', '$pass', '$userType', '$email', 1);");
+    }
     public static function addUserToDBActivationCode($name, $pass, $userType, $email, $code)
     {
         $pass = password_hash($pass, PASSWORD_DEFAULT);
