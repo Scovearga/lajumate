@@ -18,6 +18,10 @@
                     <form id="register" class="form" method="post">
                         <h3 class="text-center text-info">Activate account</h3>
                         <div class="form-group">
+                            <label for="username" class="text-info">Username:</label><br>
+                            <input type="text" name="username" id="username" class="form-control">
+                        </div>
+                        <div class="form-group">
                             <label for="email" class="text-info">E-mail:</label><br>
                             <input type="text" name="email" id="email" class="form-control">
                         </div>
@@ -86,12 +90,14 @@ function isUserInDB($name)
 
 if(isset($_POST['submit']))
 {
+    $value = 1;
     $emailQuery = $_POST['email'];
+    $usernameQuery = $_POST['username'];
     $generatedCode = $_POST['generatedCode'];
-    if(DbOperations::numQueryResults("SELECT * FROM users WHERE Email = $emailQuery AND generatedCode = $generatedCode") == 1)
+    if(DbOperations::numQueryResults("SELECT * FROM users WHERE Email = '$emailQuery' AND generatedCode = '$generatedCode'") == 1)
     {
-        DbOperations::updateTable("UPDATE users SET isVerified = 1 WHERE Email = $emailQuery AND generatedCode = $generatedCode");
-        header("Location: Login.php");
+        DbOperations::insertIntoDB("UPDATE users SET isVerified = 1 WHERE Email = '$emailQuery' AND generatedCode = '$generatedCode';");
+        //header("Location: Login.php");
     }
     else
     {
