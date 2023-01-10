@@ -19,6 +19,41 @@ if (!isset($_SESSION['quantity']))
     $_SESSION['quantity'] = array();
 }
 
+if(isset($_GET['delete0']))
+{
+    array_splice($_SESSION['products'], 0, 5);
+    array_splice($_SESSION['quantity'], 0, 1);
+    $_SESSION['numberOfProducts']--;
+}
+
+if(isset($_GET['delete1']))
+{
+    array_splice($_SESSION['products'], 5, 5);
+    array_splice($_SESSION['quantity'], 1, 1);
+    $_SESSION['numberOfProducts']--;
+}
+
+if(isset($_GET['delete2']))
+{
+    array_splice($_SESSION['products'], 10, 5);
+    array_splice($_SESSION['quantity'], 2, 1);
+    $_SESSION['numberOfProducts']--;
+}
+
+if(isset($_GET['delete3']))
+{
+    array_splice($_SESSION['products'], 15, 5);
+    array_splice($_SESSION['quantity'], 3, 1);
+    $_SESSION['numberOfProducts']--;
+}
+
+if(isset($_GET['delete4']))
+{
+    array_splice($_SESSION['products'], 20, 5);
+    array_splice($_SESSION['quantity'], 4, 1);
+    $_SESSION['numberOfProducts']--;
+}
+
 var_dump($_GET);
 var_dump($_SESSION);
 
@@ -188,10 +223,10 @@ if(!isset($_GET['quantity0']) && !isset($_GET['quantity1']) && !isset($_GET['qua
                 <div class="font-weight-normal"><?php echo $_SESSION['numberOfProducts']; ?> items</div>
             </div>
             <div class="d-flex flex-row px-lg-5 mx-lg-5 mobile" id="heading">
-                <div class="px-lg-5 mr-lg-5" id="produc">PRODUCTS</div>
+                <div class="px-lg-5 mr-lg-2" id="produc">PRODUCTS</div>
                 <div class="px-lg-5 ml-lg-5" id="prc">PRICE</div>
                 <div class="px-lg-5 ml-lg-1" id="quantity">QUANTITY</div>
-                <div class="px-lg-5 ml-lg-3" id="total">TOTAL</div>
+                <div class="px-lg-5 ml-lg-4" id="total">TOTAL</div>
             </div>
             <?php
                 for($i = 0; $i < $_SESSION['numberOfProducts']; ++$i)
@@ -213,7 +248,9 @@ if(!isset($_GET['quantity0']) && !isset($_GET['quantity1']) && !isset($_GET['qua
                     </form>
                 </div>
                 <div class="pl-md-0 pl-1"><b><?php echo $_SESSION['quantity'][$i] * $_SESSION['products'][$i * 5 + 2]; ?> lei</b></div>
-                <div class="close">&times;</div>
+                <form style="margin-top: 20px" action="Cart.php" method="get">
+                    <input type="submit" name="delete<?php echo $i?>" class="btn btn-sm btn-primary btn-block" value="Delete Item">
+                </form>
             </div>
             <?php
                 }
