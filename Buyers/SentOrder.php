@@ -83,6 +83,7 @@ $mail->SMTPSecure = "ssl";
 $mail->Port = 465;
 $mail->setFrom("lajumate27@gmail.com", "La Jumate");
 $email = $_SESSION["emailUser"];
+var_dump($email);
 $mail->addAddress($email);
 
 $pdfdoc = $pdf->Output('', 'S');
