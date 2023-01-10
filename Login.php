@@ -65,8 +65,8 @@ function getUsersFromFile()
 }
 function getUserType($usernameFromUser, $passwordFromUser)
 {
-    $user = DbOperations::getQueryTableResults("SELECT * FROM `users` WHERE Name = '$usernameFromUser'");
-    $rows = DbOperations::numQueryResults("SELECT * FROM `users` WHERE Name = '$usernameFromUser'");
+    $user = DbOperations::getQueryTableResults("SELECT * FROM `users` WHERE Name = '$usernameFromUser' AND isVerified = 1");
+    $rows = DbOperations::numQueryResults("SELECT * FROM `users` WHERE Name = '$usernameFromUser' AND isVerified = 1");
     if($rows == 0)
     {
         return -1;
@@ -99,13 +99,13 @@ if(isset($_POST['submit']))
         {
             case -1:
             {
-                echo "nume";
+                echo '<script>alert("No account with this username was found!")</script>';
                 //wrong name
                 break;
             }
             case 0:
             {
-                echo "parola";
+                echo '<script>alert("Password is wrong or account is not confirmed!")</script>';
                 //wrong password;
                 break;
             }
