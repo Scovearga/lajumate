@@ -106,7 +106,7 @@ $mail->Password = "kejfuoabqoacvuua";
 $mail->SMTPSecure = "ssl";
 $mail->Port = 465;
 $mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
-$email = $_POST["email"];
+$email = $_SESSION["emailUser"];
 $mail->addAddress($email);
 
 $pdfdoc = $pdf->Output('', 'S');
