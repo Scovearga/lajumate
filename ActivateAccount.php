@@ -16,7 +16,7 @@
             <div id="register-column" class="col-md-6">
                 <div id="register-box" class="col-md-12">
                     <form id="register" class="form" method="post">
-                        <h3 class="text-center text-info">Register</h3>
+                        <h3 class="text-center text-info">Activate account</h3>
                         <div class="form-group">
                             <label for="email" class="text-info">E-mail:</label><br>
                             <input type="text" name="email" id="email" class="form-control">
@@ -96,35 +96,6 @@ if(isset($_POST['submit']))
     else
     {
         echo '<script>alert("Try again! We could not verify your account!")</script>';
-        UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], 4, $_POST['email']);
-        try
-        {
-            $mail = new PHPMailer(1);
-            $mail->isSMTP();
-            $mail->Host = "smtp.gmail.com";
-            $mail->SMTPAuth = true;
-            $mail->Username = "heroku.lajumate@gmail.com";
-            $mail->Password = "kejfuoabqoacvuua";
-            $mail->SMTPSecure = "ssl";
-            $mail->Port = 465;
-            $mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
-            $email = $_POST["email"];
-            $mail->addAddress($email);
-
-            $mail->isHTML(true);
-            $mail->Subject = "Cont creat";
-            $mail->Body = '<h3>Felicitari, contul a fost creat cu succes!</h3>';
-
-            $mail->send();
-        }
-
-        catch(Exception $e)
-        {
-            echo "Eroare!\n";
-            echo "{$mail->ErrorInfo}";
-        }
-
-        header("Location: Login.php");
     }
 }
 ?>
