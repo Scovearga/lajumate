@@ -99,7 +99,7 @@ if(isset($_POST['submit']))
         {
             case -1:
             {
-                echo '<script>alert("No account with this username was found!")</script>';
+                echo '<script>alert("No account with this username was found or the account is not confirmed!")</script>';
                 //wrong name
                 break;
             }
