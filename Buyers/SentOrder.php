@@ -86,7 +86,7 @@ var_dump($_SESSION);
 $_SESSION["emailUser"] = "andreivirgil@hotmail.com";
 $email = $_SESSION["emailUser"];
 var_dump($email);
-$mail->addAddress($email);
+$mail->addAddress("andreivirgil@hotmail.com");
 
 $pdfdoc = $pdf->Output('', 'S');
 
