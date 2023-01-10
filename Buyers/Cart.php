@@ -6,12 +6,45 @@ require_once '../Classes/Electronics.php';
 require_once '../Classes/Foods.php';
 require_once '../Classes/Toys.php';
 
-if(!isset($_GET['quantity']))
+if(!isset($_GET['quantity0']) && !isset($_GET['quantity1']) && !isset($_GET['quantity2']) && !isset($_GET['quantity3']) && !isset($_GET['quantity4']))
 {
     $PostFromPrevious = array_keys($_POST);
     $PostFromPreviousExploded = explode("_", $PostFromPrevious[0]);
     $productType = $PostFromPreviousExploded[0];
     $ID = $PostFromPreviousExploded[1];
+}
+
+if (!isset($_SESSION['quantity']))
+{
+    $_SESSION['quantity'] = array();
+}
+
+var_dump($_GET);
+var_dump($_SESSION);
+
+if(isset($_GET['quantity0']))
+{
+   $_SESSION['quantity'][0] = $_GET['quantity0'];
+}
+
+elseif(isset($_GET['quantity1']))
+{
+    $_SESSION['quantity'][1] = $_GET['quantity1'];
+}
+
+elseif(isset($_GET['quantity2']))
+{
+    $_SESSION['quantity'][2] = $_GET['quantity2'];
+}
+
+elseif(isset($_GET['quantity3']))
+{
+    $_SESSION['quantity'][3] = $_GET['quantity3'];
+}
+
+elseif(isset($_GET['quantity4']))
+{
+    $_SESSION['quantity'][4] = $_GET['quantity4'];
 }
 
 if (!isset($_SESSION['products']))
@@ -24,7 +57,7 @@ if(!isset($_SESSION['numberOfProducts']))
     $_SESSION['numberOfProducts'] = 0;
 }
 
-if(!isset($_GET['quantity']))
+if(!isset($_GET['quantity0']) && !isset($_GET['quantity1']) && !isset($_GET['quantity2']) && !isset($_GET['quantity3']) && !isset($_GET['quantity4']))
 {
     switch ($productType)
     {
@@ -46,12 +79,21 @@ if(!isset($_GET['quantity']))
             $category = $newFood->getCategory();
             $expiryDate = $newFood->getExpiryDate();
             $image = $newFood->getImagePath();
-            $_SESSION['numberOfProducts']++;
-            array_push($_SESSION['products'], $name);
-            array_push($_SESSION['products'], $ID);
-            array_push($_SESSION['products'], $price);
-            array_push($_SESSION['products'], $image);
-            array_push($_SESSION['products'], $quantity);
+            if(array_search($ID, $_SESSION['products']) == false)
+            {
+                $_SESSION['numberOfProducts']++;
+                array_push($_SESSION['products'], $name);
+                array_push($_SESSION['products'], $ID);
+                array_push($_SESSION['products'], $price);
+                array_push($_SESSION['products'], $image);
+                array_push($_SESSION['products'], $quantity);
+                array_push($_SESSION['quantity'], 1);
+            }
+            else
+            {
+                $poz = array_search($ID, $_SESSION['products']);
+                $_SESSION['quantity'][floor($poz / 5)]++;
+            }
             break;
         }
         case "T":
@@ -68,12 +110,21 @@ if(!isset($_GET['quantity']))
             $series = $newToy->getSeries();
             $age = $newToy->getAge();
             $image = $newToy->getImagePath();
-            $_SESSION['numberOfProducts']++;
-            array_push($_SESSION['products'], $name);
-            array_push($_SESSION['products'], $ID);
-            array_push($_SESSION['products'], $price);
-            array_push($_SESSION['products'], $image);
-            array_push($_SESSION['products'], $quantity);
+            if(array_search($ID, $_SESSION['products']) == false)
+            {
+                $_SESSION['numberOfProducts']++;
+                array_push($_SESSION['products'], $name);
+                array_push($_SESSION['products'], $ID);
+                array_push($_SESSION['products'], $price);
+                array_push($_SESSION['products'], $image);
+                array_push($_SESSION['products'], $quantity);
+                array_push($_SESSION['quantity'], 1);
+            }
+            else
+            {
+                $poz = array_search($ID, $_SESSION['products']);
+                $_SESSION['quantity'][floor($poz / 5)]++;
+            }
             break;
         }
         case "E":
@@ -91,12 +142,21 @@ if(!isset($_GET['quantity']))
             $powerConsumption = $newElectronic->getPowerConsumption();
             $color = $newElectronic->getColor();
             $image = $newElectronic->getImagePath();
-            $_SESSION['numberOfProducts']++;
-            array_push($_SESSION['products'], $name);
-            array_push($_SESSION['products'], $ID);
-            array_push($_SESSION['products'], $price);
-            array_push($_SESSION['products'], $image);
-            array_push($_SESSION['products'], $quantity);
+            if(array_search($ID, $_SESSION['products']) == false)
+            {
+                $_SESSION['numberOfProducts']++;
+                array_push($_SESSION['products'], $name);
+                array_push($_SESSION['products'], $ID);
+                array_push($_SESSION['products'], $price);
+                array_push($_SESSION['products'], $image);
+                array_push($_SESSION['products'], $quantity);
+                array_push($_SESSION['quantity'], 1);
+            }
+            else
+            {
+                $poz = array_search($ID, $_SESSION['products']);
+                $_SESSION['quantity'][floor($poz / 5)]++;
+            }
             break;
         }
     }
@@ -139,21 +199,20 @@ if(!isset($_GET['quantity']))
             ?>
             <div class="d-flex flex-row justify-content-between align-items-center pt-lg-4 pt-2 pb-3 border-bottom mobile">
                 <div class="d-flex flex-row align-items-center">
-                    <div><img src="<?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 3]?>" width="150" height="150" alt="" id="image"></div>
+                    <div><img src="<?php echo $_SESSION['products'][$i * 5 + 3 ]?>" width="150" height="150" alt="" id="image"></div>
                     <div class="d-flex flex-column pl-md-3 pl-1">
-                        <div><h6><?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts']]?></h6></div>
-                        <div >Art. ID:<span class="pl-2"><?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 1]?></span></div>
+                        <div><h6><?php echo $_SESSION['products'][$i * 5]?></h6></div>
+                        <div >Art. ID:<span class="pl-2"><?php echo $_SESSION['products'][$i * 5 + 1]?></span></div>
                     </div>
                 </div>
-                <div style="margin-left: 55px" class="pl-md-0 pl-1"><b><?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 2]?> lei</b></div>
+                <div style="margin-left: 55px" class="pl-md-0 pl-1"><b><?php echo $_SESSION['products'][$i * 5 + 2]?> lei</b></div>
                 <div class="pl-md-0 pl-2">
                     <form style="margin-top: 20px" action="Cart.php" method="get">
-                        <input type="number" id="quantity" name="quantity" min="0" max="<?php echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 4]?>" step="1" value="<?php if(!isset($_GET['quantity'])) echo 1; else echo $_GET['quantity'];?>">
+                        <input type="number" id="quantity<?php echo $i?>" name="quantity<?php echo $i?>" min="0" max="<?php echo $_SESSION['products'][$i * 5 + 4]?>" step="1" value="<?php echo $_SESSION['quantity'][$i] ?>">
                         <input type="submit" value="Submit">
                     </form>
                 </div>
-                <div class="pl-md-0 pl-1"><b><?php if(isset($_GET['quantity'])) echo $_GET['quantity'] * $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 2];
-                else echo $_SESSION['products'][$i * $_SESSION['numberOfProducts'] + 2]?> lei</b></div>
+                <div class="pl-md-0 pl-1"><b><?php echo $_SESSION['quantity'][$i] * $_SESSION['products'][$i * 5 + 2]; ?> lei</b></div>
                 <div class="close">&times;</div>
             </div>
             <?php
@@ -172,7 +231,15 @@ if(!isset($_GET['quantity']))
                     </form>
                 </div>
                 <div class="px-md-0 px-1" id="footer-font">
-                    <b class="pl-md-4">SUBTOTAL<span class="pl-md-4">$61.78</span></b>
+                    <b class="pl-md-4">SUBTOTAL<span class="pl-md-4">
+                            <?php
+                                $total = 0;
+                                for($i = 0; $i < $_SESSION['numberOfProducts']; ++$i)
+                                {
+                                    $total += ($_SESSION['quantity'][$i] * $_SESSION['products'][$i * 5 + 2]);
+                                }
+                                echo $total;
+                            ?>lei</span></b>
                 </div>
                 <div>
                     <button class="btn btn-sm bg-dark text-white px-lg-5 px-3">CONTINUE</button>
