@@ -1,5 +1,9 @@
 <?php
 session_start();
+if($_SESSION['userType'] != 4)
+{
+    header("Location: ../Error403.html");
+}
 require_once 'DbOperations.php';
 require_once '../Classes/Product.php';
 require_once '../Classes/Electronics.php';

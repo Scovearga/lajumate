@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if($_SESSION['userType'] != 4)
+{
+    header("Location: ../Error403.html");
+}
+
 use PHPMailer\PHPMailer\PHPMailer;
 
 require 'PHPMailer/Exception.php';

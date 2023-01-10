@@ -1,6 +1,9 @@
 <?php
 session_start();
-var_dump($_SESSION);
+if($_SESSION['userType'] != 4)
+{
+   header("Location: ../Error403.html");
+}
 include "GetProductsFromDB.php";
 include 'ShopHeader.php';
 $foods = GetProductsFromDB::getAllFoodsFromDB();
