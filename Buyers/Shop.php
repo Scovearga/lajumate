@@ -38,11 +38,6 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
                     <a href="LINK CATRE PAGINA PRODUS">
                         <img class="pic-1" src="<?php echo $products[$i]["image"]?>">
                     </a>
-                    <ul class="social">
-                        <form action='Cart.php' method='post'><input value='Add to cart' name = "<?php if($i <= sizeof($foods)) echo 'F ' . $products[$i]['ID'];
-                            else if($i <= (sizeof($foods) + sizeof($toys))) echo 'T ' . $products[$i]['ID'];
-                            else echo 'E ' . $products[$i]['ID']?>" type='submit' class='btn btn-sm btn-primary btn-block'></form>
-                    </ul>
                 </div>
                 <div class="product-content">
                     <h3 class="title"><a href="#"><?php echo $products[$i]["Name"]?></a></h3>
