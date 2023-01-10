@@ -73,7 +73,7 @@ $pdf->Cell(130 ,5,'',0,0);
 $pdf->Cell(25 ,5,'Total Due',0,0);
 $pdf->Cell(34 ,5,$_SESSION['total'],1,1,'R');//end of line
 
-$mail = new PHPMailer();
+$mail = new PHPMailer(1);
 $mail->isSMTP();
 $mail->Host = "smtp.gmail.com";
 $mail->SMTPAuth = true;
