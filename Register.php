@@ -128,7 +128,6 @@ if(isset($_POST['submit']))
 
             $mail->isHTML(true);
             $mail->Subject = "Cont creat";
-            $codConfirmare = getRandomString();
             $continutMail = '<h3> Codul de confirmare al contului este: ' . $codConfirmare . '</h3>';
             $mail->Body = $continutMail;
 //

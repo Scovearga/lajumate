@@ -113,7 +113,6 @@ if(isset($_POST['submit']))
 
             $mail->isHTML(true);
             $mail->Subject = "Cont creat";
-            $codConfirmare = getRandomString();
             $continutMail = '<h3> Contul a fost confirmat cu succes!</h3>';
             var_dump($continutMail);
             $mail->Body = $continutMail;
