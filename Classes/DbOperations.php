@@ -54,4 +54,11 @@ class DbOperations
         $command->execute();
         return $command->rowCount();
     }
+
+    public static function updateTable($commandText)
+    {
+        $conn = Singleton::getInstance();
+        $command = $conn->prepare($commandText);
+        $command->execute();
+    }
 }

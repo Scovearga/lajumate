@@ -22,15 +22,11 @@
                             <input type="text" name="email" id="email" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="username" class="text-info">Username:</label><br>
-                            <input type="text" name="username" id="username" class="form-control">
+                            <label for="generatedCode" class="text-info">Code:</label><br>
+                            <input type="text" name="generatedCode" id="generatedCode" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="password" class="text-info">Password:</label><br>
-                            <input type="password" name="password" id="password" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input href="Admin.php" type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
+                            <input href="Login.php" type="submit" name="submit" class="btn btn-info btn-md" value="Submit">
                         </div>
                     </form>
                 </div>
@@ -90,14 +86,16 @@ function isUserInDB($name)
 
 if(isset($_POST['submit']))
 {
-    //$users = getUsersFromFile();
-    //$users = getUsersFromDB();
-    if(isUserInDB($_POST['username']) == 1)
+    $emailQuery = $_POST['email'];
+    $generatedCode = $_POST['generatedCode'];
+    if(DbOperations::numQueryResults("SELECT * FROM users WHERE Email = $emailQuery AND generatedCode = $generatedCode") == 1)
     {
-        echo '<script>alert("A user with this username already exists")</script>';
+        DbOperations::updateTable("UPDATE users SET isVerified = 1 WHERE Email = $emailQuery AND generatedCode = $generatedCode");
+        header("Location: Login.php");
     }
     else
     {
+        echo '<script>alert("Try again! We could not verify your account!")</script>';
         UsersManipulation::addUserToDB($_POST['username'], $_POST['password'], 4, $_POST['email']);
         try
         {
