@@ -275,12 +275,13 @@ if(!isset($_GET['quantity0']) && !isset($_GET['quantity1']) && !isset($_GET['qua
                                 {
                                     $total += ($_SESSION['quantity'][$i] * $_SESSION['products'][$i * 5 + 2]);
                                 }
+                                $_SESSION['total'] = $total;
                                 echo $total;
                             ?>lei</span></b>
                 </div>
-                <div>
-                    <button class="btn btn-sm bg-dark text-white px-lg-5 px-3">CONTINUE</button>
-                </div>
+                <form action="SentOrder.php">
+                    <button class="btn btn-sm bg-light border border-dark">Send Order</button>
+                </form>
             </div>
         </div>
     </div>

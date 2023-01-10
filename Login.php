@@ -73,6 +73,7 @@ function getUserType($usernameFromUser, $passwordFromUser)
     }
     elseif(password_verify($passwordFromUser, $user[0]['Password']))
     {
+        $_SESSION['emailUser'] = $user[0]["Email"];
         return $user[0]["IDRole"];
     }
     return 0;

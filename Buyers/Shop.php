@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "GetProductsFromDB.php";
 include 'ShopHeader.php';
 $foods = GetProductsFromDB::getAllFoodsFromDB();
