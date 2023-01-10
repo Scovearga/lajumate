@@ -56,12 +56,12 @@ for($i = 0; $i < $_SESSION['numberOfProducts']; ++$i)
     $pdf->Cell(25 ,5,  $_SESSION['quantity'][$i],1,0);
     $pdf->Cell(34 ,5,  $_SESSION['products'][$i * 5 + 2] * $_SESSION['quantity'][$i],1,1,'R');
 
-    $newQuantity = (intval($_SESSION['products'][$i * 5 + 4])) - (intval($_SESSION['quantity']));
-    var_dump($newQuantity);
-    $givenID = $_SESSION['products'][$i * 5];
-    DbOperations::insertIntoDB("UPDATE foods SET Quantity = '$newQuantity' WHERE ID = $givenID;");
-    DbOperations::insertIntoDB("UPDATE toys SET Quantity = '$newQuantity' WHERE ID = $givenID;");
-    DbOperations::insertIntoDB("UPDATE electronics SET Quantity = '$newQuantity' WHERE ID = $givenID;");
+//    $newQuantity = (intval($_SESSION['products'][$i * 5 + 4])) - (intval($_SESSION['quantity']));
+//    var_dump($newQuantity);
+//    $givenID = $_SESSION['products'][$i * 5];
+//    DbOperations::insertIntoDB("UPDATE foods SET Quantity = '$newQuantity' WHERE ID = $givenID;");
+//    DbOperations::insertIntoDB("UPDATE toys SET Quantity = '$newQuantity' WHERE ID = $givenID;");
+//    DbOperations::insertIntoDB("UPDATE electronics SET Quantity = '$newQuantity' WHERE ID = $givenID;");
 }
 
 $pdf->Cell(130 ,5,'',0,0);
