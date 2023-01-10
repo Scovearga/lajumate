@@ -58,9 +58,9 @@ for($i = 0; $i < $_SESSION['numberOfProducts']; ++$i)
 
     $newQuantity = (intval($_SESSION['products'][$i * 5 + 4])) - (intval($_SESSION['quantity']));
     $givenID = $_SESSION['products'][$i * 5];
-    DbOperations::insertIntoDB("UPDATE foods SET Quantity = '$newQuantity' WHERE ID = '$givenID';");
-    DbOperations::insertIntoDB("UPDATE toys SET Quantity = '$newQuantity' WHERE ID = '$givenID';");
-    DbOperations::insertIntoDB("UPDATE electronics SET Quantity = '$newQuantity' WHERE ID = '$givenID';");
+    DbOperations::insertIntoDB("UPDATE foods SET Quantity = $newQuantity WHERE ID = '$givenID';");
+    DbOperations::insertIntoDB("UPDATE toys SET Quantity = $newQuantity WHERE ID = '$givenID';");
+    DbOperations::insertIntoDB("UPDATE electronics SET Quantity = $newQuantity WHERE ID = '$givenID';");
 }
 
 $pdf->Cell(130 ,5,'',0,0);
