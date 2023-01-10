@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+var_dump($_SESSION);
 use PHPMailer\PHPMailer\PHPMailer;
 
 require 'PHPMailer/Exception.php';
