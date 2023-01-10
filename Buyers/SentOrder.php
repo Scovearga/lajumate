@@ -82,8 +82,8 @@ $mail->Password = "misxnotpvmuveyfo";
 $mail->SMTPSecure = "ssl";
 $mail->Port = 465;
 $mail->setFrom("lajumate27@gmail.com", "La Jumate");
-$email = $_POST["email"];
-$mail->addAddress($_SESSION['emailUser']);
+$email = $_SESSION['emailUser'];
+$mail->addAddress($email);
 
 $pdfdoc = $pdf->Output('', 'S');
 
