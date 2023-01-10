@@ -1,8 +1,8 @@
 <?php
+session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 
-session_start();
 require 'PHPMailer/Exception.php';
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
@@ -82,7 +82,8 @@ $mail->Password = "misxnotpvmuveyfo";
 $mail->SMTPSecure = "ssl";
 $mail->Port = 465;
 $mail->setFrom("lajumate27@gmail.com", "La Jumate");
-$mail->addAddress("andreivirgil@hotmail.com");
+$email = $_SESSION["emailUser"];
+$mail->addAddress($email);
 
 $pdfdoc = $pdf->Output('', 'S');
 
