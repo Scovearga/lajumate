@@ -73,16 +73,40 @@ $pdf->Cell(130 ,5,'',0,0);
 $pdf->Cell(25 ,5,'Total Due',0,0);
 $pdf->Cell(34 ,5,$_SESSION['total'],1,1,'R');//end of line
 
+//$mail = new PHPMailer(1);
+//$mail->isSMTP();
+//$mail->Host = "smtp.gmail.com";
+//$mail->SMTPAuth = true;
+//$mail->Username = "lajumate27@gmail.com";
+//$mail->Password = "misxnotpvmuveyfo";
+//$mail->SMTPSecure = "ssl";
+//$mail->Port = 465;
+//$mail->setFrom("lajumate27@gmail.com", "La Jumate");
+//$email = $_SESSION["emailUser"];
+//$mail->addAddress($email);
+//
+//$pdfdoc = $pdf->Output('', 'S');
+//
+//$mail->addStringAttachment($pdfdoc, 'Factura.pdf');
+//
+//$mail->isHTML(true);
+//$mail->Subject = "Factura comanda";
+//$continutMail = 'Factura comenzii este atasata acestui mail';
+//
+//$mail->Body = $continutMail;
+//
+//$mail->send();
+
 $mail = new PHPMailer(1);
 $mail->isSMTP();
 $mail->Host = "smtp.gmail.com";
 $mail->SMTPAuth = true;
-$mail->Username = "lajumate27@gmail.com";
-$mail->Password = "misxnotpvmuveyfo";
+$mail->Username = "heroku.lajumate@gmail.com";
+$mail->Password = "kejfuoabqoacvuua";
 $mail->SMTPSecure = "ssl";
 $mail->Port = 465;
-$mail->setFrom("lajumate27@gmail.com", "La Jumate");
-$email = $_SESSION["emailUser"];
+$mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
+$email = $_POST["email"];
 $mail->addAddress($email);
 
 $pdfdoc = $pdf->Output('', 'S');

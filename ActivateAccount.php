@@ -99,44 +99,44 @@ if(isset($_POST['submit']))
         DbOperations::insertIntoDB("UPDATE users SET isVerified = 1 WHERE Email = '$emailQuery' AND generatedCode = '$generatedCode';");
         try
         {
-//            $mail = new PHPMailer(1);
-//            $mail->isSMTP();
-//            $mail->Host = "smtp.gmail.com";
-//            $mail->SMTPAuth = true;
-//            $mail->Username = "heroku.lajumate@gmail.com";
-//            $mail->Password = "kejfuoabqoacvuua";
-//            $mail->SMTPSecure = "ssl";
-//            $mail->Port = 465;
-//            $mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
-//            $email = $_POST["email"];
-//            $mail->addAddress($email);
-//
-//            $mail->isHTML(true);
-//            $mail->Subject = "Cont creat";
-//            $codConfirmare = getRandomString();
-//            $continutMail = '<h3> Contul a fost confirmat cu succes! '</h3>';
-//            var_dump($continutMail);
-//            $mail->Body = $continutMail;
-//
-//            $mail->send();
             $mail = new PHPMailer(1);
             $mail->isSMTP();
             $mail->Host = "smtp.gmail.com";
             $mail->SMTPAuth = true;
-            $mail->Username = "lajumate27@gmail.com";
-            $mail->Password = "misxnotpvmuveyfo";
+            $mail->Username = "heroku.lajumate@gmail.com";
+            $mail->Password = "kejfuoabqoacvuua";
             $mail->SMTPSecure = "ssl";
             $mail->Port = 465;
-            $mail->setFrom("lajumate27@gmail.com", "La Jumate");
+            $mail->setFrom("heroku.lajumate@gmail.com", "La Jumate");
             $email = $_POST["email"];
             $mail->addAddress($email);
 
             $mail->isHTML(true);
             $mail->Subject = "Cont creat";
-            $continutMail = '<h3> Contul a fost confirmat cu succes! </h3>';
+            $codConfirmare = getRandomString();
+            $continutMail = '<h3> Contul a fost confirmat cu succes!</h3>';
+            var_dump($continutMail);
             $mail->Body = $continutMail;
 
             $mail->send();
+//            $mail = new PHPMailer(1);
+//            $mail->isSMTP();
+//            $mail->Host = "smtp.gmail.com";
+//            $mail->SMTPAuth = true;
+//            $mail->Username = "lajumate27@gmail.com";
+//            $mail->Password = "misxnotpvmuveyfo";
+//            $mail->SMTPSecure = "ssl";
+//            $mail->Port = 465;
+//            $mail->setFrom("lajumate27@gmail.com", "La Jumate");
+//            $email = $_POST["email"];
+//            $mail->addAddress($email);
+//
+//            $mail->isHTML(true);
+//            $mail->Subject = "Cont creat";
+//            $continutMail = '<h3> Contul a fost confirmat cu succes! </h3>';
+//            $mail->Body = $continutMail;
+//
+//            $mail->send();
         }
 
         catch(Exception $e)
