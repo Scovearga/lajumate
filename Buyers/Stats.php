@@ -1,4 +1,5 @@
 <?php
+require_once 'DbOperations.php';
 
 $ipaddress = $_SERVER['REMOTE_ADDR'];
 $page = "http://" . $_SERVER['HTTP_HOST'] . "" . $_SERVER['PHP_SELF'];
