@@ -45,10 +45,10 @@ echo "<h2>Vizitatori pagina Cart: " . getCartViews() . "</h2>";
 echo "<h2>Vizitatori pagina Sent Order: " . getSentOrderViews() . "</h2>";
 
 $dataPoints = array(
-array("label"=>"Windows", "y"=> getWindowsUsers()),
-array("label"=>"Android", "y"=> getAndroidUsers()),
-array("label"=>"IOS", "y"=> getIosUsers()),
-array("label"=>"MAC", "y"=> getMacUsers()),
+array("label"=>"Windows", "y"=> (100 * getWindowsUsers()) / getTotalUsers()),
+array("label"=>"Android", "y"=> (100 * getAndroidUsers()) / getTotalUsers()),
+array("label"=>"IOS", "y"=> (100 * getIosUsers()) / getTotalUsers()),
+array("label"=>"MAC", "y"=> (100 * getMacUsers()) / getTotalUsers()),
 )
 
 ?>

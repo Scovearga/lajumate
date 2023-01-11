@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'DbOperations.php';
 require_once 'Stats.php';
 if($_SESSION['userType'] != 4)
 {
