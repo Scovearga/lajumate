@@ -43,6 +43,39 @@ echo "<h2>Vizitatori de pe MAC: " . getMacUsers() . "</h2>";
 echo "<h2>Vizitatori pagina Shop: " . getShopViews() . "</h2>";
 echo "<h2>Vizitatori pagina Cart: " . getCartViews() . "</h2>";
 echo "<h2>Vizitatori pagina Sent Order: " . getSentOrderViews() . "</h2>";
+
+$dataPoints = array(
+array("label"=>"Windows", "y"=> getWindowsUsers()),
+array("label"=>"Android", "y"=> getAndroidUsers()),
+array("label"=>"IOS", "y"=> getIosUsers()),
+array("label"=>"MAC", "y"=> getMacUsers()),
+)
+
 ?>
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script>
+        window.onload = function() {
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                title: {
+                    text: "Procentaj Useri in functie de Platforma"
+                },
+                data: [{
+                    type: "pie",
+                    yValueFormatString: "#,##0.00\"%\"",
+                    indexLabel: "{label} ({y})",
+                    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                }]
+            });
+            chart.render();
 
-
+        }
+    </script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
