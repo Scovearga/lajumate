@@ -35,15 +35,6 @@ function getSentOrderViews()
     return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE page LIKE '%SentOrder%';");
 }
 
-echo "<h2>Numar Vizitatori: " . getTotalUsers() . "</h2>";
-echo "<h2>Vizitatori de pe Windows: " . getWindowsUsers() . "</h2>";
-echo "<h2>Vizitatori de pe Android: " . getAndroidUsers() . "</h2>";
-echo "<h2>Vizitatori de pe IOS: " . getIosUsers() . "</h2>";
-echo "<h2>Vizitatori de pe MAC: " . getMacUsers() . "</h2>";
-echo "<h2>Vizitatori pagina Shop: " . getShopViews() . "</h2>";
-echo "<h2>Vizitatori pagina Cart: " . getCartViews() . "</h2>";
-echo "<h2>Vizitatori pagina Sent Order: " . getSentOrderViews() . "</h2>";
-
 $totalPageViews = getShopViews() + getCartViews() + getSentOrderViews();
 
 $dataPoints = array(
