@@ -56,6 +56,11 @@ if($numRows == 0)
                     <input type="submit" class="btn btn-info btn-md" value="Modify Role">
                 </li>
             </form>
+            <form style="margin-right: 10px"  action="Statistics.php">
+                <li class="nav-item" role="presentation">
+                    <input type="submit" class="btn btn-info btn-md" value="Statistics">
+                </li>
+            </form>
             <form style="margin-right: 10px"  action="Logout.php">
                 <li class="nav-item" role="presentation">
                     <input type="submit" class="btn btn-info btn-md" value="Log out">
