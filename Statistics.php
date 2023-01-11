@@ -9,6 +9,11 @@ function getWindowsUsers()
 {
     return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE browser LIKE '%Windows%';");
 }
+
+function getAndroidUsers()
+{
+    return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE browser LIKE '%Android%';");
+}
 function getIosUsers()
 {
     return DbOperations::numQueryResults("SELECT COUNT(distinct ip) FROM stats WHERE browser LIKE '%iPhone%';");
@@ -32,6 +37,7 @@ function getSentOrderViews()
 
 echo "<h2>Numar Vizitatori: " . getTotalUsers() . "</h2>";
 echo "<h2>Vizitatori de pe Windows: " . getWindowsUsers() . "</h2>";
+echo "<h2>Vizitatori de pe Android: " . getAndroidUsers() . "</h2>";
 echo "<h2>Vizitatori de pe IOS: " . getIosUsers() . "</h2>";
 echo "<h2>Vizitatori de pe MAC: " . getMacUsers() . "</h2>";
 echo "<h2>Vizitatori pagina Shop: " . getShopViews() . "</h2>";
