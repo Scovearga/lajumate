@@ -3,11 +3,11 @@ require_once "AdminHeader.php";
 
 function getTotalUsers()
 {
-    return DbOperations::numQueryResults("SELECT COUNT(DISTINCT ip) FROM stats;");
+    return DbOperations::numQueryResults("SELECT DISTINCT ip FROM stats;");
 }
 function getWindowsUsers()
 {
-    return DbOperations::numQueryResults("SELECT COUNT(distinct ip) FROM stats WHERE browser LIKE '%Windows%';");
+    return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE browser LIKE '%Windows%';");
 }
 function getIosUsers()
 {
@@ -15,19 +15,19 @@ function getIosUsers()
 }
 function getMacUsers()
 {
-    return DbOperations::numQueryResults("SELECT COUNT(distinct ip) FROM stats WHERE browser LIKE '%Macintosh%';");
+    return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE browser LIKE '%Macintosh%';");
 }
 function getShopViews()
 {
-    return DbOperations::numQueryResults("SELECT COUNT(distinct ip) FROM stats WHERE page LIKE '%Shop%';");
+    return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE page LIKE '%Shop%';");
 }
 function getCartViews()
 {
-    return DbOperations::numQueryResults("SELECT COUNT(distinct ip) FROM stats WHERE page LIKE '%Cart%';");
+    return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE page LIKE '%Cart%';");
 }
 function getSentOrderViews()
 {
-    return DbOperations::numQueryResults("SELECT COUNT(distinct ip) FROM stats WHERE page LIKE '%SentOrder%';");
+    return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE page LIKE '%SentOrder%';");
 }
 
 echo "<h2>Numar Vizitatori: " . getTotalUsers() . "</h2>";
