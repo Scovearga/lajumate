@@ -1,3 +1,6 @@
+<?php
+require_once 'Stats.php';
+?>
 <!doctype html>
 <html lang="en">
 <head>

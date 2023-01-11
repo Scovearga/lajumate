@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'Stats.php';
 if($_SESSION['userType'] != 4)
 {
     header("Location: ../Error403.html");
