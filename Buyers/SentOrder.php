@@ -1,13 +1,13 @@
 <?php
 session_start();
 require_once 'Stats.php';
-//if($_SESSION['userType'] != 4)
-//{
-//    header("Location: ../Error403.html");
-//}
+if($_SESSION['userType'] != 4)
+{
+    header("Location: ../Error403.html");
+}
 
 use PHPMailer\PHPMailer\PHPMailer;
-require 'DbOperations.php';
+
 require 'PHPMailer/Exception.php';
 require 'PHPMailer/PHPMailer.php';
 require 'PHPMailer/SMTP.php';
