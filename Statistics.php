@@ -78,9 +78,7 @@ $dataPoints2 = array(
                 }]
             });
             chart.render();
-        }
-        window.onload = function() {
-            var chart = new CanvasJS.Chart("chartContainer2", {
+            var chart2 = new CanvasJS.Chart("chartContainer2", {
                 animationEnabled: true,
                 title: {
                     text: "Procentaj Useri in functie de Paginile Accesate"
@@ -92,7 +90,7 @@ $dataPoints2 = array(
                     dataPoints: <?php echo json_encode($dataPoints2, JSON_NUMERIC_CHECK); ?>
                 }]
             });
-            chart.render();
+            chart2.render();
         }
     </script>
 </head>
