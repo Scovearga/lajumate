@@ -48,7 +48,7 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
 <!--                    <div class="price">--><?php //echo $products[$i]["Price"]?><!-- lei-->
                     </div>
                     <form action='Cart.php' method='post'><input value='Add to cart' name = "<?php if($i <= sizeof($foods)) echo 'F ' . $products[$i]['ID'];
-                        else if($i <= (sizeof($foods) + sizeof($toys))) echo 'T ' . $products[$i]['ID'];
+                        else if($i < (sizeof($foods) + sizeof($toys))) echo 'T ' . $products[$i]['ID'];
                         else echo 'E ' . $products[$i]['ID']?>" type='submit' class='btn btn-sm btn-primary btn-block'>
                     </form>
                 </div>
