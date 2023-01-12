@@ -224,7 +224,7 @@ foreach ($ToysFromDB as $toy)
                                         $aux = $electronic->getColor();
                                         echo "<td>$aux</td>";
                                         $IDaux = $electronic->getID();
-                                        echo "<td><form action='UpdateProduct.php' method='post'><input value='Update' name = 'F $IDaux' type='submit' class='btn btn-sm btn-primary btn-block'></form></td>";
+                                        echo "<td><form action='UpdateProduct.php' method='post'><input value='Update' name = 'E $IDaux' type='submit' class='btn btn-sm btn-primary btn-block'></form></td>";
                                         echo "<td><form method='post'><input value='Delete' name = 'E $IDaux' type='submit' class='btn btn-sm btn-primary btn-block'></form></td>";
                                     }
                                 ?>
