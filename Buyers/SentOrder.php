@@ -37,7 +37,7 @@ $pdf->Cell(130 ,5,'Phone 0123456789',0,0);
 $pdf->Cell(25 ,5,'Invoice #',0,0);
 $pdf->Cell(34 ,5,'307',0,1);
 
-DbOperations::insertIntoDB("INSERT INTO idComenzi VALUES('comanda');");
+DbOperations::insertIntoDB("INSERT INTO idComenzi VALUES('comanda')");
 $idComanda = DbOperations::numQueryResults("SELECT * FROM idComenzi");
 
 $pdf->Cell(130 ,5,'Fax 1234567',0,0);
