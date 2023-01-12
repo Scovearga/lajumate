@@ -40,8 +40,8 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
                 </div>
                 <div class="product-content">
                     <div class="price"><?php echo $products[$i]["Price"]?> lei
-                    <form action='ProductPage.php' method='post'><input value='<?php echo $products[$i]["Name"];?>' name = "<?php if($i <= sizeof($foods)) echo 'F ' . $products[$i]['ID'];
-                        else if($i <= (sizeof($foods) + sizeof($toys))) echo 'T ' . $products[$i]['ID'];
+                    <form action='ProductPage.php' method='post'><input value='<?php echo $products[$i]["Name"];?>' name = "<?php if($i < sizeof($foods)) echo 'F ' . $products[$i]['ID'];
+                        else if($i < (sizeof($foods) + sizeof($toys))) echo 'T ' . $products[$i]['ID'];
                         else echo 'E ' . $products[$i]['ID']?>" type='submit' class='btn btn-sm btn-primary btn-block'>
                     </form>
 <!--                    <h3 class="title">--><?php //echo $products[$i]["Name"]?><!--</h3>-->
