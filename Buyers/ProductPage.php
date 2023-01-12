@@ -115,6 +115,7 @@ switch ($productType)
                                 else
                                     echo "Produsul nu exista la competitor"
                                 ?></p>
+                            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                             <form action='Cart.php' method='post'>
                                 <input value='Add to cart' name = "<?php echo $productType . "_" . $ID ?>" type='submit' class='btn btn-sm btn-primary btn-block'>
                             </form>

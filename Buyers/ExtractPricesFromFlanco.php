@@ -13,5 +13,3 @@ function getPriceFromFlanco($productName, $color)
     $price = substr($html, $end, strpos($html, ',', $end) - $end);
     return $price;
 }
-
-echo getPriceFromFlanco('Telefon Mobil Apple iPhone 13 5g 128gb','green');
