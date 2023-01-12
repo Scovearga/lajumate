@@ -21,7 +21,7 @@ $numberOfProducts = sizeof($foods) + sizeof($toys) + sizeof($electronics);
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="ShopStyle.css">
-    <title>Document</title>
+    <title>Shop</title>
 </head>
 <body>
 <div class="container">

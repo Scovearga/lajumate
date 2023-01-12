@@ -16,7 +16,7 @@
             <div id="register-column" class="col-md-6">
                 <div id="register-box" class="col-md-12">
                     <form id="register" class="form" method="post">
-                        <h3 class="text-center text-info">Register</h3>
+                        <h3 class="text-center text-info">Contact Us</h3>
                         <div class="form-group">
                             <label for="email" class="text-info">E-mail:</label><br>
                             <input type="text" name="email" id="email" class="form-control">
