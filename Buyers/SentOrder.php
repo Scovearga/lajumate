@@ -60,7 +60,7 @@ for($i = 0; $i < $_SESSION['numberOfProducts']; ++$i)
     $pdf->Cell(25 ,5,  $_SESSION['quantity'][$i],1,0);
     $pdf->Cell(34 ,5,  $_SESSION['products'][$i * 5 + 2] * $_SESSION['quantity'][$i],1,1,'R');
 
-    $newQuantity = (intval($_SESSION['products'][$i * 5 + 4])) - (intval($_SESSION['quantity']));
+    $newQuantity = (intval($_SESSION['products'][$i * 5 + 4])) - (intval($_SESSION['quantity'][$i]));
     $givenID = $_SESSION['products'][$i * 5 + 1];
     var_dump($newQuantity);
     DbOperations::insertIntoDB("UPDATE foods SET Quantity = $newQuantity WHERE ID = '$givenID'");
