@@ -174,35 +174,35 @@ switch ($productType)
                                 <div class="form-group" <?php if($productType != 'T') echo 'hidden';?>>
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-stats"></span></span>
-                                        <input name="series" type="Text" class="form-control"<?php echo $series?> placeholder="Series" />
+                                        <input name="series" type="Text" class="form-control" value = "<?php echo $series?>" placeholder="Series" />
                                         <span class="input-group-addon"><button class="glyphicon glyphicon-pencil"></button></span>
                                     </div>
                                 </div>
                                 <div class="form-group" <?php if($productType != 'T') echo 'hidden';?>>
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
-                                        <input name="age" type="Text" class="form-control" <?php echo $age?> placeholder="Age" />
+                                        <input name="age" type="Text" class="form-control" value = "<?php echo $age?>" placeholder="Age" />
                                         <span class="input-group-addon"><button class="glyphicon glyphicon-pencil"></button></span>
                                     </div>
                                 </div>
                                 <div class="form-group" <?php if($productType != 'E') echo 'hidden';?>>
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-stats"></span></span>
-                                        <input name = "producer" type="Text" class="form-control" <?php echo $producer?> placeholder="Producer" />
+                                        <input name = "producer" type="Text" class="form-control" value = "<?php echo $producer?>" placeholder="Producer" />
                                         <span class="input-group-addon"><button class="glyphicon glyphicon-pencil"></button></span>
                                     </div>
                                 </div>
                                 <div class="form-group" <?php if($productType != 'E') echo 'hidden';?>>
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-flash"></span></span>
-                                        <input name="power" type="Text" class="form-control" <?php echo $powerConsumption?> placeholder="Power" />
+                                        <input name="power" type="Text" class="form-control" value = "<?php echo $powerConsumption?>" placeholder="Power" />
                                         <span class="input-group-addon"><button class="glyphicon glyphicon-pencil"></button></span>
                                     </div>
                                 </div>
                                 <div class="form-group" <?php if ($productType != 'E') echo 'hidden';?>>
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-dashboard"></span></span>
-                                        <input name="color" type="Text" class="form-control" <?php echo $color?> placeholder="Color" />
+                                        <input name="color" type="Text" class="form-control" value = "<?php echo $color?>" placeholder="Color" />
                                         <span class="input-group-addon"><button class="glyphicon glyphicon-pencil"></button></span>
                                     </div>
                                 </div>
