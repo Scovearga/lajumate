@@ -16,7 +16,7 @@ function getAndroidUsers()
 }
 function getIosUsers()
 {
-    return DbOperations::numQueryResults("SELECT COUNT(distinct ip) FROM stats WHERE browser LIKE '%iPhone%';");
+    return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE browser LIKE '%iPhone%';");
 }
 function getMacUsers()
 {
@@ -35,6 +35,11 @@ function getSentOrderViews()
     return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE page LIKE '%SentOrder%';");
 }
 
+function getProductPageViews()
+{
+    return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE page LIKE '%ProductPage%';");
+}
+
 $totalPageViews = getShopViews() + getCartViews() + getSentOrderViews();
 
 $dataPoints = array(
@@ -47,7 +52,8 @@ array("label"=>"MAC", "y"=> (100 * getMacUsers()) / getTotalUsers()),
 $dataPoints2 = array(
     array("label"=>"Pagina Shop", "y"=> (100 * getShopViews()) / $totalPageViews),
     array("label"=>"Pagina Cart", "y"=> (100 * getCartViews()) / $totalPageViews),
-    array("label"=>"Pagina Sent Order", "y"=> (100 * getSentOrderViews()) / $totalPageViews)
+    array("label"=>"Pagina Sent Order", "y"=> (100 * getSentOrderViews()) / $totalPageViews),
+    array("label"=>"Pagina Product", "y"=> (100 * getProductPageViews()) / $totalPageViews)
 );
 
 ?>
