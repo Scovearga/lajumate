@@ -105,7 +105,7 @@ if(isset($_POST['submit']))
 
             $mail2->isHTML(true);
             $mail2->Subject = "Un client a trimis un mesaj";
-            $continutMail = '<h3>Un client a trimis prin formularul de contact urmatorul mesaj: </h3>' . '<p>' . htmlspecialchars($_POST['mesaj']) . '</p>';
+            $continutMail = '<h3>Clientul cu mail-ul ' . $_POST["email"] . ' a trimis prin formularul de contact urmatorul mesaj: </h3>' . '<p>' . htmlspecialchars($_POST['mesaj']) . '</p>';
             $mail2->Body = $continutMail;
 
             $mail2->send();
