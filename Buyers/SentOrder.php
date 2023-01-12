@@ -62,7 +62,6 @@ for($i = 0; $i < $_SESSION['numberOfProducts']; ++$i)
 
     $newQuantity = (intval($_SESSION['products'][$i * 5 + 4])) - (intval($_SESSION['quantity'][$i]));
     $givenID = $_SESSION['products'][$i * 5 + 1];
-    var_dump($newQuantity);
     DbOperations::insertIntoDB("UPDATE foods SET Quantity = $newQuantity WHERE ID = '$givenID'");
     DbOperations::insertIntoDB("UPDATE toys SET Quantity = $newQuantity WHERE ID = '$givenID'");
     DbOperations::insertIntoDB("UPDATE electronics SET Quantity = $newQuantity WHERE ID = '$givenID'");

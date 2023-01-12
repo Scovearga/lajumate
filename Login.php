@@ -36,6 +36,9 @@
                         <div id="register-link" class="text-right">
                             <a href="Register.php" class="text-info">Register here</a>
                         </div>
+                        <div id="register-link" class="text-right">
+                            <a href="Contact.php" class="text-info">Contact us</a>
+                        </div>
                     </form>
                 </div>
             </div>
