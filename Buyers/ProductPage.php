@@ -6,7 +6,7 @@ require "../Classes/Foods.php";
 require "../Classes/Toys.php";
 require "../Classes/Electronics.php";
 require "ExtractPricesFromFlanco.php";
-var_dump($_POST);
+//var_dump($_POST);
 
 $PostFromPrevious = array_keys($_POST);
 $PostFromPreviousExploded = explode("_", $PostFromPrevious[0]);

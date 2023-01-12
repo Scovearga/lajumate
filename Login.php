@@ -90,7 +90,7 @@ if(isset($_POST['submit']))
     $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $recaptcha;
     $response = file_get_contents($url);
     $response = json_decode($response);
-    var_dump($response);
+//    var_dump($response);
 
     if ($response->success == true)
     {

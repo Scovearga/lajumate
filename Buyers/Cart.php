@@ -55,8 +55,8 @@ if(isset($_GET['delete4']))
     $_SESSION['numberOfProducts']--;
 }
 
-var_dump($_GET);
-var_dump($_SESSION);
+//var_dump($_GET);
+//var_dump($_SESSION);
 
 if(isset($_GET['quantity0']))
 {
