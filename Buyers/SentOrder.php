@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'Stats.php';
-require 'DbOperations.php';
+
 if($_SESSION['userType'] != 4)
 {
     header("Location: ../Error403.html");
@@ -27,17 +27,22 @@ $pdf->SetFont('Arial','',12);
 $pdf->Cell(130 ,5,'BD. Regina Elisabeta',0,0);
 $pdf->Cell(59 ,5,'',0,1);
 
+$date = date('d/m/Y');
+
 $pdf->Cell(130 ,5,'Bucuresti, Romania, 030018',0,0);
 $pdf->Cell(25 ,5,'Date',0,0);
-$pdf->Cell(34 ,5,'13/01/2023',0,1);
+$pdf->Cell(34 ,5,$date,0,1);
 
 $pdf->Cell(130 ,5,'Phone 0123456789',0,0);
 $pdf->Cell(25 ,5,'Invoice #',0,0);
 $pdf->Cell(34 ,5,'307',0,1);
 
+DbOperations::insertIntoDB("INSERT INTO idComenzi VALUES('comanda');");
+$idComanda = DbOperations::numQueryResults("SELECT * FROM idComenzi");
+
 $pdf->Cell(130 ,5,'Fax 1234567',0,0);
-$pdf->Cell(25 ,5,'Customer ID',0,0);
-$pdf->Cell(34 ,5,'51',0,1);
+$pdf->Cell(25 ,5,'ID Comanda',0,0);
+$pdf->Cell(34 ,5,$idComanda,0,1);
 
 $pdf->Cell(189 ,10,'',0,1);
 
@@ -58,7 +63,7 @@ for($i = 0; $i < $_SESSION['numberOfProducts']; ++$i)
     $pdf->Cell(34 ,5,  $_SESSION['products'][$i * 5 + 2] * $_SESSION['quantity'][$i],1,1,'R');
 
     $newQuantity = (intval($_SESSION['products'][$i * 5 + 4])) - (intval($_SESSION['quantity']));
-    $givenID = $_SESSION['products'][$i * 5];
+    $givenID = $_SESSION['products'][$i * 5 + 1];
     DbOperations::insertIntoDB("UPDATE foods SET Quantity = $newQuantity WHERE ID = '$givenID'");
     DbOperations::insertIntoDB("UPDATE toys SET Quantity = $newQuantity WHERE ID = '$givenID'");
     DbOperations::insertIntoDB("UPDATE electronics SET Quantity = $newQuantity WHERE ID = '$givenID'");
