@@ -33,7 +33,7 @@ $pdf->Cell(130 ,5,'Bucuresti, Romania, 030018',0,0);
 $pdf->Cell(25 ,5,'Date',0,0);
 $pdf->Cell(34 ,5,$date,0,1);
 
-$pdf->Cell(130 ,5,'Phone 0123456789',0,0);
+$pdf->Cell(130 ,5,'Phone 0123456789',0,1);
 
 DbOperations::insertIntoDB("INSERT INTO idComenzi(comanda) VALUES('comanda');");
 $idComanda = DbOperations::numQueryResults("SELECT * FROM idComenzi");
