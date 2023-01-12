@@ -5,7 +5,6 @@ function getPriceFromFlanco($productName, $color)
     $productName = str_replace(' ', '-',$productName);
     $link = $productName . $color . '.html';
     $url   = "https://www.flanco.ro/" . $link;
-    var_dump($url);
     $html  = file_get_contents($url);
     if($html == false)
         return -1;
