@@ -40,7 +40,7 @@ function getProductPageViews()
     return DbOperations::numQueryResults("SELECT distinct ip FROM stats WHERE page LIKE '%ProductPage%';");
 }
 
-$totalPageViews = getShopViews() + getCartViews() + getSentOrderViews();
+$totalPageViews = getShopViews() + getCartViews() + getSentOrderViews() + getCartViews();
 
 $dataPoints = array(
 array("label"=>"Windows", "y"=> (100 * getWindowsUsers()) / getTotalUsers()),
